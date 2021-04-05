@@ -53,7 +53,7 @@
                                             <input type="text" name="username" class="form-control" value="admin" id="email" aria-describedby="emailHelp" placeholder="Enter username" required>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" name="password" class="form-control" value="147" id="password" placeholder="Password" required>
+                                            <input type="password" name="password" class="form-control" value="12345" id="password" placeholder="Password" required>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-block btn-submit">Sign In</button>
                                         <div class="auth-options">
