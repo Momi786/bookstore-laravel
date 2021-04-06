@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Hash;
 use App\Models\UserModel;
+use App\Models\UserTypeModel;
+use App\Models\UserInformationModel;
 use App\Models\BookModel;
 
 
@@ -64,6 +66,72 @@ class UserController extends Controller
         $request->session()->put("success",$success);
         return back();
 
+    }
+
+    public function View(Request $request){
+        $userData = UserModel::all();
+        return view("admin.user.index",compact('userData'));
+    }
+    public function Add(Request $request){
+        $userTypes = UserTypeModel::all();
+        return view("admin.user.add",compact('userTypes'));
+    }
+    public function AddProcess(Request $request){
+        $data = $request->all();
+        $data['password'] = Hash::make($request->password);
+        $user = new UserModel;
+        $user->fill($data);
+        $user->save();
+        if ($request->file("image") != null) {
+            $path = $request->file("image")->store("User_Images");
+            $data["image"] = $path;
+        }
+        $data['social_sites'] = implode('@',$request->social);
+        $data['social_link'] = implode('@',$request->link);
+        $data['userId'] = $user->id;
+        $userInfo = new UserInformationModel;
+        $userInfo->fill($data);
+        $userInfo->save();
+        $success = "Your Data has Saved successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
+
+
+    public function Delete(Request $request,$id){
+        $data = UserModel::find($id);
+        $data->delete();
+        $data = UserInformationModel::where('userId',$id)->first();
+        $data->delete();
+        $danger = "Your Data has been Delete successfully.";
+        $request->session()->put("danger",$danger);
+        return back();
+    }
+    public function Edit(Request $request,$id){
+        $data = UserModel::find($id);
+        $userTypes = UserTypeModel::all();
+        $memberInfo = UserInformationModel::where('userId',$id)->first();
+        return view('admin.user.edit',compact('data','memberInfo','userTypes'));
+    }
+
+    public function EditProcess(Request $request,$id){
+        $data = $request->all();
+        $user = UserModel::find($id);
+        $user->fill($data);
+        $user->save();
+        if ($request->file("image") != null) {
+            $path = $request->file("image")->store("User_Images");
+            $data["image"] = $path;
+        }
+        $data['social_sites'] = implode('@',$request->social);
+        $data['social_link'] = implode('@',$request->link);
+        $data['userId'] = $user->id;
+        $userInfo = UserInformationModel::where('userId',$id)->first();
+        $userInfo->fill($data);
+        $userInfo->save();
+        $success = "Your Data has been Updated successfully.";
+        $request->session()->put("success",$success);
+        return back();
     }
 
 }

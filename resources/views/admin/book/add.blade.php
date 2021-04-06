@@ -1,3 +1,8 @@
+@php
+    if(Session::has('onlineuser')):
+        $value = Session::get('onlineuser');
+    endif;
+@endphp
 @extends("admin.layout.interface")
 @section("breadcrumb")
     <li class="breadcrumb-item"><a href="{{URL::to('/admin')}}">Admin</a></li>
@@ -22,6 +27,11 @@
             </div>
         </div>
         <div class="row">
+            @if ($value['usertype'] != 4)
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            @else
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+            @endif
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <label for=""> Book Category</label>
                 <select name="categoryId" class="form-control" required>
@@ -30,14 +40,19 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                <label for="">Book Author </label>
-                <select name="authorId" class="form-control" required>
-                    @foreach($Author as $Auth)
-                        <option value="{{$Auth->id}}">{{$Auth->name}}</option>
-                    @endforeach
-                </select>
-            </div>
+            @if ($value['usertype'] != 4)
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <label for="">Book Author </label>
+                    <select name="authorId" class="form-control" required>
+                        @foreach($Author as $Auth)
+                            @php
+                                $userInfo = $Auth->GetUserInfo();
+                            @endphp
+                            <option value="{{$userInfo->userId}}">{{$userInfo->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endif
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">

@@ -1,3 +1,8 @@
+@php
+    if(Session::has('onlineuser')):
+        $value = Session::get('onlineuser');
+    endif;
+@endphp
 @extends("admin.layout.interface")
 @section("breadcrumb")
     <li class="breadcrumb-item"><a href="{{URL::to('/admin')}}">Admin</a></li>
@@ -22,12 +27,16 @@
                 <input type="text" name="name" value="{{$data->name}}" class="form-control" required>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                <label for=""> Image</label>
-                <input type="file" name="cover_image" value="{{$data->cover_image}}" class="form-control" required>
+                <img src="{{URL::to('storage/app')}}/{{$data->cover_image}}" alt="" class="mb-2" width="100px" height="100px">
+                <input type="file" name="cover_image" class="form-control" required>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+            @if ($value['usertype'] != 4)
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            @else
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+            @endif
                 <label for=""> Book Category</label>
                 <select name="categoryId" class="form-control" required>
                     @foreach($BookCategory as $cat)
@@ -35,14 +44,19 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                <label for="">Book Author </label>
-                <select name="authorId" class="form-control" required>
-                    @foreach($Author as $Auth)
-                        <option value="{{$Auth->id}}" {{$Auth->id == $data->authorId ? 'selected' : ''}}>{{$Auth->name}}</option>
-                    @endforeach
-                </select>
-            </div>
+            @if ($value['usertype'] != 4)
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <label for="">Book Author </label>
+                    <select name="authorId" class="form-control" required>
+                        @foreach($Author as $Auth)
+                            @php
+                                $userInfo = $Auth->GetUserInfo();
+                            @endphp
+                            <option value="{{$userInfo->userId}}" {{$userInfo->userId == $data->authorId ? 'selected' : ''}}>{{$userInfo->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endif
         </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">

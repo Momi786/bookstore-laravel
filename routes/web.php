@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\SystemSettingController;
 
 
 /*
@@ -42,6 +44,16 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
     Route::get("change-password",[Usercontroller::class,"changePassword"]);
     Route::post("change-password",[Usercontroller::class,"changePasswordProcess"]);
 
+    // News
+    Route::prefix('user')->group(function () {
+        Route::get("/",[Usercontroller::class,"View"]);
+        Route::get("/add",[Usercontroller::class,"Add"]);
+        Route::post("/add",[Usercontroller::class,"AddProcess"]);
+        Route::get("/delete/{id}",[Usercontroller::class,"Delete"]);
+        Route::get("/update/{id}",[Usercontroller::class,"Edit"]);
+        Route::post("/update/{id}",[Usercontroller::class,"EditProcess"]);
+    });
+
     // book
     Route::prefix('book')->group(function () {
         Route::get("/",[BookController::class,"Index"]);
@@ -73,5 +85,30 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
         Route::get("/delete/{id}",[AuthorController::class,"DeleteAuthor"]);
         Route::get("/update/{id}",[AuthorController::class,"EditAuthor"]);
         Route::post("/update/{id}",[AuthorController::class,"EditAuthorProcess"]);
+    });
+
+    // News
+    Route::prefix('news')->group(function () {
+        Route::get("/",[NewsController::class,"ViewNews"]);
+        Route::post("/",[NewsController::class,"GetALLFeatureDeleteNews"]);
+        Route::get("/add",[NewsController::class,"AddAuthor"]);
+        Route::post("/add",[NewsController::class,"AddNewsProcess"]);
+        Route::get("/delete/{id}",[NewsController::class,"DeleteNews"]);
+        Route::get("/update/{id}",[NewsController::class,"EditNews"]);
+        Route::post("/update/{id}",[NewsController::class,"EditNewsProcess"]);
+    });
+
+    // system-setting
+    Route::prefix('system-settings')->group(function () {
+        // social-media
+        Route::prefix('social-media')->group(function () {
+            Route::get("/",[SystemSettingController::class,"ViewSocial"]);
+            Route::post("/",[SystemSettingController::class,"GetALLFeatureDeleteSocial"]);
+            Route::get("/add",[SystemSettingController::class,"AddSocial"]);
+            Route::post("/add",[SystemSettingController::class,"AddSocialProcess"]);
+            Route::get("/delete/{id}",[SystemSettingController::class,"DeleteSocial"]);
+            Route::get("/update/{id}",[SystemSettingController::class,"EditSocial"]);
+            Route::post("/update/{id}",[SystemSettingController::class,"EditSocialProcess"]);
+        });
     });
 });

@@ -1,3 +1,8 @@
+@php
+    if(Session::has('onlineuser')):
+        $value = Session::get('onlineuser');
+    endif;
+@endphp
 @extends("admin.layout.interface")
 @section("breadcrumb")
     <li class="breadcrumb-item"><a href="{{URL::to('/administration')}}">Admin</a></li>
@@ -19,8 +24,8 @@
                     @php Session::pull('success'); @endphp
                 @endif
                 <div class="d-flex justify-content-between">
-                    <h4>All Author</h4>
-                    <a href="{{URL::to('admin/author/add')}}" class="btn btn-primary btn-sm">Add New</a>
+                    <h4>All News</h4>
+                    <a href="{{URL::to('admin/news/add')}}" class="btn btn-primary btn-sm">Add New</a>
                 </div><br>
                 <p class="text-right">
                     <button type="submit" name="submit" value="delete" class="btn btn-icon btn-rounded text-danger mb-2 p-2"><i class="fa fa-trash"></i></button>
@@ -29,21 +34,30 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Author</th>
+                            <th>Title</th>
+                            @if($value['usertype'] != 4)
+                                <th>Author</th>
+                            @endif
                             <th>Opertions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($totalAuthor as $data)
+                        @foreach($totalNews as $data)
+                        @php
+                            $Author = $data->GetAuthor();
+                        @endphp
                             <tr>
                                 <td>
                                     <input type="checkbox" name="feature[]" value="{{$data->id}}">
                                     {{$data->id}}
                                 </td>
-                                <td>{{$data->name}}</td>
+                                <td>{{$data->newsTitle}}</td>
+                                @if ($value['usertype'] != 4)
+                                    <td>{{isset($Author) ? $Author->name : ''}}</td>
+                                @endif
                                 <td>
-                                    <a href="{{URL::to('admin/author/update')}}/{{$data->id}}" class="btn btn-primary btn-sm">Update</a>
-                                    <a href="{{URL::to('admin/author/delete')}}/{{$data->id}}" class="btn btn-danger btn-sm deleteAlert">Delete</a>
+                                    <a href="{{URL::to('admin/news/update')}}/{{$data->id}}" class="btn btn-primary btn-sm">Update</a>
+                                    <a href="{{URL::to('admin/news/delete')}}/{{$data->id}}" class="btn btn-danger btn-sm deleteAlert">Delete</a>
                                 </td>
                             </tr>
                         @endforeach

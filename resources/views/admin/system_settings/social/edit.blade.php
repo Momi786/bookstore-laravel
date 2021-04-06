@@ -1,7 +1,8 @@
 @extends("admin.layout.interface")
 @section("breadcrumb")
     <li class="breadcrumb-item"><a href="{{URL::to('/admin')}}">Admin</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a href="{{URL::to('/admin/author')}}">Author</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a href="#">System_Settings</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a href="{{URL::to('/admin/system-settings/social-media')}}">Social Media</a></li>
     <li class="breadcrumb-item active" aria-current="page">Update</li>
 @endsection
 @section("content")
@@ -11,8 +12,10 @@
         @php Session::pull('success'); @endphp
     @endif
     <form action="" method="post" enctype="multipart/form-data">
-        <label for=""> Author Name </label>
-        <input type="text" name="name" value="{{$data->name}}" class="form-control mb-2" required>
+        <label for=""> Icon </label>
+        <input type="text" name="icon" value="{{$data->icon}}" class="form-control mb-2" required>
+        <label for=""> Title </label>
+        <input type="text" name="title" value="{{$data->title}}" class="form-control mb-2" required>
         <input type="submit" class="btn btn-primary" value="Update">
     </form>
 

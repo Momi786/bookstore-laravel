@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\SocialMediaModel;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        view()->share("socialMediaInfo",SocialMediaModel::all());
     }
 }

@@ -264,6 +264,23 @@
                 var data = $(this).parent();
                 data.submit();
             })
+
+            // Data Appand & remove
+            $('.wrapper').on('click', '.remove', function(){
+                if (confirm("Do you want to Delete")) {
+                    var elementCard = $(this).attr('element');
+                    var elementCard = "." + elementCard;
+                    var removeCard = $(".results").find(elementCard);
+                    $(removeCard).html("");
+                }
+            });
+            $('.wrapper').on('click', '.clone', function(){
+                var element = $(".wrapper").attr("element");
+                element++;
+                $(".wrapper").attr("element",element);
+                var elementCard1 = "element" + element;
+                $('.results').append("<div class='"+elementCard1+"'><div class='row'><div class='col-lg-6 col-md-6 col-sm-12 col-12'><label for=''> Social Site </label><select name='social[]'  class='form-control fa' required><?php foreach($socialMediaInfo as $social):?><option value='<?=$social->id?>' class='fa'><?php echo '&#x'.$social->icon.';'; ?> <?=$social->title?></option><?php endforeach?></select></div><div class='col-lg-6 col-md-6 col-sm-12 col-12'><label for=''> Social Link </label><input type='text' name='link[]' class='form-control' required></div></div><div class='buttons text-right mt-2'><i class='fa fa-minus remove ml-2 text-danger cursorpointer' element='"+elementCard1+"'></i></div><br></div>");
+            });
         </script>
     </body>
 </html>
