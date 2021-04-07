@@ -52,11 +52,15 @@
                            </div>
                         </div>
                         <div class="w30">
-                           <div class="d-flex">
-                              <button class="btn btn-ligh mr-3">Login</button>
-                              <button class="btn btn-ligh"><i class="fas fa-user-plus mr-3"></i>Signup</button>
+                            <div class="d-flex">
+                                @if(Session::has('onlineClient'))
+                                    <a href="{{URL::to('/logout')}}" class="btn btn-ligh mr-3">Logout</a>
+                                @else
+                                    <button class="btn btn-ligh mr-3">Login</button>
+                                    <button class="btn btn-ligh"><i class="fas fa-user-plus mr-3"></i>Signup</button>
+                                @endif
 
-                           </div>
+                            </div>
                         </div>
                      </div>
                   </nav>

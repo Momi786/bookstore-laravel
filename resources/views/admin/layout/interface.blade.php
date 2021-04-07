@@ -114,7 +114,6 @@
                     <div class="page-info">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-
                                 @yield("breadcrumb")
                             </ol>
                         </nav>
@@ -124,7 +123,7 @@
                         </div> --}}
                     </div>
                     <div class="main-wrapper">
-                       @yield("content")
+                        @yield("content")
                     </div>
                 </div>
                 <div class="page-footer">
@@ -198,7 +197,6 @@
                 var urlfind = 0;
                 $(".accordion-menu a").each(function () {
                     var href = $(this).attr('href');
-
                     if (path === href) {
                         urlfind = 1;
                         console.log(href);

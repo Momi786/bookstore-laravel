@@ -12,7 +12,7 @@ class BookController extends Controller
 
     public function Index(Request $request){
         $value = $request->session()->get('onlineuser');
-        if($value['usertype'] == 4){
+        if($value['usertype'] == 2){
             $id = $value['id'];
             $totalData = BookModel::where('authorId',$id)->get();
         }else{
@@ -41,8 +41,9 @@ class BookController extends Controller
     public function AddProcess(Request $request){
         $data = $request->all();
         $value = $request->session()->get('onlineuser');
-        if($value['usertype'] == 4){
+        if($value['usertype'] == 2){
             $data['authorId'] = $value['id'];
+            $data['pending'] = 1;
         }
         if ($request->file("cover_image") != null) {
             $path = $request->file("cover_image")->store("Book_Images");
@@ -81,8 +82,9 @@ class BookController extends Controller
             $data["cover_image"] = $path;
         }
         $value = $request->session()->get('onlineuser');
-        if($value['usertype'] == 4){
+        if($value['usertype'] == 2){
             $data['authorId'] = $value['id'];
+            $data['pending'] = 1;
         }
         $data["editor1"] = htmlentities($data["editor1"]);
         $data["detailDescription"] = $data["editor1"];

@@ -27,16 +27,24 @@ use App\Http\Controllers\SystemSettingController;
 
 // Web Routes
 
-Route::get('/',[HomeController:: class, 'home']);
-Route::get('/about',[HomeController:: class, 'about']);
-Route::get('/author-profile',[HomeController:: class, 'authorprofile']);
-Route::get('/contact-us',[HomeController:: class, 'contactus']);
-Route::get('/faq',[HomeController:: class, 'faq']);
-Route::get('/news',[HomeController:: class, 'news']);
-Route::get('/page-not',[HomeController:: class, 'pagenot']);
-Route::get('/shoping-cart',[HomeController:: class, 'shopingcart']);
-Route::get('/single-blog',[HomeController:: class, 'singleblog']);
-Route::get('/book-detail',[HomeController:: class, 'bookdetail']);
+Route::get('/',[HomeController::class, 'home']);
+Route::get('/about',[HomeController::class, 'about']);
+Route::get('/author-profile',[HomeController::class, 'authorprofile']);
+Route::get('/contact-us',[HomeController::class, 'contactus']);
+Route::get('/faq',[HomeController::class, 'faq']);
+Route::get('/news',[HomeController::class, 'news']);
+Route::get('/page-not',[HomeController::class, 'pagenot']);
+Route::get('/shoping-cart',[HomeController::class, 'shopingcart']);
+Route::get('/single-blog',[HomeController::class, 'singleblog']);
+Route::get('/book-detail',[HomeController::class, 'bookdetail']);
+Route::get('/all-book',[HomeController::class, 'allbook']);
+Route::get('/login',[HomeController::class, 'login']);
+Route::post('/loginProcess',[HomeController::class, 'loginProcess']);
+Route::post('/RegistrationProcess',[HomeController::class, 'RegistrationProcess']);
+Route::get('/logout',[HomeController::class, 'logoutProcess']);
+
+
+// admin controllers
 Route::get('/admin',[UserController::class,"Login"]);
 Route::post('/admin',[UserController::class,"ProcessLoginRequest"]);
 Route::prefix('admin')->middleware("IsLogin")->group(function () {
@@ -109,6 +117,26 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
             Route::get("/delete/{id}",[SystemSettingController::class,"DeleteSocial"]);
             Route::get("/update/{id}",[SystemSettingController::class,"EditSocial"]);
             Route::post("/update/{id}",[SystemSettingController::class,"EditSocialProcess"]);
+        });
+        // main menu
+        Route::prefix('main-menu')->group(function () {
+            Route::get("/",[SystemSettingController::class,"ViewMenu"]);
+            Route::post("/",[SystemSettingController::class,"GetALLFeatureDeleteMenu"]);
+            Route::get("/add",[SystemSettingController::class,"AddMenu"]);
+            Route::post("/add",[SystemSettingController::class,"AddMenuProcess"]);
+            Route::get("/delete/{id}",[SystemSettingController::class,"DeleteMenu"]);
+            Route::get("/update/{id}",[SystemSettingController::class,"EditMenu"]);
+            Route::post("/update/{id}",[SystemSettingController::class,"EditMenuProcess"]);
+        });
+        // main slider
+        Route::prefix('main-slider')->group(function () {
+            Route::get("/",[SystemSettingController::class,"ViewSlider"]);
+            Route::post("/",[SystemSettingController::class,"GetALLFeatureDeleteSlider"]);
+            Route::get("/add",[SystemSettingController::class,"AddSlider"]);
+            Route::post("/add",[SystemSettingController::class,"AddSliderProcess"]);
+            Route::get("/delete/{id}",[SystemSettingController::class,"DeleteSlider"]);
+            Route::get("/update/{id}",[SystemSettingController::class,"EditSlider"]);
+            Route::post("/update/{id}",[SystemSettingController::class,"EditSliderProcess"]);
         });
     });
 });

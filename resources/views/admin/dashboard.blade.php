@@ -19,6 +19,20 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4 col-lg-4 col-sm-12 col-12 col-xl-4">
+            <div class="card bg-info order-card">
+                <div class="card-body">
+                    <a href="{{URL::to('admin/user')}}">
+                        <h2 class="text-right text-white">
+                            <i class="fa fa-user float-left"></i><span></span>
+                        </h2>
+                        <p class="m-b-0 text-light">
+                            Total Authors<span class="float-right">{{count($totalAuthors)}}</span>
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
 
     </div>
 <!-- <div class="row stats-row">

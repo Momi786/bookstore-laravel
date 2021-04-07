@@ -27,12 +27,11 @@
             </div>
         </div>
         <div class="row">
-            @if ($value['usertype'] != 4)
+            @if ($value['usertype'] == 2)
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             @else
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
             @endif
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <label for=""> Book Category</label>
                 <select name="categoryId" class="form-control" required>
                     @foreach($BookCategory as $cat)
@@ -40,7 +39,7 @@
                     @endforeach
                 </select>
             </div>
-            @if ($value['usertype'] != 4)
+            @if ($value['usertype'] != 2)
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                     <label for="">Book Author </label>
                     <select name="authorId" class="form-control" required>

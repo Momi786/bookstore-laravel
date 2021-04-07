@@ -10,7 +10,7 @@ use App\Models\UserInformationModel;
 class BookModel extends Model
 {
     protected $table = "book";
-    protected $fillable = ["name","categoryId","authorId","feature","description","detailDescription","cover_image"];
+    protected $fillable = ["name","categoryId","authorId","feature","description","detailDescription","cover_image","pending"];
 
     public function GetCategory(){
         $data = BookCategoryModel::where('id',$this->categoryId)->first();

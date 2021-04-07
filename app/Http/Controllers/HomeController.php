@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ClientModel;
+use Hash;
 
 class HomeController extends Controller
 {
@@ -10,6 +12,53 @@ class HomeController extends Controller
     // home page
     public function home(){
         return view('web.home.index');
+    }
+
+    // Registration page
+    public function RegistrationProcess(Request $request){
+        $data = ClientModel::where('email',$request->email)->first();
+        if ($data == null) {
+            $hashed = Hash::make($request->password);
+            $data = $request->all();
+            $data['password'] = $hashed;
+            $client = new ClientModel;
+            $client->fill($data);
+            $client->save();
+            $success = "Your Account has been Register successfully.";
+            $request->session()->put("success",$success);
+        }else{
+            $danger = "Your Account has been Register Already.";
+            $request->session()->put("danger",$danger);
+        }
+        return back();
+    }
+    // Login Process
+    public function LoginProcess(Request $request){
+        $data = ClientModel::where('email',$request->email)->first();
+        if ($data != null) {
+            $passwordhash = $data->password;
+
+            if(Hash::check($request->password,$data->password)){
+                $request->session()->put("onlineClient",$data);
+                $success = "Your Log In successfully.";
+                $request->session()->put("success",$success);
+                return redirect("/");
+            }else{
+                $danger = "Your password is not match.";
+                $request->session()->put("danger",$danger);
+            }
+        }else{
+            $danger = "Your Email is not exist.";
+            $request->session()->put("danger",$danger);
+        }
+        return back();
+    }
+    // logout Process
+    public function logoutProcess(Request $request){
+        if($request->session()->has("onlineClient")){
+            $request->session()->pull("onlineClient");
+        }
+        return back();
     }
 
     // about Page
@@ -55,5 +104,15 @@ class HomeController extends Controller
      //  Book detail foundapge
      public function bookdetail(){
         return view('web.book-detail.index');
+    }
+
+    //  All Book foundapge
+    public function allbook(){
+        return view('web.books.books');
+    }
+
+    //  Login  foundapge
+    public function login(){
+        return view('web.login-form.index');
     }
 }

@@ -22,17 +22,17 @@
     @endif
     <form action="" method="post" enctype="multipart/form-data">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <label for=""> Book Name</label>
                 <input type="text" name="name" value="{{$data->name}}" class="form-control" required>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <img src="{{URL::to('storage/app')}}/{{$data->cover_image}}" alt="" class="mb-2" width="100px" height="100px">
                 <input type="file" name="cover_image" class="form-control" required>
             </div>
         </div>
         <div class="row">
-            @if ($value['usertype'] != 4)
+            @if ($value['usertype'] == 2)
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             @else
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
@@ -44,7 +44,7 @@
                     @endforeach
                 </select>
             </div>
-            @if ($value['usertype'] != 4)
+            @if ($value['usertype'] != 2)
                 <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                     <label for="">Book Author </label>
                     <select name="authorId" class="form-control" required>

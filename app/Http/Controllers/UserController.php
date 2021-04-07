@@ -15,7 +15,12 @@ class UserController extends Controller
     public function Login(Request $request){
         if($request->session()->has("onlineuser")){
             $totalBooks = BookModel::all();
-            return view("admin.dashboard",compact('totalBooks'));
+            $totalAuthors = UserModel::where('usertype',2)->get();
+            $value=$request->session()->get('onlineuser');
+            if($value['usertype'] == 2){
+                return redirect("admin/book");
+            }
+            return view("admin.dashboard",compact('totalBooks','totalAuthors'));
         }
 
         return view("admin.login");
