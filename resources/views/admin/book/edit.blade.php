@@ -22,13 +22,17 @@
     @endif
     <form action="" method="post" enctype="multipart/form-data">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <label for=""> Book Name</label>
                 <input type="text" name="name" value="{{$data->name}}" class="form-control" required>
             </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                <label for=""> Price</label>
+                <input type="text" name="price" value="{{$data->price}}" class="form-control" required>
+            </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <img src="{{URL::to('storage/app')}}/{{$data->cover_image}}" alt="" class="mb-2" width="100px" height="100px">
-                <input type="file" name="cover_image" class="form-control" required>
+                <input type="file" name="cover_image" class="form-control">
             </div>
         </div>
         <div class="row">

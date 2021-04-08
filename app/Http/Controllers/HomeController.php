@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ClientModel;
+use App\Models\PageContentModel;
+use App\Models\MainSliderModel;
+use App\Models\UserModel;
+use App\Models\UserInformationModel;
+use App\Models\BookModel;
 use Hash;
 
 class HomeController extends Controller
@@ -11,7 +16,9 @@ class HomeController extends Controller
 
     // home page
     public function home(){
-        return view('web.home.index');
+        $HomeContent = PageContentModel::all();
+        $MainSlider = MainSliderModel::all();
+        return view('web.home.index',compact('HomeContent','MainSlider'));
     }
 
     // Registration page
@@ -39,10 +46,15 @@ class HomeController extends Controller
             $passwordhash = $data->password;
 
             if(Hash::check($request->password,$data->password)){
-                $request->session()->put("onlineClient",$data);
-                $success = "Your Log In successfully.";
-                $request->session()->put("success",$success);
-                return redirect("/");
+                if($data->block == 0){
+                    $request->session()->put("onlineClient",$data);
+                    $success = "Your Log In successfully.";
+                    $request->session()->put("success",$success);
+                    return redirect("/");
+                }else{
+                    $danger = "Your Account is block.";
+                    $request->session()->put("danger",$danger);
+                }
             }else{
                 $danger = "Your password is not match.";
                 $request->session()->put("danger",$danger);
@@ -67,8 +79,18 @@ class HomeController extends Controller
     }
 
     // author apge
-    public function authorprofile(){
-        return view('web.author.index');
+    public function authorprofile(Request $request,$id){
+        $otherAuthor = UserModel::inRandomOrder()->where('usertype',2)->where('id','!=',$id)->limit(6)->get();
+        $Author = UserModel::where('id',$id)->where('usertype',2)->first();
+        if($Author){
+            $AuthorDetail = UserInformationModel::where('userId',$id)->first();
+            $Books = BookModel::where('authorId',$id)->where('pending',0)->get();
+            return view('web.author.index',compact('AuthorDetail','Author','Books','otherAuthor'));
+        }else{
+            $danger = "Wrong Author Id.";
+            $request->session()->put("danger",$danger);
+            return back();
+        }
     }
 
      // Contatc apge

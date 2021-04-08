@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\SocialMediaModel;
 use App\Models\MainMenuModel;
 use App\Models\MainSliderModel;
+use App\Models\PageContentModel;
 
 class SystemSettingController extends Controller
 {
@@ -161,5 +162,19 @@ class SystemSettingController extends Controller
         $request->session()->put("success",$success);
         return back();
     }
+    // page-content
 
+    public function ViewPageContent(){
+        $data = PageContentModel::all();
+        return view('admin.system_settings.homeContent',compact('data'));
+    }
+    public function ViewPageContentProcess(Request $request){
+        $data = $request->all();
+        $Slider = PageContentModel::where('name',$request->name)->first();
+        $Slider->fill($data);
+        $Slider->save();
+        $success = "Your Data has Updated successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
 }

@@ -879,6 +879,8 @@ border: 1px solid #6c5dd4;
 }
 .card8 img{
   border-radius: 50%;
+  width: 100px;
+  height: 100px;
 
 }
 

@@ -40,11 +40,17 @@
                 <li>
                     <a href="{{URL::to('/admin/user')}}">User</a>
                 </li>
+                <li>
+                    <a href="{{URL::to('/admin/client')}}">Client</a>
+                </li>
             </ul>
         </li>
         <li>
             <a href="#"><i class="material-icons">settings</i>System Settings<i class="material-icons has-sub-menu">add</i></a>
             <ul class="sub-menu">
+                <li>
+                    <a href="{{URL::to('admin/system-settings/home-page-content')}}">Home Page Content</a>
+                </li>
                 <li>
                     <a href="{{URL::to('admin/system-settings/main-menu')}}">Main Menu</a>
                 </li>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\UserInformationModel;
 use App\Models\UserTypeModel;
+use App\Models\BookModel;
 
 class UserModel extends Model
 {
@@ -18,6 +19,10 @@ class UserModel extends Model
     }
     public function GetUserType(){
         $data = UserTypeModel::where('id',$this->usertype)->first();
+        return $data;
+    }
+    public function GetBooks(){
+        $data = BookModel::where('authorId',$this->userId)->get();
         return $data;
     }
 

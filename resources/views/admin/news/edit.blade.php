@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <img src="{{URL::to('storage/app')}}/{{$data->newsImg}}" alt="" class="mb-2 mt-2" width="100px" height="100px">
-            <input type="file" name="newsImg"  class="form-control" required>
+            <input type="file" name="newsImg"  class="form-control">
         </div>
     </div>
     @if ($value['usertype'] != 4)

@@ -568,7 +568,7 @@ h6 {
 }
 
 .text-success {
-	color: #f1eeff!important
+	color: #61d39f!important
 }
 
 .text-danger {
@@ -1706,8 +1706,8 @@ h6 {
 }
 
 .alert.alert-success {
-	color: #f1eeff;
-	background: #cdf7e7
+	color: #fff;
+	background: #61d39f
 }
 
 .alert.alert-success .alert-link {

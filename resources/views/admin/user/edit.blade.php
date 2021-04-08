@@ -1,8 +1,12 @@
 @extends("admin.layout.interface")
 @section("breadcrumb")
     <li class="breadcrumb-item"><a href="{{URL::to('/admin')}}">Admin</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a href="{{URL::to('/admin/book')}}">Book</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Update</li>
+    @if(!isset($roleBlock))
+        <li class="breadcrumb-item" aria-current="page"><a href="{{URL::to('/admin/user')}}">User</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Update</li>
+    @else
+        <li class="breadcrumb-item active" aria-current="page">Change Details</li>
+    @endif
 @endsection
 @section("content")
     @if(Session::has('success'))
@@ -21,28 +25,24 @@
                 <label for=""> Name</label>
                 <input type="text" name="name" value="{{$memberInfo->name}}" class="form-control" required>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                <label for=""> Role</label>
-                <select name="usertype" class="form-control" required>
-                    @foreach($userTypes as $typ)
-                        <option value="{{$typ->id}}" {{$data->usertype == $typ->id ? 'selected' : ''}}>{{$typ->usertype}}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="row">
+            @if(!isset($roleBlock))
+                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                    <label for=""> Role</label>
+                    <select name="usertype" class="form-control" required>
+                        @foreach($userTypes as $typ)
+                            <option value="{{$typ->id}}" {{$data->usertype == $typ->id ? 'selected' : ''}}>{{$typ->usertype}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endif
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <label for=""> Username</label>
                 <input type="text" name="username" value="{{$data->username}}" class="form-control" required>
             </div>
-        </div>
-        <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <img src="{{URL::to('storage/app')}}/{{$memberInfo->image}}" alt="" width="100px" height="100px">
                 <input type="file" name="image" class="form-control">
             </div>
-        </div>
-        <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <label for=""> Description</label>
                 <textarea name="description" class="form-control" required>{{$memberInfo->description}}</textarea>

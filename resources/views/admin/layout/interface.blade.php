@@ -48,8 +48,11 @@
         </div>
         <div class="connect-container align-content-stretch d-flex flex-wrap">
             <div class="page-sidebar">
-                <div class="logo-box"><a href="#" class="logo-text">
-        <img src="{{URL::to('resources/assets/images/Logo-Web.png')}}" alt="" width="115px"></a><a href="#" id="sidebar-close"><i class="material-icons">close</i></a> <a href="#" id="sidebar-state"><i class="material-icons">adjust</i><i class="material-icons compact-sidebar-icon">panorama_fish_eye</i></a></div>
+                <div class="logo-box">
+                    <a href="#" class="logo-text">
+                        <img src="{{URL::to('public/assests/img/logo.png')}}" alt="" width="115px">
+                    </a>
+                    <a href="#" id="sidebar-close"><i class="material-icons">close</i></a> <a href="#" id="sidebar-state"><i class="material-icons">adjust</i><i class="material-icons compact-sidebar-icon">panorama_fish_eye</i></a></div>
                 <div class="page-sidebar-inner slimscroll">
                     @include("admin.layout.sidebar")
                 </div>
@@ -70,6 +73,7 @@
                                     <span>{{Session::get("onlineuser")->username}}</span><i class="material-icons dropdown-icon">keyboard_arrow_down</i>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{URL::to('admin/change-details')}}">Change Details</a>
                                     <a class="dropdown-item" href="{{URL::to('admin/change-password')}}">Change Password</a>
                                     {{-- <a class="dropdown-item" href="#">Calendar<span class="badge badge-pill badge-info float-right">2</span></a>
                                     <a class="dropdown-item" href="#">Settings &amp Privacy</a>

@@ -6,31 +6,30 @@
    <div class="row">
       <div class="col-sm-12 col-md-9">
          <div class="owl-carousel owl-theme owl4 ">
-            <?php
-               for ($i = 0; $i < 3; $i++):
-               ?>
-            <div class="bg-back">
-               <div class="urlImage">
-                  <div class="row">
-                     <div class="col-md-6">
-                     <div style="padding: 61px 0 0 26px;">
-                     <h5>Back To School</h5>
-                     <h1 class="text-black">Specail 50% OFF</h1>
-                     <h4 class="text-black">For Our Student Community</h4>
-                     <p class="text-black pt-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet corrupti, maiores fugit facilis placeat saepe illum non voluptas mollitia.</p>
-                     <div class="d-flex">
-                         <button class="btn btn-ligh1 mr-3">Get The Deal <i class="fas fa-long-arrow-alt-right ml-3"></i></button>
-                         <button class="btn btn-ligh1">See Other Promos</button>
+            @foreach ($MainSlider as $slider)
 
-                     </div>
-                  </div>
+                <div class="bg-back">
+                <div class="urlImage">
+                    <div class="row">
+                        <div class="col-md-6">
+                        <div style="padding: 61px 0 0 26px;">
+                        <h5>{{$slider->h1}}</h5>
+                        <h1 class="text-black">{{$slider->h2}}</h1>
+                        <h4 class="text-black">{{$slider->h3}}</h4>
+                        <p class="text-black pt-3">{{$slider->description}}</p>
+                        <div class="d-flex">
+                            <a href="{{$slider->link1}}" class="btn btn-ligh1 mr-3">{{$slider->link1title}} <i class="fas fa-long-arrow-alt-right ml-3"></i></a>
+                            <a href="{{$slider->link2}}" class="btn btn-ligh1">{{$slider->link2title}}</a>
 
-                     </div>
-                  </div>
+                        </div>
+                    </div>
 
-                  </div>
-            </div>
-            <?php endfor;?>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>
+            @endforeach
          </div>
       </div>
       <div class="col-sm-12 col-md-3">
@@ -69,45 +68,45 @@
    <div class="row">
       <div class="col-md-3 col-sm-12">
          <div class="media">
-            <i class="fas fa-bolt i-color"></i>
+            <i class="fa i-color">@php echo "&#x".$HomeContent[0]->link.";"; @endphp</i>
             <div class="media-body">
                <p class="mb-0 text-color">
-                  <strong>Display Name</strong>
+                  <strong>{{$HomeContent[0]->title}}</strong>
                </p>
-               <p class="p-color">Lorem ipsum dolor sit amet, consectetur sit amet.</p>
+               <p class="p-color">{{$HomeContent[0]->description}}</p>
             </div>
          </div>
       </div>
       <div class="col-md-3 col-sm-12">
          <div class="media">
-            <i class="fas fa-shield-alt i-color"></i>
+            <i class="fa i-color">@php echo "&#x".$HomeContent[1]->link.";"; @endphp</i>
             <div class="media-body">
                <p class="mb-0 text-color">
-                  <strong>Display Name</strong>
+                  <strong>{{$HomeContent[1]->title}}</strong>
                </p>
-               <p class="p-color">Lorem ipsum dolor sit amet, consectetur sit amet.</p>
+               <p class="p-color">{{$HomeContent[1]->description}}</p>
             </div>
          </div>
       </div>
       <div class="col-md-3 col-sm-12">
          <div class="media">
-            <i class="fas fa-thumbs-up i-color"></i>
+            <i class="fa i-color">@php echo "&#x".$HomeContent[2]->link.";"; @endphp</i>
             <div class="media-body">
                <p class="mb-0 text-color">
-                  <strong>Display Name</strong>
+                  <strong>{{$HomeContent[2]->title}}</strong>
                </p>
-               <p class="p-color">Lorem ipsum dolor sit amet, consectetur sit amet.</p>
+               <p class="p-color">{{$HomeContent[2]->description}}</p>
             </div>
          </div>
       </div>
       <div class="col-md-3 col-sm-12">
          <div class="media">
-            <i class="fas fa-star i-color"></i>
+            <i class="fa i-color">@php echo "&#x".$HomeContent[3]->link.";"; @endphp</i>
             <div class="media-body">
                <p class="mb-0 text-color">
-                  <strong>Display Name</strong>
+                  <strong>{{$HomeContent[3]->title}}</strong>
                </p>
-               <p class="p-color">Lorem ipsum dolor sit amet, consectetur sit amet.</p>
+               <p class="p-color">{{$HomeContent[3]->description}}</p>
             </div>
          </div>
       </div>
@@ -121,8 +120,8 @@
          <div class="row">
             <div class="col-md-6">
                <div class="bg-pink p-4">
-                  <h4>Recommded For You</h4>
-                  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero ab architecto omnis. Esse laborum libero magnam corrupti </p>
+                  <h4>{{$HomeContent[4]->title}}</h4>
+                  <p>{{$HomeContent[4]->description}}</p>
                   <div class="owl-carousel owl-theme owl5">
             <?php
                for ($i = 0; $i < 10; $i++):
@@ -140,8 +139,8 @@
             </div>
             <div class="col-md-6">
                <div class="bg-blue p-4">
-                  <h4>Recommded For You</h4>
-                  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero ab architecto omnis. Esse laborum libero magnam corrupti </p>
+                  <h4>{{$HomeContent[5]->title}}</h4>
+                  <p>{{$HomeContent[5]->description}} </p>
                   <div class="owl-carousel owl-theme owl5">
             <?php
                for ($i = 0; $i < 10; $i++):
@@ -163,8 +162,8 @@
 <section class=" mt-5">
    <div class="row">
       <div class="col-md-12 col-md-12 text-center">
-         <h2 class="text-color">Special Offers</h2>
-         <p>Lorem ipsum dolor sit amet, consectetur sit ametLorem ipsum dolor<br> sit amet, Lorem ipsum dolor sit amet, consectetur </p>
+         <h2 class="text-color">{{$HomeContent[6]->title}}</h2>
+         <p>{{$HomeContent[6]->description}} </p>
          <div class="owl-carousel owl-theme owl1">
             <?php
                for ($i = 0; $i < 10; $i++):
@@ -203,9 +202,9 @@
    <div class="row">
    <div class="col-md-12 text-center">
       <h2 class="text-color">
-         Flash Sale
+         {{$HomeContent[7]->title}}
       </h2>
-      <p>Lorem ipsum dolor sit amet, consectetur sit ametLorem ipsum dolor<br> sit amet, Lorem ipsum dolor sit amet, consectetur </p>
+      <p>{{$HomeContent[7]->description}} </p>
       <div id="countdown">
          <ul class="mb-0">
             <li>
@@ -288,8 +287,8 @@
          <div class="row pt-3 pb-3">
             <div class="col-md-6">
                <div class="p-100">
-                  <h5>Featured Books</h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur sit ametLorem ipsum dolor<br> sit amet, Lorem ipsum dolor sit amet, consectetur </p>
+                  <h5>{{$HomeContent[8]->title}}</h5>
+                  <p>{{$HomeContent[8]->description}} </p>
                </div>
                <div class="box-white">
                   <div class="row">
@@ -349,8 +348,8 @@
    <div class="testimonials-clean">
       <div class="">
          <div class="intro">
-            <h2 class="text-center">Testimonials </h2>
-            <p class="text-center">Our customers love us! Read what they have to say below. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.</p>
+            <h2 class="text-center">{{$HomeContent[9]->title}} </h2>
+            <p class="text-center">{{$HomeContent[9]->description}}</p>
          </div>
          <div class="row people">
             <div class="owl-carousel owl-theme owl6">
@@ -386,9 +385,9 @@
 <section class="mt-5">
    <div class="row">
       <div class="col-md-12">
-         <h2>Latest News</h2>
+         <h2>{{$HomeContent[10]->title}}</h2>
          <div class="d-flex justify-content-between mt-3 latest-news">
-            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur sit ametLorem ipsum dolor<br> sit amet, Lorem ipsum dolor sit amet, consectetur </p>
+            <p class="mb-0">{{$HomeContent[10]->description}}</p>
             <p align="right">
                <button class="btn btn-purple1">View More<i class="fas fa-long-arrow-alt-right ml-4"></i></button>
             </p>
@@ -455,7 +454,7 @@
    <div class="text-center">
       <div class="pt-70">
          <h5 class="f-27 mb-4">
-            Subscribe To Our Newsletter For Newest Books Updates
+            {{$HomeContent[11]->description}}
          </h5>
          <div class="input-group input-control justify-content-center subcribeLater">
             <input type="search" class="" placeholder="Type Your Mail Here">

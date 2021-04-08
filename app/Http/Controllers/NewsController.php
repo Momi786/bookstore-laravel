@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NewsModel;
+use App\Models\UserModel;
 
 
 class NewsController extends Controller
@@ -33,7 +34,8 @@ class NewsController extends Controller
     }
 
     public function AddNews(){
-        return view('admin.news.add');
+        $Author = UserModel::where('usertype',2)->get();
+        return view('admin.news.add',compact('Author'));
     }
     public function AddNewsProcess(Request $request){
         $data = $request->all();
@@ -64,7 +66,8 @@ class NewsController extends Controller
     }
     public function EditNews(Request $request, $id){
         $data = NewsModel::find($id);
-        return view('admin.news.edit',compact('data'));
+        $Author = UserModel::where('usertype',2)->get();
+        return view('admin.news.edit',compact('data','Author'));
     }
     public function EditNewsProcess(Request $request, $id){
         $data = $request->all();

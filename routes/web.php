@@ -29,7 +29,7 @@ use App\Http\Controllers\SystemSettingController;
 
 Route::get('/',[HomeController::class, 'home']);
 Route::get('/about',[HomeController::class, 'about']);
-Route::get('/author-profile',[HomeController::class, 'authorprofile']);
+Route::get('/author-profile/{id}',[HomeController::class, 'authorprofile']);
 Route::get('/contact-us',[HomeController::class, 'contactus']);
 Route::get('/faq',[HomeController::class, 'faq']);
 Route::get('/news',[HomeController::class, 'news']);
@@ -51,8 +51,10 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
     Route::get("logout",[Usercontroller::class,"Logout"]);
     Route::get("change-password",[Usercontroller::class,"changePassword"]);
     Route::post("change-password",[Usercontroller::class,"changePasswordProcess"]);
+    Route::get("change-details",[Usercontroller::class,"changeDetail"]);
+    Route::post("change-details",[Usercontroller::class,"changeDetailProcess"]);
 
-    // News
+    // User
     Route::prefix('user')->group(function () {
         Route::get("/",[Usercontroller::class,"View"]);
         Route::get("/add",[Usercontroller::class,"Add"]);
@@ -60,6 +62,17 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
         Route::get("/delete/{id}",[Usercontroller::class,"Delete"]);
         Route::get("/update/{id}",[Usercontroller::class,"Edit"]);
         Route::post("/update/{id}",[Usercontroller::class,"EditProcess"]);
+    });
+
+    // Client
+    Route::prefix('client')->group(function () {
+        Route::get("/",[Usercontroller::class,"ViewClient"]);
+        Route::get("/add",[Usercontroller::class,"AddClient"]);
+        Route::post("/add",[Usercontroller::class,"AddClientProcess"]);
+        Route::get("/block/{id}",[Usercontroller::class,"BlockClient"]);
+        Route::get("/unblock/{id}",[Usercontroller::class,"UnBlockClient"]);
+        Route::get("/update/{id}",[Usercontroller::class,"EditClient"]);
+        Route::post("/update/{id}",[Usercontroller::class,"EditClientProcess"]);
     });
 
     // book
@@ -108,6 +121,11 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
 
     // system-setting
     Route::prefix('system-settings')->group(function () {
+        // home-page-content
+        Route::prefix('home-page-content')->group(function () {
+            Route::get("/",[SystemSettingController::class,"ViewPageContent"]);
+            Route::post("/",[SystemSettingController::class,"ViewPageContentProcess"]);
+        });
         // social-media
         Route::prefix('social-media')->group(function () {
             Route::get("/",[SystemSettingController::class,"ViewSocial"]);

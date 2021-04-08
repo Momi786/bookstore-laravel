@@ -8,6 +8,7 @@ use App\Models\UserModel;
 use App\Models\UserTypeModel;
 use App\Models\UserInformationModel;
 use App\Models\BookModel;
+use App\Models\ClientModel;
 
 
 class UserController extends Controller
@@ -73,6 +74,38 @@ class UserController extends Controller
 
     }
 
+    public function changeDetail(Request $request){
+        $onlineUser = $request->session()->get("onlineuser");
+        $id = $onlineUser->id;
+        $roleBlock = 1;
+        $data = UserModel::find($id);
+        $userTypes = UserTypeModel::all();
+        $memberInfo = UserInformationModel::where('userId',$id)->first();
+        return view('admin.user.edit',compact('data','memberInfo','userTypes','roleBlock'));
+    }
+    public function changeDetailProcess(Request $request){
+        $onlineUser = $request->session()->get("onlineuser");
+        $id = $onlineUser->id;
+        $data = $request->all();
+        $user = UserModel::find($id);
+        $user->fill($data);
+        $user->save();
+        if ($request->file("image") != null) {
+            $path = $request->file("image")->store("User_Images");
+            $data["image"] = $path;
+        }
+        $data['social_sites'] = implode('@',$request->social);
+        $data['social_link'] = implode('@',$request->link);
+        $data['userId'] = $user->id;
+        $userInfo = UserInformationModel::where('userId',$id)->first();
+        $userInfo->fill($data);
+        $userInfo->save();
+        $success = "Your Data has been Updated successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
+
+    // User Function
     public function View(Request $request){
         $userData = UserModel::all();
         return view("admin.user.index",compact('userData'));
@@ -134,6 +167,57 @@ class UserController extends Controller
         $userInfo = UserInformationModel::where('userId',$id)->first();
         $userInfo->fill($data);
         $userInfo->save();
+        $success = "Your Data has been Updated successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
+
+    // Client Function
+    public function ViewClient(Request $request){
+        $clientData = ClientModel::all();
+        return view("admin.client.index",compact('clientData'));
+    }
+    public function AddClient(Request $request){
+        return view("admin.client.add");
+    }
+    public function AddClientProcess(Request $request){
+        $data = $request->all();
+        $data['password'] = Hash::make($request->password);
+        $client = new ClientModel;
+        $client->fill($data);
+        $client->save();
+        $success = "Your Data has Saved successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
+
+
+    public function BlockClient(Request $request,$id){
+        $data = ClientModel::find($id);
+        $data->block = 1;
+        $data->save();
+        $danger = "This Account has been block successfully.";
+        $request->session()->put("danger",$danger);
+        return back();
+    }
+    public function UnBlockClient(Request $request,$id){
+        $data = ClientModel::find($id);
+        $data->block = 0;
+        $data->save();
+        $success = "This Account has been unblock successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
+    public function EditClient(Request $request,$id){
+        $data = ClientModel::find($id);
+        return view('admin.client.edit',compact('data'));
+    }
+
+    public function EditClientProcess(Request $request,$id){
+        $data = $request->all();
+        $client = ClientModel::find($id);
+        $client->fill($data);
+        $client->save();
         $success = "Your Data has been Updated successfully.";
         $request->session()->put("success",$success);
         return back();
