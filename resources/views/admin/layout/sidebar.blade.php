@@ -22,6 +22,9 @@
                 <li>
                     <a href="{{URL::to('admin/book/category')}}">Book Categories</a>
                 </li>
+                <li>
+                    <a href="{{URL::to('admin/book/sale')}}">Book Sale</a>
+                </li>
             @endif
         </ul>
     </li>
@@ -43,6 +46,9 @@
                 <li>
                     <a href="{{URL::to('/admin/client')}}">Client</a>
                 </li>
+                <li>
+                    <a href="{{URL::to('/admin/board-member')}}">Board Member</a>
+                </li>
             </ul>
         </li>
         <li>
@@ -50,6 +56,9 @@
             <ul class="sub-menu">
                 <li>
                     <a href="{{URL::to('admin/system-settings/home-page-content')}}">Home Page Content</a>
+                </li>
+                <li>
+                    <a href="{{URL::to('admin/system-settings/footer')}}">Footer Content</a>
                 </li>
                 <li>
                     <a href="{{URL::to('admin/system-settings/main-menu')}}">Main Menu</a>

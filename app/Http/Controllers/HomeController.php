@@ -8,7 +8,11 @@ use App\Models\PageContentModel;
 use App\Models\MainSliderModel;
 use App\Models\UserModel;
 use App\Models\UserInformationModel;
+use App\Models\FooterContentModel;
 use App\Models\BookModel;
+use App\Models\NewsModel;
+use App\Models\BoardMemberModel;
+use App\Models\SaleModel;
 use Hash;
 
 class HomeController extends Controller
@@ -18,7 +22,8 @@ class HomeController extends Controller
     public function home(){
         $HomeContent = PageContentModel::all();
         $MainSlider = MainSliderModel::all();
-        return view('web.home.index',compact('HomeContent','MainSlider'));
+        $AllSale = SaleModel::all();
+        return view('web.home.index',compact('HomeContent','MainSlider','AllSale'));
     }
 
     // Registration page
@@ -75,7 +80,9 @@ class HomeController extends Controller
 
     // about Page
     public function about(){
-        return view('web.about.index');
+        $AboutContent = FooterContentModel::where('name','aboutUs')->first();
+        $memberBoard = BoardMemberModel::inRandomOrder()->limit(4)->get();
+        return view('web.about.index',compact('AboutContent','memberBoard'));
     }
 
     // author apge
@@ -105,7 +112,8 @@ class HomeController extends Controller
 
     // NEWS apge
     public function news(){
-        return view('web.news.index');
+        $totalNews = NewsModel::all();
+        return view('web.news.index',compact('totalNews'));
     }
 
     // PAge not foundapge
@@ -124,8 +132,9 @@ class HomeController extends Controller
     }
 
      //  Book detail foundapge
-     public function bookdetail(){
-        return view('web.book-detail.index');
+     public function bookdetail(Request $request,$id){
+        $BookDetail = BookModel::find($id);
+        return view('web.book-detail.index',compact('BookDetail'));
     }
 
     //  All Book foundapge

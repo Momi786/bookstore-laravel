@@ -254,28 +254,38 @@
       <div class="col-md-12">
          <h2 class="text-title">Book On Sale</h2>
          <div class="owl-carousel owl-theme owl3 mt-3">
-            <?php
-               for ($i = 0; $i < 10; $i++):
-               ?>
-            <div class="m-2">
-               <div class="">
-                  <figure class="figure tag tag-featured mb-0">
-                     <img src="{{URL::to('public/assests/img/book.jpg')}}" alt="featured image" class="figure-img">
-                  </figure>
-                  <div class="card-body border-0 p-0">
-                     <h6 class="card-title text-color mb-0" style="text-align: initial;">The Misadventure of.</h6>
-                     <p class="text-blue" style="text-align: initial; font-size:13px;">Adventural,Survival</p>
-                     <div class="d-flex justify-content-between">
-                        <span class="star-color"><i class="fas fa-star mr-1"></i>4.7</span>
-                        <div class="d-flex">
-                           <span class="mr-2 text-dark">$20</span>
-                           <span class="text-dull"><s>$20</s></span>
+            @foreach ($AllSale as $sale)
+                @php
+                    $book = $sale->GetBook();
+                    $category = $book->GetCategory();
+                @endphp
+                <div class="m-2">
+                    <div class="">
+                        <figure class="figure tag tag-featured mb-0">
+                            <img src="{{URL::to('storage/app')}}/{{isset($book) ? $book->cover_image : ''}}" alt="featured image" class="figure-img" height="225px">
+                        </figure>
+                        <div class="card-body border-0 p-0">
+                            <h6 class="card-title text-color mb-0" style="text-align: initial;">{{isset($book) ? $book->name : ''}}</h6>
+                            <p class="text-blue" style="text-align: initial; font-size:13px;">{{isset($category) ? $category->name : ''}}</p>
+                            <div class="d-flex justify-content-between">
+                                <span class="star-color"><i class="fas fa-star mr-1"></i>4.7</span>
+                                <div class="d-flex">
+                                    @php
+                                        if(isset($book)){
+                                            $saleper = ($book->price/100)*$sale->salePercent;
+                                            $saleprice = $book->price - $saleper;
+                                        }
+                                    @endphp
+                                    <span class="mr-2 text-dark">${{$saleprice}}</span>
+                                    <span class="text-dull"><s>${{$book->price}}</s></span>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <?php endfor;?>
+                    </div>
+                </div>
+
+
+            @endforeach
          </div>
       </div>
    </div>

@@ -37,29 +37,30 @@
                             <h4>On Boared Members</h4>
                         </div>
 
-                        <?php
-                        for ($i = 0; $i < 4; $i++):
-                        ?>
-                        <div class=" col-md-3 col-12 mb-3">
+                        @foreach ($memberBoard as $mem)
+                            <div class=" col-md-3 col-12 mb-3">
 
-                        <div class="card8 mt-5">
-                            <img src="{{URL::to('public/assests/img/author.jpeg')}}" alt="featured image" class="mb-1" style="width: 130px;">
+                                <div class="card8 mt-5">
+                                    <img src="{{URL::to('storage/app')}}/{{$mem->image}}" alt="featured image" class="mb-1">
 
-                        <div class="card-body border-0 p-0 text-center">
-                            <h6 class="card-title text-color">The Misadventure of.</h6>
-                            <p class="text-blue"  style="font-size:13px;">Chief Executive Officer</p>
-                            <div class="d-flex justify-content-center member-icn p-2">
-                                <a href=""><i class="fab fa-facebook mr-3 text-dark"></i></a>
-                                <a href=""><i class="fab fa-google-plus mr-3 text-dark"></i></a>
-                                <a href=""><i class="fab fa-twitter mr-3 text-dark"></i></a>
-
+                                    <div class="card-body border-0 p-0 text-center">
+                                        <h6 class="card-title text-color">{{$mem->name}}</h6>
+                                        <p class="text-blue"  style="font-size:13px;">{{$mem->designation}}</p>
+                                        <div class="d-flex justify-content-center member-icn p-2">
+                                            @php
+                                                $socialSites = explode('@',$mem->social_sites);
+                                                $socialLinks = explode('@',$mem->social_link);
+                                            @endphp
+                                            @for($i = 0; $i < count($socialSites); $i++ )
+                                                @php $site = App\Models\SocialMediaModel::find($socialSites[$i]); @endphp
+                                                <a href="{{$socialLinks[$i]}}"><i class="fa mr-3 text-dark">@php echo "&#x".$site->icon.";"; @endphp</i></a>
+                                            @endfor
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
-                        </div>
-                        </div>
-
-                    </div>
-                    <?php endfor;?>
+                        @endforeach
                     </div>
 
                 </div>

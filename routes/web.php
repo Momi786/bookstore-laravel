@@ -7,7 +7,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SystemSettingController;
-
+use App\Http\Controllers\BoardMemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ Route::get('/news',[HomeController::class, 'news']);
 Route::get('/page-not',[HomeController::class, 'pagenot']);
 Route::get('/shoping-cart',[HomeController::class, 'shopingcart']);
 Route::get('/single-blog',[HomeController::class, 'singleblog']);
-Route::get('/book-detail',[HomeController::class, 'bookdetail']);
+Route::get('/book-detail/{id}',[HomeController::class, 'bookdetail']);
 Route::get('/all-book',[HomeController::class, 'allbook']);
 Route::get('/login',[HomeController::class, 'login']);
 Route::post('/loginProcess',[HomeController::class, 'loginProcess']);
@@ -63,6 +63,15 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
         Route::get("/update/{id}",[Usercontroller::class,"Edit"]);
         Route::post("/update/{id}",[Usercontroller::class,"EditProcess"]);
     });
+    // board Member
+    Route::prefix('board-member')->group(function () {
+        Route::get("/",[BoardMemberController::class,"View"]);
+        Route::get("/add",[BoardMemberController::class,"Add"]);
+        Route::post("/add",[BoardMemberController::class,"AddProcess"]);
+        Route::get("/delete/{id}",[BoardMemberController::class,"Delete"]);
+        Route::get("/update/{id}",[BoardMemberController::class,"Edit"]);
+        Route::post("/update/{id}",[BoardMemberController::class,"EditProcess"]);
+    });
 
     // Client
     Route::prefix('client')->group(function () {
@@ -85,7 +94,7 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
         Route::get("/update/{id}",[BookController::class,"Edit"]);
         Route::post("/update/{id}",[BookController::class,"EditProcess"]);
         Route::post("/feature/{id}",[BookController::class,"FeatureProcess"]);
-
+        // book Category
         Route::prefix('category')->group(function () {
             Route::get("/",[BookController::class,"ViewCategory"]);
             Route::post("/",[BookController::class,"GetALLFeatureDeleteCategory"]);
@@ -94,6 +103,16 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
             Route::get("/delete/{id}",[BookController::class,"DeleteCategory"]);
             Route::get("/update/{id}",[BookController::class,"EditCategory"]);
             Route::post("/update/{id}",[BookController::class,"EditCategoryProcess"]);
+        });
+        // book Sale
+        Route::prefix('sale')->group(function () {
+            Route::get("/",[BookController::class,"ViewSale"]);
+            Route::post("/",[BookController::class,"GetALLFeatureDeleteSale"]);
+            Route::get("/add",[BookController::class,"AddSale"]);
+            Route::post("/add",[BookController::class,"AddSaleProcess"]);
+            Route::get("/delete/{id}",[BookController::class,"DeleteSale"]);
+            Route::get("/update/{id}",[BookController::class,"EditSale"]);
+            Route::post("/update/{id}",[BookController::class,"EditSaleProcess"]);
         });
     });
 
@@ -112,7 +131,7 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
     Route::prefix('news')->group(function () {
         Route::get("/",[NewsController::class,"ViewNews"]);
         Route::post("/",[NewsController::class,"GetALLFeatureDeleteNews"]);
-        Route::get("/add",[NewsController::class,"AddAuthor"]);
+        Route::get("/add",[NewsController::class,"AddNews"]);
         Route::post("/add",[NewsController::class,"AddNewsProcess"]);
         Route::get("/delete/{id}",[NewsController::class,"DeleteNews"]);
         Route::get("/update/{id}",[NewsController::class,"EditNews"]);
@@ -125,6 +144,16 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
         Route::prefix('home-page-content')->group(function () {
             Route::get("/",[SystemSettingController::class,"ViewPageContent"]);
             Route::post("/",[SystemSettingController::class,"ViewPageContentProcess"]);
+        });
+        // footer
+        Route::prefix('footer')->group(function () {
+            Route::get("/",[SystemSettingController::class,"ViewFooterContent"]);
+            Route::post("/",[SystemSettingController::class,"ViewFooterContentProcess"]);
+        });
+        // About
+        Route::prefix('about')->group(function () {
+            Route::get("/",[SystemSettingController::class,"ViewAboutContent"]);
+            Route::post("/",[SystemSettingController::class,"ViewAboutContentProcess"]);
         });
         // social-media
         Route::prefix('social-media')->group(function () {

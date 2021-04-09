@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\BookModel;
 use App\Models\BookCategoryModel;
 use App\Models\UserModel;
+use App\Models\SaleModel;
 
 class BookController extends Controller
 {
@@ -158,4 +159,59 @@ class BookController extends Controller
         return back();
     }
 
+    // Book Sale Functions
+
+    public function ViewSale(){
+        $totalSale = SaleModel::all();
+        return view('admin.book.sale.index',compact('totalSale'));
+    }
+    public function GetALLFeatureDeleteSale(Request $request){
+        for ($i = 0; $i < count($request->feature); $i++) {
+            $data = SaleModel::where('id',$request->feature[$i])->first();
+            if($request->submit == "delete"){
+                $data->delete();
+            }
+        }
+        return back();
+    }
+    public function AddSale(){
+        $totalBooks = BookModel::all();
+        return view('admin.book.sale.add',compact('totalBooks'));
+    }
+    public function AddSaleProcess(Request $request){
+        $data = $request->all();
+        $old = SaleModel::where('bookId',$request->bookId)->first();
+        if ($old) {
+            $danger = "This Book is already on Sale.";
+            $request->session()->put("danger",$danger);
+        }else{
+            $sale = new SaleModel;
+            $sale->fill($data);
+            $sale->save();
+            $success = "Your Data has Saved successfully.";
+            $request->session()->put("success",$success);
+        }
+        return back();
+    }
+    public function DeleteSale(Request $request,$id){
+        $data = SaleModel::find($id);
+        $data->delete();
+        $danger = "Your Data has been Delete successfully.";
+        $request->session()->put("danger",$danger);
+        return back();
+    }
+    public function EditSale(Request $request, $id){
+        $data = SaleModel::find($id);
+        $totalBooks = BookModel::all();
+        return view('admin.book.sale.edit',compact('data','totalBooks'));
+    }
+    public function EditSaleProcess(Request $request, $id){
+        $data = $request->all();
+        $sale = SaleModel::find($id);
+        $sale->fill($data);
+        $sale->save();
+        $success = "Your Data has been Updated successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
 }

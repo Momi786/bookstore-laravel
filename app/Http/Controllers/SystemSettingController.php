@@ -8,6 +8,7 @@ use App\Models\SocialMediaModel;
 use App\Models\MainMenuModel;
 use App\Models\MainSliderModel;
 use App\Models\PageContentModel;
+use App\Models\FooterContentModel;
 
 class SystemSettingController extends Controller
 {
@@ -162,17 +163,52 @@ class SystemSettingController extends Controller
         $request->session()->put("success",$success);
         return back();
     }
-    // page-content
 
+    // page-content
     public function ViewPageContent(){
         $data = PageContentModel::all();
         return view('admin.system_settings.homeContent',compact('data'));
     }
     public function ViewPageContentProcess(Request $request){
         $data = $request->all();
-        $Slider = PageContentModel::where('name',$request->name)->first();
-        $Slider->fill($data);
-        $Slider->save();
+        $home = PageContentModel::where('name',$request->name)->first();
+        $home->fill($data);
+        $home->save();
+        $success = "Your Data has Updated successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
+
+    // page-content
+    public function ViewFooterContent(){
+        $data = FooterContentModel::all();
+        return view('admin.system_settings.footer',compact('data'));
+    }
+    public function ViewFooterContentProcess(Request $request){
+        $data = $request->all();
+        if ($request->name == "GetInTouch") {
+            $data['social_media'] = implode('@',$request->social);
+            $data['social_link'] = implode('@',$request->link);
+        }
+        $footer = FooterContentModel::where('name',$request->name)->first();
+        $footer->fill($data);
+        $footer->save();
+        $success = "Your Data has Updated successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
+
+    // About
+    public function ViewAboutContent(){
+        $data = FooterContentModel::where('name','aboutUs')->first();
+        return view('admin.system_settings.about',compact('data'));
+    }
+    public function ViewAboutContentProcess(Request $request){
+        $data = $request->all();
+        $data['description'] = htmlentities($request->editor1);
+        $footer = FooterContentModel::where('name','aboutUs')->first();
+        $footer->fill($data);
+        $footer->save();
         $success = "Your Data has Updated successfully.";
         $request->session()->put("success",$success);
         return back();

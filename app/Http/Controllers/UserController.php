@@ -134,8 +134,6 @@ class UserController extends Controller
         $request->session()->put("success",$success);
         return back();
     }
-
-
     public function Delete(Request $request,$id){
         $data = UserModel::find($id);
         $data->delete();
@@ -151,7 +149,6 @@ class UserController extends Controller
         $memberInfo = UserInformationModel::where('userId',$id)->first();
         return view('admin.user.edit',compact('data','memberInfo','userTypes'));
     }
-
     public function EditProcess(Request $request,$id){
         $data = $request->all();
         $user = UserModel::find($id);

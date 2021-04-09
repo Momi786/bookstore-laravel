@@ -8,8 +8,8 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-white">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Book</li>
-                        <li class="breadcrumb-item active" aria-current="page">All Good News</li>
+                        <li class="breadcrumb-item" aria-current="page">Book</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{$BookDetail->name}}</li>
                     </ol>
                 </nav>
 
@@ -22,12 +22,12 @@
             <div class="row">
             <div class="col-md-3 col-sm-12 col-12">
                 <div class="book-detail-img">
-                    <img src="{{URL::to('public/assests/img/book.jpg')}}" class="" alt="" style="width:254px;">
+                    <img src="{{URL::to('storage/app')}}/{{$BookDetail->cover_image}}" class="" alt="" style="width:254px;">
                 </div>
             </div>
             <div class="col-md-9 col-sm-12 col-12">
                 <div>
-                    <h2 class="font-weight-800">All Good News</h2>
+                    <h2 class="font-weight-800">{{$BookDetail->name}}</h2>
                 </div>
                 <div class="d-flex justify-content-between">
                     <div class="d-flex mt-2">
@@ -59,12 +59,10 @@
 
                 </div>
                 <div>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque nihil ratione, rerum totam molestiae et veritatis magni earum soluta numquam illum nemo accusamus, ex eaque, harum fugit officiis quos ipsa?orem ipsum dolor sit amet consectetur adipisicing elit. Cumque nihil ratione, rerum totam molestiae et veritatis magni earum soluta numquam illum nemo accusamus, ex eaque, harum fugit officiis quos ipsa?
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque nihil ratione, rerum totam molestiae et veritatis magni earum soluta numquam illum nemo accusamus, ex eaque, harum fugit officiis quos ipsa?orem ipsum dolor sit amet consectetur adipisicing elit. Cumque nihil ratione, rerum totam molestiae et veritatis magni earum soluta numquam illum nemo accusamus, ex eaque, harum fugit officiis quos ipsa?
-                    </p>
+                   @php
+                       $description = html_entity_decode($BookDetail->detailDescription);
+                       echo $description;
+                   @endphp
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6 col-sm-12 col-12">
@@ -104,7 +102,7 @@
                 <div class="row top-border pt-4">
                     <div class="col-sm-12 col-md-6 col-12">
                         <div class="d-flex">
-                            <h1 class="mr-3">$15.63</h1>
+                            <h1 class="mr-3">{{$BookDetail->price}}</h1>
                             <p class="mt-2 mr-5"><s>$15.63</s></p>
                                 <div class="red mt-2">
                                     <span>2%</span>

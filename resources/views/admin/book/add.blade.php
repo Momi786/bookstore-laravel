@@ -23,7 +23,7 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                 <label for=""> Price</label>
-                <input type="text" name="price" class="form-control" required>
+                <input type="number" name="price" class="form-control" required>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-12">
                 <label for=""> Image</label>

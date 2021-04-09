@@ -28,7 +28,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <label for=""> Price</label>
-                <input type="text" name="price" value="{{$data->price}}" class="form-control" required>
+                <input type="number" name="price" value="{{$data->price}}" class="form-control" required>
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <img src="{{URL::to('storage/app')}}/{{$data->cover_image}}" alt="" class="mb-2" width="100px" height="100px">
