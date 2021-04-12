@@ -2,7 +2,7 @@
 @section("breadcrumb")
     <li class="breadcrumb-item"><a href="{{URL::to('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item" aria-current="page"><a href="{{URL::to('/admin/book')}}">Book</a></li>
-    <li class="breadcrumb-item" aria-current="page"><a href="{{URL::to('/admin/book/sale')}}">Sale</a></li>
+    <li class="breadcrumb-item" aria-current="page"><a href="{{URL::to('/admin/book/special')}}">Special Offer</a></li>
     <li class="breadcrumb-item active" aria-current="page">Add</li>
 @endsection
 @section("content")

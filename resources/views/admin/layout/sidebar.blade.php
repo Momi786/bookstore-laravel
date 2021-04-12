@@ -25,6 +25,12 @@
                 <li>
                     <a href="{{URL::to('admin/book/sale')}}">Book Sale</a>
                 </li>
+                <li>
+                    <a href="{{URL::to('admin/book/special')}}">Special Offer</a>
+                </li>
+                <li>
+                    <a href="{{URL::to('admin/book/flash')}}">Flash Sale</a>
+                </li>
             @endif
         </ul>
     </li>
@@ -66,6 +72,9 @@
                 <li>
                     <a href="{{URL::to('admin/system-settings/main-slider')}}">Main Slider</a>
                 </li>
+                {{-- <li>
+                    <a href="{{URL::to('admin/system-settings/testimonial')}}">Testimonial</a>
+                </li> --}}
                 <li>
                     <a href="{{URL::to('admin/system-settings/social-media')}}">Social Media</a>
                 </li>

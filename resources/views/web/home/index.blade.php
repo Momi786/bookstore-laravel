@@ -119,42 +119,34 @@
       <section class="mt-5">
          <div class="row">
             <div class="col-md-6">
-               <div class="bg-pink p-4">
-                  <h4>{{$HomeContent[4]->title}}</h4>
-                  <p>{{$HomeContent[4]->description}}</p>
-                  <div class="owl-carousel owl-theme owl5">
-            <?php
-               for ($i = 0; $i < 10; $i++):
-               ?>
-            <div class="item m-3">
-               <div class="card5">
-                  <img class="card-img-top" src="{{URL::to('public/assests/img/book.jpg')}}" alt="Card image cap">
-
-               </div>
-            </div>
-            <?php endfor;?>
-         </div>
-
-               </div>
+                <div class="bg-pink p-4">
+                    <h4>{{$HomeContent[4]->title}}</h4>
+                    <p>{{$HomeContent[4]->description}}</p>
+                    <div class="owl-carousel owl-theme owl5">
+                        @foreach ($recommdedAllBook as $recommdedAll)
+                            <div class="item m-3">
+                                <div class="card5">
+                                    <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$recommdedAll->cover_image}}" alt="Card image cap">
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
-               <div class="bg-blue p-4">
-                  <h4>{{$HomeContent[5]->title}}</h4>
-                  <p>{{$HomeContent[5]->description}} </p>
-                  <div class="owl-carousel owl-theme owl5">
-            <?php
-               for ($i = 0; $i < 10; $i++):
-               ?>
-            <div class="item m-3">
-               <div class="card5">
-                  <img class="card-img-top" src="{{URL::to('public/assests/img/book.jpg')}}" alt="Card image cap">
-
-               </div>
-            </div>
-            <?php endfor;?>
-         </div>
-
-               </div>
+                <div class="bg-blue p-4">
+                    <h4>{{$HomeContent[5]->title}}</h4>
+                    <p>{{$HomeContent[5]->description}} </p>
+                    <div class="owl-carousel owl-theme owl5">
+                        @foreach ($recommdedOnlyBook as $recommdedOnly)
+                            <div class="item m-3">
+                                <div class="card5">
+                                    <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$recommdedOnly->cover_image}}" alt="Card image cap">
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
          </div>
       </section>
@@ -165,34 +157,41 @@
          <h2 class="text-color">{{$HomeContent[6]->title}}</h2>
          <p>{{$HomeContent[6]->description}} </p>
          <div class="owl-carousel owl-theme owl1">
-            <?php
-               for ($i = 0; $i < 10; $i++):
-               ?>
-            <div class="item m-3">
-               <div class="card">
-                  <img class="card-img-top" src="{{URL::to('public/assests/img/book.jpg')}}" alt="Card image cap">
-                  <div class="card-body">
-                     <h5 class="card-title text-color" style="text-align: initial;">SECONDS</h5>
-                     <div class="text-left mb-3">
-                        <span class="badge badge-purple">Biography</span>
-                        <span class="badge badge-purple">THTILLER</span>
-                        <span class="badge badge-purple">HORROR</span>
-                     </div>
-                     <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                     <h6 style="text-align: initial;">David Here</h6>
-                     <div class="d-flex justify-content-between">
-                        <button class="btn btn-purple "><i class="fas fa-cart-plus mr-3 "></i>Add to Cart</button>
-                        <div class="d-flex">
-                           <span class="mr-2 font-weight-bolder">
-                              <h5>$20</h5>
-                           </span>
-                           <span class="text-dull"><s>$20</s></span>
+            @foreach ($SpecialOfferBooks as $special)
+                @php
+                    $OB = $special->GetBook();
+                    $category = $OB->GetCategory();
+                    $author = $OB->GetAuthor();
+                @endphp
+                <div class="item m-3">
+                    <div class="card">
+                        <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$OB->cover_image}}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title text-color" style="text-align: initial;">SECONDS</h5>
+                            <div class="text-left mb-3">
+                                <span class="badge badge-purple">{{$category->description}}</span>
+                                {{-- <span class="badge badge-purple">THTILLER</span>
+                                <span class="badge badge-purple">HORROR</span> --}}
+                            </div>
+                            <p class="card-text">{{$OB->description}}</p>
+                            <h6 style="text-align: initial;">{{$author->name}}</h6>
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-purple "><i class="fas fa-cart-plus mr-3 "></i>Add to Cart</button>
+                                <div class="d-flex">
+                                    @php
+                                        $saleper = ($OB->price/100)*$special->salePercent;
+                                        $saleprice = $OB->price - $saleper;
+                                    @endphp
+                                    <span class="mr-2 font-weight-bolder">
+                                        <h5>${{$saleprice}}</h5>
+                                    </span>
+                                    <span class="text-dull"><s>${{$OB->price}}</s></span>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <?php endfor;?>
+                    </div>
+                </div>
+            @endforeach
          </div>
       </div>
    </div>
@@ -206,45 +205,55 @@
       </h2>
       <p>{{$HomeContent[7]->description}} </p>
       <div id="countdown">
-         <ul class="mb-0">
+        <ul class="mb-0">
             <li>
-               <span id="days"></span>
-               <p>days</p>
+                <span id="days"></span>
+                <p>days</p>
             </li>
             <li>
-               <span id="hours"></span>
-               <p>Hours</p>
+                <span id="hours"></span>
+                <p>Hours</p>
             </li>
             <li>
-               <span id="minutes"></span>
-               <p>Minutes</p>
+                <span id="minutes"></span>
+                <p>Minutes</p>
             </li>
             <li>
-               <span id="seconds"></span>
-               <p>Seconds</p>
+                <span id="seconds"></span>
+                <p>Seconds</p>
             </li>
-         </ul>
+        </ul>
       </div>
       <div class="owl-carousel owl-theme owl2 mt-3">
-         <?php
-            for ($i = 0; $i < 10; $i++):
-            ?>
-         <div class="item m-3">
-            <div class="">
-               <img class="card-img-top" src="{{URL::to('public/assests/img/book.jpg')}}" alt="Card image cap">
-               <div class="card-body border-0">
-                  <h5 class="card-title text-color mb-0" >SECONDS</h5>
-                  <p class="text-blue">David Here</p>
-                  <div class="d-flex justify-content-center">
-                     <span class="mr-2 text-blue">
-                        <h5>$20</h5>
-                     </span>
-                     <span class="text-dull"><s>$20</s></span>
-                  </div>
-               </div>
+          @foreach ($FlashSaleBooks as $flashBook)
+            @php
+                $fB = $flashBook->GetBook();
+                $author = $fB->GetAuthor();
+            @endphp
+
+            <div class="item m-3">
+                <div class="">
+                    <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$fB->cover_image}}" alt="Card image cap">
+                    <div class="card-body border-0">
+                        <h5 class="card-title text-color mb-0" >{{$fB->name}}</h5>
+                        <p class="text-blue">{{isset($author) ? $author->name : ''}}</p>
+                        <div class="d-flex justify-content-center">
+
+                            @php
+                                if(isset($fB)){
+                                    $saleper = ($fB->price/100)*$flashBook->salePercent;
+                                    $saleprice = $fB->price - $saleper;
+                                }
+                            @endphp
+                            <span class="mr-2 text-blue">
+                                <h5>${{$saleprice}}</h5>
+                            </span>
+                            <span class="text-dull"><s>${{$fB->price}}</s></span>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-         <?php endfor;?>
+         @endforeach
       </div>
    </div>
 </section>
@@ -268,7 +277,7 @@
                             <h6 class="card-title text-color mb-0" style="text-align: initial;">{{isset($book) ? $book->name : ''}}</h6>
                             <p class="text-blue" style="text-align: initial; font-size:13px;">{{isset($category) ? $category->name : ''}}</p>
                             <div class="d-flex justify-content-between">
-                                <span class="star-color"><i class="fas fa-star mr-1"></i>4.7</span>
+                                <span class="star-color  "><i class="fas fa-star mr-1"></i>4.7</span>
                                 <div class="d-flex">
                                     @php
                                         if(isset($book)){
@@ -291,68 +300,81 @@
    </div>
 </section>
 <!-- featured Background -->
+@if (count($featuredBook) > 0)
+
 <section class="mt-5 featured-back">
    <div class="row">
       <div class="col-md-12">
          <div class="row pt-3 pb-3">
             <div class="col-md-6">
-               <div class="p-100">
-                  <h5>{{$HomeContent[8]->title}}</h5>
-                  <p>{{$HomeContent[8]->description}} </p>
-               </div>
-               <div class="box-white">
-                  <div class="row">
-                     <div class="col-md-5">
-                  <img src="{{URL::to('public/assests/img/book.jpg')}}" class="imh-fluid m-3" alt="" style="width: 204px; height: 291px;border-radius:13px;">
+                <div class="p-100">
+                    <h5>{{$HomeContent[8]->title}}</h5>
+                    <p>{{$HomeContent[8]->description}} </p>
+                </div>
+                <div class="box-white">
+                    <div class="tab-content">
+                        @for ($i = 0; $i < count($featuredBook); $i++)
+                            @php
+                                $category = $featuredBook[$i]->GetCategory();
+                                $author = $featuredBook[$i]->GetAuthor();
+                            @endphp
+                            <div class="tab-pane {{$i == 0 ? 'active' : ''}}" id="tabs-{{$i}}" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <img src="{{URL::to('storage/app')}}/{{$featuredBook[$i]->cover_image}}" class="imh-fluid m-3" alt="" style="width: 204px; height: 291px;border-radius:13px;">
 
-                  </div>
-                     <div class="col-md-7">
-                     <div class="media p-2">
-                        <i class="far fa-bookmark i-color1 mr-2 bg-none"></i>
-                        <div class="media-body">
-                           <p class="mb-0 text-color">
-                              <strong>Battle Drive</strong>
-                           </p>
-                           <p class="p-color">Lorem ipsum.</p>
-                        </div>
-                     </div>
-                     <div class="card4">
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="media p-2">
+                                            <i class="far fa-bookmark i-color1 mr-2 bg-none"></i>
+                                            <div class="media-body">
+                                                <p class="mb-0 text-color">
+                                                    <strong>{{$featuredBook[$i]->name}}</strong>
+                                                </p>
+                                                <p class="p-color">{{$category->name}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="card4">
 
-                  <div class="card-body border-0">
-                     <h5 class="card-title text-color" style="text-align: initial;">SECONDS</h5>
+                                            <div class="card-body border-0">
+                                                {{-- <h5 class="card-title text-color" style="text-align: initial;">SECONDS</h5> --}}
 
-                     <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                     <h6 style="text-align: initial;">David Here</h6>
-                     <div class="d-flex justify-content-between">
-                        <button class="btn btn-purple "><i class="fas fa-cart-plus mr-3 "></i>Add to Cart</button>
-                        <div class="d-flex">
-                           <span class="mr-2 font-weight-bolder">
-                              <h5>$20</h5>
-                           </span>
-                           <span class="text-dull"><s>$20</s></span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-                     </div>
-                  </div>
-               </div>
+                                                <p class="card-text">@php echo $featuredBook[$i]->description @endphp</p>
+                                                <h6 style="text-align: initial;">{{$author->name}}</h6>
+                                                <div class="d-flex justify-content-between">
+                                                    <button class="btn btn-purple "><i class="fas fa-cart-plus mr-3 "></i>Add to Cart</button>
+                                                    <div class="d-flex">
+                                                    <span class="mr-2 font-weight-bolder">
+                                                        <h5>${{$featuredBook[$i]->price}}</h5>
+                                                    </span>
+                                                    {{-- <span class="text-dull"><s>$20</s></span> --}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endfor
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
-               <div class="row p-3">
+               <ul class="row p-3 nav nav-tabs" role="tablist">
                   <?php
-                     for ($i = 0; $i < 6; $i++):
+                     for ($i = 0; $i < count($featuredBook); $i++):
                      ?>
-                  <div class="col-md-4 col-sm-6 col-6">
-                     <img src="{{URL::to('public/assests/img/book.jpg')}}" class="imh-fluid p-2" alt="" style="width: 130px; height: 225px;border-radius:13px">
-                  </div>
+                  <li class="col-md-4 col-sm-6 col-6 nav-item">
+                    <a class="nav-link {{$i==0 ? 'active' : ''}}" data-toggle="tab" href="#tabs-{{$i}}" role="tab"><img src="{{URL::to('storage/app')}}/{{$featuredBook[$i]->cover_image}}" class="imh-fluid p-2" alt="" style="width: 130px; height: 225px;border-radius:13px"></a>
+                  </li>
                   <?php endfor;?>
-               </div>
+                </ul>
             </div>
          </div>
       </div>
    </div>
 </section>
+@endif
 <!-- testimonial Section -->
 <section>
    <div class="testimonials-clean">
@@ -403,29 +425,36 @@
             </p>
          </div>
       </div>
-      <?php
-         for ($i = 0; $i < 4; $i++):
-         ?>
-      <div class="col-md-3 mt-5">
-         <div class="card1">
-            <img class="card-img-top" src="{{URL::to('public/assests/img/book.jpg')}}" alt="Card image cap">
-            <div class="card-body1 mt-4">
-               <h5 class="card-title text-color" style="text-align: initial;font-size: 13px;
-                  font-weight: 700;">Why Reading IS Important For Our Children?</h5>
-               <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-               <div class="media">
-                  <img class="rounded-circle" src="https://i.imgur.com/At1IG6H.png">
-                  <div class="media-body">
-                     <p class="mb-0 text-color">
-                        <strong>Author</strong>
-                     </p>
-                     <p class="p-color">@ Days Ago</p>
-                  </div>
-               </div>
+      @foreach ($allNews as $news)
+        @php
+            $author = $news->GetAuthor();
+        @endphp
+        <div class="col-md-3 mt-5">
+            <div class="card1">
+                <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$news->newsImg}}" alt="Card image cap">
+                <div class="card-body1 mt-4">
+                    <h5 class="card-title text-color" style="text-align: initial;font-size: 13px;
+                        font-weight: 700;">{{$news->newsTitle}}</h5>
+                    <p class="card-text">{{$news->shotDes}}</p>
+                    <div class="media">
+                        <img class="rounded-circle" src="{{URL::to('storage/app')}}/{{$author->image}}">
+                        <div class="media-body">
+                            <p class="mb-0 text-color">
+                                <strong>{{$author->name}}</strong>
+                            </p>
+                            @php
+                                $timeDate1 = strtotime(date("Y-m-d H:i:s"));
+                                $timeDate2 = strtotime($news->created_at->format("Y-m-d H:i:s"));
+                                $minsDate = ($timeDate1 - $timeDate2) / 60/60/24;
+                                $minsDate = intval($minsDate);
+                            @endphp
+                            <p class="p-color">{{$minsDate}} Days Ago</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <?php endfor;?>
+        </div>
+      @endforeach
    </div>
 </section>
 <!-- happy customeer section -->

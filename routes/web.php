@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SystemSettingController;
 use App\Http\Controllers\BoardMemberController;
+use App\Http\Controllers\SpecialFlashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,7 @@ Route::get('/faq',[HomeController::class, 'faq']);
 Route::get('/news',[HomeController::class, 'news']);
 Route::get('/page-not',[HomeController::class, 'pagenot']);
 Route::get('/shoping-cart',[HomeController::class, 'shopingcart']);
-Route::get('/single-blog',[HomeController::class, 'singleblog']);
+Route::get('/single-blog/{id}',[HomeController::class, 'singleblog']);
 Route::get('/book-detail/{id}',[HomeController::class, 'bookdetail']);
 Route::get('/all-book',[HomeController::class, 'allbook']);
 Route::get('/login',[HomeController::class, 'login']);
@@ -114,6 +115,26 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
             Route::get("/update/{id}",[BookController::class,"EditSale"]);
             Route::post("/update/{id}",[BookController::class,"EditSaleProcess"]);
         });
+        // book Flash Sale
+        Route::prefix('flash')->group(function () {
+            Route::get("/",[SpecialFlashController::class,"ViewFlash"]);
+            Route::post("/",[SpecialFlashController::class,"GetALLFeatureDeleteFlash"]);
+            Route::get("/add",[SpecialFlashController::class,"AddFlash"]);
+            Route::post("/add",[SpecialFlashController::class,"AddFlashProcess"]);
+            Route::get("/delete/{id}",[SpecialFlashController::class,"DeleteFlash"]);
+            Route::get("/update/{id}",[SpecialFlashController::class,"EditFlash"]);
+            Route::post("/update/{id}",[SpecialFlashController::class,"EditFlashProcess"]);
+        });
+        // book Special Sale
+        Route::prefix('special')->group(function () {
+            Route::get("/",[SpecialFlashController::class,"ViewSpecial"]);
+            Route::post("/",[SpecialFlashController::class,"GetALLFeatureDeleteSpecial"]);
+            Route::get("/add",[SpecialFlashController::class,"AddSpecial"]);
+            Route::post("/add",[SpecialFlashController::class,"AddSpecialProcess"]);
+            Route::get("/delete/{id}",[SpecialFlashController::class,"DeleteSpecial"]);
+            Route::get("/update/{id}",[SpecialFlashController::class,"EditSpecial"]);
+            Route::post("/update/{id}",[SpecialFlashController::class,"EditSpecialProcess"]);
+        });
     });
 
     // Author
@@ -154,6 +175,16 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
         Route::prefix('about')->group(function () {
             Route::get("/",[SystemSettingController::class,"ViewAboutContent"]);
             Route::post("/",[SystemSettingController::class,"ViewAboutContentProcess"]);
+        });
+        // testimonial
+        Route::prefix('testimonial')->group(function () {
+            Route::get("/",[SystemSettingController::class,"ViewTestimonial"]);
+            Route::post("/",[SystemSettingController::class,"GetALLFeatureDeleteTestimonial"]);
+            Route::get("/add",[SystemSettingController::class,"AddTestimonial"]);
+            Route::post("/add",[SystemSettingController::class,"AddTestimonialProcess"]);
+            Route::get("/delete/{id}",[SystemSettingController::class,"DeleteTestimonial"]);
+            Route::get("/update/{id}",[SystemSettingController::class,"EditTestimonial"]);
+            Route::post("/update/{id}",[SystemSettingController::class,"EditTestimonialProcess"]);
         });
         // social-media
         Route::prefix('social-media')->group(function () {

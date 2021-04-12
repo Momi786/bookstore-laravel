@@ -1,44 +1,60 @@
 
 @include ('web/include/header')
 
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
             <div ng-app='angularDemo' ng-cloak>
                 <div class="mainPage" ng-controller="angularController as ctrl">
                   <div class="sidebar" layout-padding>
                     <div class="parent-container">
+                      <div class="row">
+                        <div class="col-md-12">
+                        <h3>Filter Option</h3>
+                        </div>
+                      </div>
                         <ul class="faq">
-                            <div ng-repeat="filter in Filters">
+                            <div ng-repeat="filter in Filters" ng-style="myObj">
                           <li>
-
-                            <h3 class="sort"><%filter.name%>
-                                <div class="plus-minus-toggle collapsed"></div>
-                            </h3>
-                            <div class="answer">
-                                <ul class="sortoptions">
-                                    <li ng-repeat="option in filter.options">
-                                      <input type="checkbox" ng-model="option.IsIncluded" ng-checked="option.IsIncluded"> <%option.value%>
-                                      <span>(<%option.count%>)</span>
-                                    </li>
-                                  </ul>
+                            <div class="sort1">
+                                <h3 class="sort plus-minus-toggle1 collapsed">
+                                    <a href="#" class="pl-3"><%filter.name%>  </a>
+                                </h3>
+                                <h6 class="sort plus-minus-toggle collapsed" ng-click="myVar = !myVar">
+                                    <a href="#" class="pl-4"><%filter.name%>  </a>
+                                </h6>
+                                <div class="answer" ng-show="myVar" >
+                                    <ul class="sortoptions pl-3">
+                                        <li ng-repeat="option in filter.options">
+                                          <input type="checkbox" ng-model="option.IsIncluded" ng-checked="option.IsIncluded"> <%option.value%>
+                                          <span>(<%option.count%>)</span>
+                                        </li>
+                                      </ul>
+                                </div>
                             </div>
 
                           </li>
- </div>
+                        </div>
 
 
 
                         </ul>
                       </div>
 
-                    <button ng-click="ctrl.toggleAll($event, false)">Uncheck All</button>
+                    <button ng-click="ctrl.toggleAll($event, false)" class="btn btn-primary">Uncheck All</button>
                     <br/>
-                    <button ng-click="ctrl.toggleAll($event, true)">Check All</button>
+                    <button ng-click="ctrl.toggleAll($event, true)" class="btn btn-primary mt-2">Check All</button>
                  </div>
                   <div class="window_panel">
+
                     <div ng-repeat="product in warehouse | dynamicFilter:Filters:this" class="product">
+                        <img src="<%product.image%>" alt="" width="150px"><br>
                         <%product.name%>
+                        <p>
+                            @for ($i=0;$i < 5; $i++)
+                                <i class="fa fa-star <% {{$i}} < product.rating ? 'text-warning' : '' %>"></i>
+                            @endfor
+                        </p>
                     </div>
                   </div>
                 </div>
@@ -56,11 +72,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
 <style>
-    .mainPage{
+   .mainPage{
   display: flex;
 }
 .sidebar{
-  width:25%
+  width:23%
 }
 .window_panel{
   width:75%;
@@ -70,106 +86,80 @@
   height:100%;
 }
 .product{
-  padding:35px;
-  margin:20px;
-  border:1px solid black;
+  padding:13px;
+  margin:5px;
+  border:1px solid #f7f7f7;
   border-radius:5px;
 }
 li{
   list-style:none;
 }
+.sort a{
+    text-decoration: none;
+}
 li span{
-    display: inline!important;
-    font-size: 13px;
+    display: inline;
+    font-size: 12px;
 }
-@import "compass";
- .parent-container {
-	 padding: 0 20px 0 20px;
-	 max-width: 800px;
-	 width: 100%;
-}
- .faq {
-	 list-style: none;
-	 padding-left: 40px;
-	 padding-right: 20px;
-}
- .faq li {
-	 border-bottom: 1px solid #999;
-	 margin-bottom: 15px;
-}
- .faq li.active .answer {
-	 max-height: 275px !important;
-	 padding-bottom: 25px;
-	 transition: max-height 0.5s ease, padding-bottom 0.5s ease;
-}
- .faq li.active .question {
-	 color: #808080;
-	 transition: color 0.5s ease;
-}
- .faq .answer {
-	 color: #090909;
-	 font-family: serif;
-	 font-size: 16px;
-	 line-height: 24px;
-	 max-height: 0;
-	 overflow: hidden;
-	 transition: max-height 0.5s ease, padding-bottom 0.5s ease;
-}
- .faq .plus-minus-toggle {
+
+.plus-minus-toggle {
 	 cursor: pointer;
 	 height: 21px;
-	 position: absolute;
+	 position: relative;
 	 width: 21px;
-	 left: -40px;
-	 top: 50%;
-	 z-index: 2;
 }
- .faq .plus-minus-toggle:before, .faq .plus-minus-toggle:after {
+ .plus-minus-toggle:before, .plus-minus-toggle:after {
 	 background: #000;
 	 content: '';
 	 height: 5px;
 	 left: 0;
 	 position: absolute;
-	 top: 0;
-	 width: 21px;
+	 top: 9px;
+	 width: 13px;
 	 transition: transform 500ms ease;
 }
- .faq .plus-minus-toggle:after {
+ .plus-minus-toggle:after {
 	 transform-origin: center;
 }
- .faq .plus-minus-toggle.collapsed:after {
+ .plus-minus-toggle.collapsed:after {
 	 transform: rotate(90deg);
 }
- .faq .plus-minus-toggle.collapsed:before {
+ .plus-minus-toggle.collapsed:before {
 	 transform: rotate(180deg);
 }
- .faq .question {
-	 color: #090909;
-	 font-family: sans-serif;
-	 font-size: 20px;
-	 font-weight: 800;
-	 text-transform: uppercase;
-	 position: relative;
-	 cursor: pointer;
-	 padding: 20px 0;
-	 transition: color 0.5s ease;
+
+.sort1{
+    border: 1px solid #f7f7f7;
+    border-radius: 9px;
+    padding: 10px;
+    margin-bottom:15px;
 }
- @media screen and ("max-width:767px") {
-	 .faq .question {
-		 font-size: 18px;
-	}
+.product img{
+    border-radius: 12px;
 }
-
-
-
 </style>
 
 <script>
+
+$(function() {
+  $('.plus-minus-toggle').on('click', function() {
+    $(this).toggleClass('collapsed');
+  });
+});
+
+
+//     var app = angular.module("myApp", []);
+// app.controller("angularController", function($scope) {
+
+// });
+
+
     // Toggle Collapse
 $('.faq li .question').click(function () {
   $(this).find('.plus-minus-toggle').toggleClass('collapsed');
   $(this).parent().toggleClass('active');
 });
+
 
 
     (function(){
@@ -189,7 +179,16 @@ $interpolateProvider.endSymbol("%>");
 
     var products = ProductDataService.getSampleData();
     $scope.warehouse = products; //use $scope to expose to the view
-
+    $scope.myObj = {
+    // "color" : "white",
+    // "background-color" : "coral",
+    // "font-size" : "20px",
+    // "padding" : "10px"
+    // "border": "1px solid black",
+    // "border-radius": "9px",
+    // "padding": "10px",
+    // "margin-bottom":"15px"
+  }
     //create checkbox filters on the fly with dynamic data
     var filters = [];
     _.each(products, function(product) {
@@ -254,6 +253,8 @@ $interpolateProvider.endSymbol("%>");
     var products = [
       {
         name: 'IT',
+        image: "{{URL::to('public/assests/img/book.jpg')}}",
+        rating: 3,
         properties: [
           { name:'type', value:'books' }, { name:'color', value:'red' },
           { name:'size', value:'medium' },
@@ -261,6 +262,8 @@ $interpolateProvider.endSymbol("%>");
         ]
       },{
         name: 'ECE',
+        image: "{{URL::to('public/assests/img/book.jpg')}}",
+        rating: 4,
         properties: [
           { name:'type', value:'books' }, { name:'color', value:'orange'},
           { name:'size', value:'medium' },
@@ -268,6 +271,8 @@ $interpolateProvider.endSymbol("%>");
         ]
       },{
         name: 'mobile1',
+        image: "{{URL::to('public/assests/img/book.jpg')}}",
+        rating: 4,
         properties: [
           { name:'type', value:'mobile' }, { name:'color', value:'orange'},
           { name:'size', value:'medium' },
@@ -275,6 +280,8 @@ $interpolateProvider.endSymbol("%>");
         ]
       },{
         name: 'MECH',
+        image: "{{URL::to('public/assests/img/book.jpg')}}",
+        rating: 4,
         properties: [
           { name:'type', value:'books' }, { name:'color', value:'yellow' },
           { name:'size', value:'large' },
@@ -282,6 +289,8 @@ $interpolateProvider.endSymbol("%>");
         ]
       },{
         name: 'CS',
+        image: "{{URL::to('public/assests/img/book.jpg')}}",
+        rating: 4,
         properties: [
           { name:'type', value:'books' }, { name:'color', value:'yellow' },
           { name:'size', value:'small' },
@@ -289,6 +298,8 @@ $interpolateProvider.endSymbol("%>");
         ]
       },{
         name: 'limeread',
+        image: "{{URL::to('public/assests/img/book.jpg')}}",
+        rating: 4,
         properties: [
           { name:'type', value:'books' }, { name: 'color', value: 'green' },
           { name:'size', value:'small' },
@@ -296,6 +307,8 @@ $interpolateProvider.endSymbol("%>");
         ]
       },{
         name:'mobile2',
+        image: "{{URL::to('public/assests/img/book.jpg')}}",
+        rating: 4,
         properties: [
           { name:'type', value:'mobile' }, { name:'color', value:'red' },
           { name:'size', value:'medium' },

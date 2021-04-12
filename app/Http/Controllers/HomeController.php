@@ -13,17 +13,24 @@ use App\Models\BookModel;
 use App\Models\NewsModel;
 use App\Models\BoardMemberModel;
 use App\Models\SaleModel;
+use App\Models\SpecialOfferModel;
+use App\Models\FlashSaleModel;
 use Hash;
 
 class HomeController extends Controller
 {
-
     // home page
     public function home(){
         $HomeContent = PageContentModel::all();
         $MainSlider = MainSliderModel::all();
-        $AllSale = SaleModel::all();
-        return view('web.home.index',compact('HomeContent','MainSlider','AllSale'));
+        $AllSale = SaleModel::orderBy('id','desc')->get();
+        $featuredBook = BookModel::orderBy('id','desc')->where('feature',1)->take(6)->get();
+        $recommdedAllBook = BookModel::orderBy('id','desc')->where('recommded_all',1)->get();
+        $recommdedOnlyBook = BookModel::orderBy('id','desc')->where('recommded_only',1)->get();
+        $SpecialOfferBooks = SpecialOfferModel::orderBy('id','desc')->get();
+        $FlashSaleBooks = FlashSaleModel::orderBy('id','desc')->get();
+        $allNews = NewsModel::orderBy('id','desc')->take(4)->get();
+        return view('web.home.index',compact('HomeContent','MainSlider','AllSale','featuredBook','recommdedAllBook','recommdedOnlyBook','FlashSaleBooks','SpecialOfferBooks','allNews'));
     }
 
     // Registration page
@@ -116,7 +123,7 @@ class HomeController extends Controller
         return view('web.news.index',compact('totalNews'));
     }
 
-    // PAge not foundapge
+    // Page not foundapge
     public function pagenot(){
         return view('web.page-not.index');
     }
@@ -127,8 +134,11 @@ class HomeController extends Controller
     }
 
     // single blog foundapge
-    public function singleblog(){
-        return view('web.single-blog.index');
+    public function singleblog(Request $request,$id){
+        $news = NewsModel::find($id);
+        $author = UserInformationModel::where('userId',$news->authorId)->first();
+        $OtherNews = NewsModel::inRandomOrder()->where('id','!=',$id)->limit(3)->get();
+        return view('web.single-blog.index',compact('news','author','OtherNews'));
     }
 
      //  Book detail foundapge

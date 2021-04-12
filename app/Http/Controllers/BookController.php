@@ -23,14 +23,22 @@ class BookController extends Controller
     }
 
     public function GetALLFeatureDelete(Request $request){
-        for ($i = 0; $i < count($request->feature); $i++) {
-            $data = BookModel::where('id',$request->feature[$i])->first();
-            if($request->submit == "delete"){
-                $data->delete();
-            }else{
-                $data->feature = 1;
-                $data->save();
+        if (isset($request->feature)) {
+            for ($i = 0; $i < count($request->feature); $i++) {
+                $data = BookModel::where('id',$request->feature[$i])->first();
+                if($request->submit == "delete"){
+                    $data->delete();
+                }elseif($request->submit == "feature"){
+                    $data->feature = 1;
+                    $data->save();
+                }elseif($request->submit == "unfeature"){
+                    $data->feature = 0;
+                    $data->save();
+                }
             }
+        }else{
+            $danger = "Your did not select any row.";
+            $request->session()->put("danger",$danger);
         }
         return back();
     }
@@ -53,7 +61,6 @@ class BookController extends Controller
         $data["editor1"] = htmlentities($data["editor1"]);
         $data["detailDescription"] = $data["editor1"];
         unset($data["editor1"]);
-
         $Book = new BookModel;
         $Book->fill($data);
         $Book->save();
@@ -81,6 +88,12 @@ class BookController extends Controller
         if ($request->file("cover_image") != null) {
             $path = $request->file("cover_image")->store("Book_Images");
             $data["cover_image"] = $path;
+        }
+        if (!isset($request->recommded_all)) {
+            $data["recommded_all"] = 0;
+        }
+        if (!isset($request->recommded_only)) {
+            $data["recommded_only"] = 0;
         }
         $value = $request->session()->get('onlineuser');
         if($value['usertype'] == 2){
@@ -202,8 +215,8 @@ class BookController extends Controller
     }
     public function EditSale(Request $request, $id){
         $data = SaleModel::find($id);
-        $totalBooks = BookModel::all();
-        return view('admin.book.sale.edit',compact('data','totalBooks'));
+        $selectedBook = BookModel::find($data->bookId);
+        return view('admin.book.sale.edit',compact('data','selectedBook'));
     }
     public function EditSaleProcess(Request $request, $id){
         $data = $request->all();

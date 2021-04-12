@@ -2,7 +2,7 @@
 @section("breadcrumb")
     <li class="breadcrumb-item"><a href="{{URL::to('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item" aria-current="page"><a href="{{URL::to('/admin/book')}}">Book</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Sale</li>
+    <li class="breadcrumb-item active" aria-current="page">Special Offer</li>
 @endsection
 @section("content")
 <form action="" method="post">
@@ -20,8 +20,8 @@
                 @php Session::pull('success'); @endphp
             @endif
             <div class="d-flex justify-content-between">
-                <h4>All Sale Books</h4>
-                <a href="{{URL::to('admin/book/sale/add')}}" class="btn btn-primary btn-sm">Add New</a>
+                <h4>All Special Offer Books</h4>
+                <a href="{{URL::to('admin/book/special/add')}}" class="btn btn-primary btn-sm">Add New</a>
             </div><br>
             <p class="text-right">
                 <button type="submit" name="submit" value="delete" class="btn btn-icon btn-rounded text-danger mb-2 p-2"><i class="fa fa-trash"></i></button>
@@ -31,7 +31,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Name</th>
-                        <th>Sale Percentage</th>
+                        <th>Special Offer Percentage</th>
                         <th>Opertions</th>
                     </tr>
                 </thead>
@@ -48,8 +48,8 @@
                             <td>{{isset($book) ? $book->name : ''}}</td>
                             <td>{{$data->salePercent}}%</td>
                             <td>
-                                <a href="{{URL::to('admin/book/sale/update')}}/{{$data->id}}" class="btn btn-primary btn-sm">Update</a>
-                                <a href="{{URL::to('admin/book/sale/delete')}}/{{$data->id}}" class="btn btn-danger btn-sm deleteAlert">Delete</a>
+                                <a href="{{URL::to('admin/book/special/update')}}/{{$data->id}}" class="btn btn-primary btn-sm">Update</a>
+                                <a href="{{URL::to('admin/book/special/delete')}}/{{$data->id}}" class="btn btn-danger btn-sm deleteAlert">Delete</a>
                             </td>
                         </tr>
                     @endforeach

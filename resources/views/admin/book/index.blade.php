@@ -31,6 +31,7 @@
             </div><br>
                 <p class="text-right">
                     <button type="submit" name="submit" value="feature" class="btn btn-icon btn-rounded text-success mb-2 p-2"><i class="fa fa-certificate"></i></button>
+                    <button type="submit" name="submit" value="unfeature" class="btn btn-icon btn-rounded text-danger mb-2 p-2"><i class="fa fa-certificate"></i></button>
                     <button type="submit" name="submit" value="delete" class="btn btn-icon btn-rounded text-danger mb-2 p-2"><i class="fa fa-trash"></i></button>
                 </p>
             <table id="myTable" class="table table-striped dt-responsive table-bordered border-collapse" style="width:100%">

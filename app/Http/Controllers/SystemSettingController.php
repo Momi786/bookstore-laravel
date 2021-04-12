@@ -12,6 +12,53 @@ use App\Models\FooterContentModel;
 
 class SystemSettingController extends Controller
 {
+    // Testimonial Functions
+
+    public function ViewTestimonial(){
+        $totalSocial = SocialMediaModel::all();
+        return view('admin.system_settings.Testimonial.index',compact('totalSocial'));
+    }
+    public function GetALLFeatureDeleteTestimonial(Request $request){
+        for ($i = 0; $i < count($request->feature); $i++) {
+            $data = SocialMediaModel::where('id',$request->feature[$i])->first();
+            if($request->submit == "delete"){
+                $data->delete();
+            }
+        }
+        return back();
+    }
+    public function AddTestimonial(){
+        return view('admin.system_settings.Testimonial.add');
+    }
+    public function AddTestimonialProcess(Request $request){
+        $data = $request->all();
+        $Social = new SocialMediaModel;
+        $Social->fill($data);
+        $Social->save();
+        $success = "Your Data has Saved successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
+    public function DeleteTestimonial(Request $request,$id){
+        $data = SocialMediaModel::find($id);
+        $data->delete();
+        $danger = "Your Data has been Delete successfully.";
+        $request->session()->put("danger",$danger);
+        return back();
+    }
+    public function EditTestimonial(Request $request, $id){
+        $data = SocialMediaModel::find($id);
+        return view('admin.system_settings.Testimonial.edit',compact('data'));
+    }
+    public function EditTestimonialProcess(Request $request, $id){
+        $data = $request->all();
+        $Social = SocialMediaModel::find($id);
+        $Social->fill($data);
+        $Social->save();
+        $success = "Your Data has been Updated successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
     // Social Media Functions
 
     public function ViewSocial(){

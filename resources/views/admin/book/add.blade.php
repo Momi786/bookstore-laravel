@@ -68,8 +68,15 @@
                 <label for=""> Detail Description</label>
                 <textarea name="editor1" class="form-control"></textarea>
             </div>
-        </div>
-        <br/>
+        </div><br>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <label for=""> Recommded For You All</label>
+                <input  type="checkbox" class="mr-3" name="recommded_all" value="1" style="height: 11px;">
+                <label for=""> Recommded For You Only</label>
+                <input  type="checkbox" name="recommded_only" value="1" style="height: 11px;">
+            </div>
+        </div><br/>
 
         <input type="submit" class="btn btn-primary" value="Save">
     </form>
