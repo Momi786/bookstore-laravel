@@ -31,7 +31,7 @@ class SpecialFlashController extends Controller
         return back();
     }
     public function AddSpecial(){
-        $totalBooks = BookModel::all();
+        $totalBooks = BookModel::where('pending',0)->get();
         return view('admin.book.special.add',compact('totalBooks'));
     }
     public function AddSpecialProcess(Request $request){
@@ -91,7 +91,7 @@ class SpecialFlashController extends Controller
         return back();
     }
     public function AddFlash(){
-        $totalBooks = BookModel::all();
+        $totalBooks = BookModel::where('pending',0)->get();;
         return view('admin.book.flash.add',compact('totalBooks'));
     }
     public function AddFlashProcess(Request $request){

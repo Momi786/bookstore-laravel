@@ -35,9 +35,10 @@
                         <tr>
                             <th>Id</th>
                             <th>Title</th>
-                            @if($value['usertype'] != 4)
+                            @if($value['usertype'] != 2)
                                 <th>Author</th>
                             @endif
+                            <th>Status</th>
                             <th>Opertions</th>
                         </tr>
                     </thead>
@@ -52,9 +53,20 @@
                                     {{$data->id}}
                                 </td>
                                 <td>{{$data->newsTitle}}</td>
-                                @if ($value['usertype'] != 4)
+                                @if ($value['usertype'] != 2)
                                     <td>{{isset($Author) ? $Author->name : ''}}</td>
                                 @endif
+                                <td>
+                                    @if ($data->pending == 1)
+                                        @if ($value['usertype'] != 2)
+                                            <a href="{{URL::to('admin/news/allow')}}/{{$data->id}}" class="btn btn-warning btn-sm">Allow</a>
+                                        @else
+                                            <p class="text-warning">Pending</p>
+                                        @endif
+                                    @else
+                                        <p class="text-success">Active</p>
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{URL::to('admin/news/update')}}/{{$data->id}}" class="btn btn-primary btn-sm">Update</a>
                                     <a href="{{URL::to('admin/news/delete')}}/{{$data->id}}" class="btn btn-danger btn-sm deleteAlert">Delete</a>

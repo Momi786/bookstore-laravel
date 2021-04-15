@@ -11,7 +11,6 @@
                         <h1>Nice to Meet You</h1>
                     </div>
                 </div>
-
                 <div class="col-md-6 col-sm-12 col-12 mt-5">
                     <p class="p-color">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae maiores numquam, sapiente officia magnam. Iure culpa sapiente enim iste quia saepe voluptatibus aspernatur quam. Expedita corrupti non eius ab?
@@ -36,13 +35,10 @@
                         <div class="col-md-12">
                             <h4>On Boared Members</h4>
                         </div>
-
                         @foreach ($memberBoard as $mem)
                             <div class=" col-md-3 col-12 mb-3">
-
                                 <div class="card8 mt-5">
                                     <img src="{{URL::to('storage/app')}}/{{$mem->image}}" alt="featured image" class="mb-1">
-
                                     <div class="card-body border-0 p-0 text-center">
                                         <h6 class="card-title text-color">{{$mem->name}}</h6>
                                         <p class="text-blue"  style="font-size:13px;">{{$mem->designation}}</p>
@@ -107,5 +103,5 @@
 
 
 
-@include ('web/include/footer')
+@include ('web/include/footer2')
 

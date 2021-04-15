@@ -9,6 +9,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SystemSettingController;
 use App\Http\Controllers\BoardMemberController;
 use App\Http\Controllers\SpecialFlashController;
+use App\Http\Controllers\LogoFaviconController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +93,7 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
         Route::get("/add",[BookController::class,"Add"]);
         Route::post("/add",[BookController::class,"AddProcess"]);
         Route::get("/delete/{id}",[BookController::class,"Delete"]);
+        Route::get("/allow/{id}",[BookController::class,"Allow"]);
         Route::get("/update/{id}",[BookController::class,"Edit"]);
         Route::post("/update/{id}",[BookController::class,"EditProcess"]);
         Route::post("/feature/{id}",[BookController::class,"FeatureProcess"]);
@@ -155,12 +157,24 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
         Route::get("/add",[NewsController::class,"AddNews"]);
         Route::post("/add",[NewsController::class,"AddNewsProcess"]);
         Route::get("/delete/{id}",[NewsController::class,"DeleteNews"]);
+        Route::get("/allow/{id}",[NewsController::class,"AllowNews"]);
         Route::get("/update/{id}",[NewsController::class,"EditNews"]);
         Route::post("/update/{id}",[NewsController::class,"EditNewsProcess"]);
     });
 
     // system-setting
     Route::prefix('system-settings')->group(function () {
+        // Logo & Favicon
+        Route::prefix('logo-favicon')->group(function () {
+            Route::get("/",[LogoFaviconController::class,"View"]);
+            Route::post("/add",[LogoFaviconController::class,"AddProcess"]);
+            Route::get("/delete/{id}",[LogoFaviconController::class,"Delete"]);
+            Route::get("/update/{id}",[LogoFaviconController::class,"Edit"]);
+            Route::post("/update/{id}",[LogoFaviconController::class,"EditProcess"]);
+            Route::post("/active/{id}",[LogoFaviconController::class,"Active"]);
+        });
+            Route::get("/logo/add",[LogoFaviconController::class,"LogoAdd"]);
+            Route::get("/favicon/add",[LogoFaviconController::class,"FaviconAdd"]);
         // home-page-content
         Route::prefix('home-page-content')->group(function () {
             Route::get("/",[SystemSettingController::class,"ViewPageContent"]);

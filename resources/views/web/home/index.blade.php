@@ -126,7 +126,7 @@
                         @foreach ($recommdedAllBook as $recommdedAll)
                             <div class="item m-3">
                                 <div class="card5">
-                                    <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$recommdedAll->cover_image}}" alt="Card image cap">
+                                    <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$recommdedAll->cover_image}}" alt="Card image cap" style="height: 118px">
                                 </div>
                             </div>
                         @endforeach
@@ -141,7 +141,7 @@
                         @foreach ($recommdedOnlyBook as $recommdedOnly)
                             <div class="item m-3">
                                 <div class="card5">
-                                    <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$recommdedOnly->cover_image}}" alt="Card image cap">
+                                    <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$recommdedOnly->cover_image}}" alt="Card image cap" style="height: 118px">
                                 </div>
                             </div>
                         @endforeach
@@ -233,7 +233,7 @@
 
             <div class="item m-3">
                 <div class="">
-                    <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$fB->cover_image}}" alt="Card image cap">
+                    <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$fB->cover_image}}" alt="Card image cap" style="height: 235px">
                     <div class="card-body border-0">
                         <h5 class="card-title text-color mb-0" >{{$fB->name}}</h5>
                         <p class="text-blue">{{isset($author) ? $author->name : ''}}</p>
@@ -360,12 +360,12 @@
                 </div>
             </div>
             <div class="col-md-6">
-               <ul class="row p-3 nav nav-tabs" role="tablist">
+               <ul class="row p-3 nav nav-tabs border-0" role="tablist">
                   <?php
                      for ($i = 0; $i < count($featuredBook); $i++):
                      ?>
                   <li class="col-md-4 col-sm-6 col-6 nav-item">
-                    <a class="nav-link {{$i==0 ? 'active' : ''}}" data-toggle="tab" href="#tabs-{{$i}}" role="tab"><img src="{{URL::to('storage/app')}}/{{$featuredBook[$i]->cover_image}}" class="imh-fluid p-2" alt="" style="width: 130px; height: 225px;border-radius:13px"></a>
+                    <a class="nav-link {{$i==0 ? 'active' : ''}}" data-toggle="tab" href="#tabs-{{$i}}" role="tab"><img src="{{URL::to('storage/app')}}/{{$featuredBook[$i]->cover_image}}" class="imh-fluid p-2" alt="" style="width: 130px; height: 225px;border-radius:13px;"></a>
                   </li>
                   <?php endfor;?>
                 </ul>
@@ -486,26 +486,8 @@
       </div>
    </div>
 </section>
-<!-- newsletter section -->
-<section class="mt-5 bg-purple">
-   <div class="">
 
-   <div class="text-center">
-      <div class="pt-70">
-         <h5 class="f-27 mb-4">
-            {{$HomeContent[11]->description}}
-         </h5>
-         <div class="input-group input-control justify-content-center subcribeLater">
-            <input type="search" class="" placeholder="Type Your Mail Here">
-            <div class="input-group-append">
-               <button class="btn btn-white" type="button">Subscribe</button>
-            </div>
-         </div>
-      </div>
-   </div>
-
-</section>
-@include ('web/include/footer')
+@include ('web/include/footer2')
 <script>
    $('.owl1').owlCarousel({
     loop:true,

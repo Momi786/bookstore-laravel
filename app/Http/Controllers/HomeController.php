@@ -24,12 +24,12 @@ class HomeController extends Controller
         $HomeContent = PageContentModel::all();
         $MainSlider = MainSliderModel::all();
         $AllSale = SaleModel::orderBy('id','desc')->get();
-        $featuredBook = BookModel::orderBy('id','desc')->where('feature',1)->take(6)->get();
-        $recommdedAllBook = BookModel::orderBy('id','desc')->where('recommded_all',1)->get();
-        $recommdedOnlyBook = BookModel::orderBy('id','desc')->where('recommded_only',1)->get();
+        $featuredBook = BookModel::orderBy('id','desc')->where('feature',1)->where('pending',0)->take(6)->get();
+        $recommdedAllBook = BookModel::orderBy('id','desc')->where('recommded_all',1)->where('pending',0)->get();
+        $recommdedOnlyBook = BookModel::orderBy('id','desc')->where('recommded_only',1)->where('pending',0)->get();
         $SpecialOfferBooks = SpecialOfferModel::orderBy('id','desc')->get();
         $FlashSaleBooks = FlashSaleModel::orderBy('id','desc')->get();
-        $allNews = NewsModel::orderBy('id','desc')->take(4)->get();
+        $allNews = NewsModel::orderBy('id','desc')->where('pending',0)->take(4)->get();
         return view('web.home.index',compact('HomeContent','MainSlider','AllSale','featuredBook','recommdedAllBook','recommdedOnlyBook','FlashSaleBooks','SpecialOfferBooks','allNews'));
     }
 
@@ -119,7 +119,7 @@ class HomeController extends Controller
 
     // NEWS apge
     public function news(){
-        $totalNews = NewsModel::all();
+        $totalNews = NewsModel::where('pending',0)->get();
         return view('web.news.index',compact('totalNews'));
     }
 
@@ -137,7 +137,7 @@ class HomeController extends Controller
     public function singleblog(Request $request,$id){
         $news = NewsModel::find($id);
         $author = UserInformationModel::where('userId',$news->authorId)->first();
-        $OtherNews = NewsModel::inRandomOrder()->where('id','!=',$id)->limit(3)->get();
+        $OtherNews = NewsModel::inRandomOrder()->where('id','!=',$id)->where('pending',0)->limit(3)->get();
         return view('web.single-blog.index',compact('news','author','OtherNews'));
     }
 
@@ -149,7 +149,8 @@ class HomeController extends Controller
 
     //  All Book foundapge
     public function allbook(){
-        return view('web.books.books');
+        $pages = BookModel::orderBy('id','desc')->where('pending',0)->paginate(1);
+        return view('web.books.books',compact('pages'));
     }
 
     //  Login  foundapge

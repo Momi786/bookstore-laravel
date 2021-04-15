@@ -9,13 +9,10 @@ use App\Models\UserModel;
 
 class NewsController extends Controller
 {
-
-
-
     public function ViewNews(Request $request){
         $value = $request->session()->get('onlineuser');
         $totalNews = NewsModel::all();
-        if($value['usertype'] == 4){
+        if($value['usertype'] == 2){
             $id = $value['id'];
             $totalData = NewsModel::where('authorId',$id)->get();
         }else{
@@ -40,8 +37,9 @@ class NewsController extends Controller
     public function AddNewsProcess(Request $request){
         $data = $request->all();
         $value = $request->session()->get('onlineuser');
-        if($value['usertype'] == 4){
+        if($value['usertype'] == 2){
             $data['authorId'] = $value['id'];
+            $data['pending'] = 1;
         }
         if ($request->file("newsImg") != null) {
             $path = $request->file("newsImg")->store("News_Images");
@@ -64,6 +62,14 @@ class NewsController extends Controller
         $request->session()->put("danger",$danger);
         return back();
     }
+    public function AllowNews(Request $request,$id){
+        $data = NewsModel::find($id);
+        $data->pending = 0;
+        $data->save();
+        $success = "This news has been Active successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
     public function EditNews(Request $request, $id){
         $data = NewsModel::find($id);
         $Author = UserModel::where('usertype',2)->get();
@@ -72,7 +78,7 @@ class NewsController extends Controller
     public function EditNewsProcess(Request $request, $id){
         $data = $request->all();
         $value = $request->session()->get('onlineuser');
-        if($value['usertype'] == 4){
+        if($value['usertype'] == 2){
             $data['authorId'] = $value['id'];
         }
         if ($request->file("newsImg") != null) {

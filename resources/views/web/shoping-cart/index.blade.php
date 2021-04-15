@@ -88,5 +88,5 @@
 </section>
 
 
-@include ('web/include/footer')
+@include ('web/include/footer2')
 

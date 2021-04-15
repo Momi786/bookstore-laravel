@@ -720,7 +720,7 @@ border: 1px solid #6c5dd4;
 #dropdownMenuButton{
   background: white;
     border: 0;
-    padding: 7px 12px 0px 0;
+    padding: 0px 10px;
     color: #6c5dd4;
 
 }
@@ -1437,4 +1437,7 @@ border-radius: 8px;
   border: 1px solid #6c5dd4;
   background-color: white;
   color: #6c5dd4;
+}
+.nav-link{
+    padding: 8px!important;
 }

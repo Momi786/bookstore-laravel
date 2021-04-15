@@ -76,6 +76,14 @@ class BookController extends Controller
         $request->session()->put("danger",$danger);
         return back();
     }
+    public function Allow(Request $request,$id){
+        $data = BookModel::find($id);
+        $data->pending = 0;
+        $data->save();
+        $success = "This book has been Active successfully.";
+        $request->session()->put("success",$success);
+        return back();
+    }
     public function Edit(Request $request,$id){
         $data = BookModel::find($id);
         $BookCategory = BookCategoryModel::all();
@@ -188,7 +196,7 @@ class BookController extends Controller
         return back();
     }
     public function AddSale(){
-        $totalBooks = BookModel::all();
+        $totalBooks = BookModel::where('pending',0)->get();
         return view('admin.book.sale.add',compact('totalBooks'));
     }
     public function AddSaleProcess(Request $request){

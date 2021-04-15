@@ -17,14 +17,14 @@
                             <div ng-repeat="filter in Filters" ng-style="myObj">
                           <li>
                             <div class="sort1">
-                                <h3 class="sort plus-minus-toggle1 collapsed">
+                                <!-- <h3 class="sort plus-minus-toggle1 collapsed">
                                     <a href="#" class="pl-3"><%filter.name%>  </a>
-                                </h3>
-                                <h6 class="sort plus-minus-toggle collapsed" ng-click="myVar = !myVar">
-                                    <a href="#" class="pl-4"><%filter.name%>  </a>
+                                </h3> -->
+                                <h6 class="sort plus-minus-toggle1 collapsed" data-toggle="collapse" data-target="#<%filter.name%>" ng-click="myVar = !myVar">
+                                    <a href="#" class="pl-4 text-dark"><%filter.name%>  </a>
                                 </h6>
                                 <div class="answer" ng-show="myVar" >
-                                    <ul class="sortoptions pl-3">
+                                    <ul class="sortoptions pl-3 collapse" id="<%filter.name%>">
                                         <li ng-repeat="option in filter.options">
                                           <input type="checkbox" ng-model="option.IsIncluded" ng-checked="option.IsIncluded"> <%option.value%>
                                           <span>(<%option.count%>)</span>
@@ -47,15 +47,23 @@
                  </div>
                   <div class="window_panel">
 
-                    <div ng-repeat="product in warehouse | dynamicFilter:Filters:this" class="product">
+                    <div ng-repeat="product in warehouse | dynamicFilter:Filters:this" class="product" ng-mouseover="changeText=true" ng-mouseleave="changeText=false" ng-init="changeText=false">
                         <img src="<%product.image%>" alt="" width="150px"><br>
-                        <%product.name%>
-                        <p>
-                            @for ($i=0;$i < 5; $i++)
-                                <i class="fa fa-star <% {{$i}} < product.rating ? 'text-warning' : '' %>"></i>
-                            @endfor
-                        </p>
+                        <div ng-hide="changeText">
+                            <p><%product.name%></p>
+                            </p><%product.category%></p>
+                            <p>
+                                @for ($i=0;$i < 5; $i++)
+                                    <i class="fa fa-star <% {{$i}} < product.rating ? 'text-warning' : '' %>"></i>
+                                @endfor
+                            </p>
+                        </div>
+                        <div ng-show="changeText">
+                            <p><%product.price%></p>
+                            <div class="btn btn-primary btn-sm">Add to cart</div>
+                        </div>
                     </div>
+                  {{ $pages->links() }}
                   </div>
                 </div>
             </div>
@@ -72,71 +80,95 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
 <style>
+    nav svg{
+        width: 27px;
+    }
+  .sort1{
+    position: relative;
+  }
+  .sort1 .plus-minus-toggle1:after{
+    content:"\f107";
+    font-family: "Font Awesome 5 Free";
+    font-size: 20px;
+    color:#a29f9f52;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    display: inline-block;
+    font-weight: 900;
+    -webkit-transition: 0.15s ease-in-out;
+    transition: 0.15s ease-in-out;
+  }
+  .plus-minus-toggle1.collapsed:after{
+    transform: rotate(-180deg);
+
+  }
    .mainPage{
-  display: flex;
-}
-.sidebar{
-  width:23%
-}
-.window_panel{
-  width:75%;
-  display:flex;
-  flex-flow:row wrap;
-  justify-content:center;
-  height:100%;
-}
-.product{
-  padding:13px;
-  margin:5px;
-  border:1px solid #f7f7f7;
-  border-radius:5px;
-}
-li{
-  list-style:none;
-}
-.sort a{
-    text-decoration: none;
-}
-li span{
-    display: inline;
-    font-size: 12px;
-}
+    display: flex;
+  }
+  .sidebar{
+    width:23%
+  }
+  .window_panel{
+    width:75%;
+    display:flex;
+    flex-flow:row wrap;
+    justify-content:center;
+    height:100%;
+  }
+  .product{
+    padding:13px;
+    margin:5px;
+    border:1px solid #f7f7f7;
+    border-radius:5px;
+  }
+  li{
+    list-style:none;
+  }
+  .sort a{
+      text-decoration: none;
+  }
+  li span{
+      display: inline;
+      font-size: 12px;
+  }
 
-.plus-minus-toggle {
-	 cursor: pointer;
-	 height: 21px;
-	 position: relative;
-	 width: 21px;
-}
- .plus-minus-toggle:before, .plus-minus-toggle:after {
-	 background: #000;
-	 content: '';
-	 height: 5px;
-	 left: 0;
-	 position: absolute;
-	 top: 9px;
-	 width: 13px;
-	 transition: transform 500ms ease;
-}
- .plus-minus-toggle:after {
-	 transform-origin: center;
-}
- .plus-minus-toggle.collapsed:after {
-	 transform: rotate(90deg);
-}
- .plus-minus-toggle.collapsed:before {
-	 transform: rotate(180deg);
-}
+  .plus-minus-toggle {
+    cursor: pointer;
+    height: 21px;
+    position: relative;
+    width: 21px;
+  }
+  .plus-minus-toggle:before, .plus-minus-toggle:after {
+    background: #000;
+    content: '';
+    height: 5px;
+    left: 0;
+    position: absolute;
+    top: 9px;
+    width: 13px;
+    transition: transform 500ms ease;
+  }
+  .plus-minus-toggle:after {
+    transform-origin: center;
+  }
+  .plus-minus-toggle.collapsed:after {
+    transform: rotate(90deg);
+  }
+  .plus-minus-toggle.collapsed:before {
+    transform: rotate(180deg);
+  }
 
-.sort1{
-    border: 1px solid #f7f7f7;
-    border-radius: 9px;
-    padding: 10px;
-    margin-bottom:15px;
-}
-.product img{
-    border-radius: 12px;
-}
+  .sort1{
+      border: 1px solid #f7f7f7;
+      border-radius: 9px;
+      padding: 10px;
+      margin-bottom:15px;
+  }
+  .product img{
+      border-radius: 12px;
+  }
 </style>
 
 <script>
@@ -255,64 +287,78 @@ $interpolateProvider.endSymbol("%>");
         name: 'IT',
         image: "{{URL::to('public/assests/img/book.jpg')}}",
         rating: 3,
+        price: 50,
+        category: 'Comdey',
         properties: [
-          { name:'type', value:'books' }, { name:'color', value:'red' },
-          { name:'size', value:'medium' },
-          { name:'price', value:'300' }
+          { name:'Publisher', value:'Saad' }, { name:'Year', value:'1999' },
+          { name:'Category', value:'Comdey' },
+          { name:'Price', value:'300' }
         ]
       },{
         name: 'ECE',
         image: "{{URL::to('public/assests/img/book.jpg')}}",
         rating: 4,
+        price: 150,
+        category: 'Comdey',
         properties: [
-          { name:'type', value:'books' }, { name:'color', value:'orange'},
-          { name:'size', value:'medium' },
-          { name:'price', value:'300' }
+          { name:'Publisher', value:'Ali' }, { name:'Year', value:'2000'},
+          { name:'Category', value:'Comdey' },
+          { name:'Price', value:'300' }
         ]
       },{
         name: 'mobile1',
         image: "{{URL::to('public/assests/img/book.jpg')}}",
         rating: 4,
+        price: 230,
+        category: 'Comdey',
         properties: [
-          { name:'type', value:'mobile' }, { name:'color', value:'orange'},
-          { name:'size', value:'medium' },
-          { name:'price', value:'300' }
+          { name:'Publisher', value:'Asad' }, { name:'Year', value:'2002'},
+          { name:'Category', value:'Drama' },
+          { name:'Price', value:'300' }
         ]
       },{
         name: 'MECH',
         image: "{{URL::to('public/assests/img/book.jpg')}}",
         rating: 4,
+        price: 340,
+        category: 'Drama',
         properties: [
-          { name:'type', value:'books' }, { name:'color', value:'yellow' },
-          { name:'size', value:'large' },
-          { name:'price', value:'100' }
+          { name:'Publisher', value:'Momi' }, { name:'Year', value:'2005' },
+          { name:'Category', value:'Drama' },
+          { name:'Price', value:'100' }
         ]
       },{
         name: 'CS',
         image: "{{URL::to('public/assests/img/book.jpg')}}",
         rating: 4,
+        price: 504,
+        category: 'Drama',
         properties: [
-          { name:'type', value:'books' }, { name:'color', value:'yellow' },
-          { name:'size', value:'small' },
-          { name:'price', value:'100' }
+          { name:'Publisher', value:'Asad' }, { name:'Year', value:'2006' },
+          { name:'Category', value:'Drama' },
+          { name:'Price', value:'100' }
         ]
       },{
         name: 'limeread',
         image: "{{URL::to('public/assests/img/book.jpg')}}",
         rating: 4,
+        price: 511,
+        category: 'Comdey',
         properties: [
-          { name:'type', value:'books' }, { name: 'color', value: 'green' },
-          { name:'size', value:'small' },
-          { name:'price', value:'100' }
+          { name:'Publisher', value:'Momi' }, { name: 'Year', value: '2008' },
+          { name:'Category', value:'Comdey' },
+          { name:'Price', value:'100' }
         ]
       },{
         name:'mobile2',
         image: "{{URL::to('public/assests/img/book.jpg')}}",
         rating: 4,
+        price: 1250,
+        category: 'Drama',
         properties: [
-          { name:'type', value:'mobile' }, { name:'color', value:'red' },
-          { name:'size', value:'medium' },
-          { name:'price', value:'100' }
+          { name:'Publisher', value:'Momi' }, { name:'Year', value:'2009' },
+          { name:'Category', value:'Comdey' },
+          { name:'Price', value:'100' }
         ]
       }
     ];

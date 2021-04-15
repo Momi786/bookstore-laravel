@@ -40,10 +40,11 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Category</th>
-                        @if($value['usertype'] != 4)
+                        @if($value['usertype'] != 2)
                             <th>Author</th>
                         @endif
                         <th>Feature</th>
+                        <th>Status</th>
                         <th>Opertions</th>
                     </tr>
                 </thead>
@@ -60,11 +61,22 @@
                             </td>
                             <td>{{$data->name}}</td>
                             <td>{{isset($category) ? $category->name : ''}}</td>
-                            @if ($value['usertype'] != 4)
+                            @if ($value['usertype'] != 2)
                                 <td>{{isset($Author) ? $Author->name : ''}}</td>
                             @endif
                             <td class="text-{{$data->feature == 1 ? 'success' : 'danger'}} text-center">
                                     {{$data->feature == 1 ? 'Feature' : 'Unfeature'}}
+                            </td>
+                            <td>
+                                @if ($data->pending == 1)
+                                    @if ($value['usertype'] != 2)
+                                        <a href="{{URL::to('admin/book/allow')}}/{{$data->id}}" class="btn btn-warning btn-sm">Allow</a>
+                                    @else
+                                        <p class="text-warning">Pending</p>
+                                    @endif
+                                @else
+                                    <p class="text-success">Active</p>
+                                @endif
                             </td>
                             <td>
                                 <a href="{{URL::to('admin/book/update')}}/{{$data->id}}" class="btn btn-primary btn-sm">Update</a>

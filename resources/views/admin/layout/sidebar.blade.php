@@ -61,7 +61,13 @@
             <a href="#"><i class="material-icons">settings</i>System Settings<i class="material-icons has-sub-menu">add</i></a>
             <ul class="sub-menu">
                 <li>
+                    <a href="{{URL::to('admin/system-settings/logo-favicon')}}">Logo & Favicon</a>
+                </li>
+                <li>
                     <a href="{{URL::to('admin/system-settings/home-page-content')}}">Home Page Content</a>
+                </li>
+                <li>
+                    <a href="{{URL::to('admin/system-settings/about')}}">About Page Content</a>
                 </li>
                 <li>
                     <a href="{{URL::to('admin/system-settings/footer')}}">Footer Content</a>

@@ -28,7 +28,7 @@
             <input type="file" name="newsImg"  class="form-control">
         </div>
     </div>
-    @if ($value['usertype'] != 4)
+    @if ($value['usertype'] != 2)
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <label for=""> Author </label>
             <select name="authorId" class="form-control" required>

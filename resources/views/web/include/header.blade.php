@@ -4,7 +4,23 @@
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Book Store</title>
+      @php
+            $url = URL::current();
+          if ($MainMenu != null) {
+            $title="Home";
+              foreach ($MainMenu as $main) {
+                $lin =  $main->link;
+                if ($main->link != null) {
+                    if (strpos($url,$lin)) {
+                        $title = $main->name;
+                    }
+                }
+              }
+          }
+      @endphp
+      <title> {{$MainMenu != null ? $title : 'home'}} | Book Store</title>
+      <!-- Fav Icon -->
+      <link rel="icon" type="image/png" href="{{URL::to('storage/app')}}/{{$favicon != null ? $favicon->image : ''}}">
       <!-- style file -->
       <link href="{{URL::to('public/assests/css/style.css')}}" rel="stylesheet">
       <!-- bootstrap cdn -->
@@ -24,20 +40,20 @@
                   <nav class="navbar navbar-expand-lg bg-white">
                      <div class="row">
                         <div class="w10">
-                           <a class="navbar-brand" href="#"><img src="{{URL::to('public/assests/img/logo.png')}}" class="img-fluid" alt="logo" class="img-fluid" style="width: 100px;"></a>
+                           <a class="navbar-brand" href="#"><img src="{{URL::to('storage/app')}}/{{$logo != null ? $logo->image : ''}}" class="img-fluid" alt="logo" class="img-fluid" style="width: 100px;"></a>
                         </div>
                         <div class="w20">
                            <div class="input-group ml5">
                               <div class="input-group-prepend" id="inputGroupSelect03">
-                              <i class="fas fa-bars p-11"></i>
+
                               <div class="dropdown">
                               <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 Menus
+                                <i class="fas fa-bars p-11"></i> Menus
                               </button>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                 <a class="dropdown-item" href="#">Action</a>
-                                 <a class="dropdown-item" href="#">Another action</a>
-                                 <a class="dropdown-item" href="#">Something else here</a>
+                                @foreach ($MainMenu as $menu)
+                                    <a class="dropdown-item" href="{{URL::to('')}}/{{$menu->link}}">{{$menu->name}}</a>
+                                @endforeach
                               </div>
                               </div>
                               </div>
@@ -58,6 +74,7 @@
                                 @else
                                     <a href="{{URL::to('/login')}}" class="btn btn-ligh mr-3">Login</a>
                                 @endif
+                                <a href="{{URL::to('/admin')}}" class="btn btn-ligh mr-3">Admin Panel</a>
 
                             </div>
                         </div>

@@ -254,9 +254,13 @@
             });
             // Data Table
             $('#myTable').DataTable({
-                rowReorder: {
-                    selector: 'td:nth-child(2)'
-                },
+                // rowReorder: {
+                //     selector: 'td:nth-child(2)'
+                // },
+                responsive: true
+            });
+            // Data Table
+            $('#myTable1').DataTable({
                 responsive: true
             });
 

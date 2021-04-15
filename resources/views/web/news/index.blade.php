@@ -30,26 +30,7 @@
    </div>
 </section>
 
-<!-- newletetter section -->
-
-<section class="mt-5 bg-purple">
-   <div class="">
-
-   <div class="text-center">
-      <div class="pt-70">
-         <h5 class="f-27 mb-4">
-            Subscribe To Our Newsletter For Newest Books Updates
-         </h5>
-         <div class="input-group input-control justify-content-center subcribeLater">
-            <input type="search" class="" placeholder="Type Your Mail Here">
-            <div class="input-group-append">
-               <button class="btn btn-white" type="button">Subscribe</button>
-            </div>
-         </div>
-      </div>
-   </div>
-
-</section>
 
 
-@include ('web/include/footer')
+
+@include ('web/include/footer2')
