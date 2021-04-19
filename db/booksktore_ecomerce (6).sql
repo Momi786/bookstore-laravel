@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2021 at 01:59 PM
+-- Generation Time: Apr 19, 2021 at 04:01 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -127,6 +127,80 @@ INSERT INTO `client` (`id`, `firstName`, `lastName`, `email`, `password`, `block
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `comment`
+--
+
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL,
+  `name` text DEFAULT NULL,
+  `email` text DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `replyId` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`id`, `name`, `email`, `message`, `replyId`, `created_at`, `updated_at`) VALUES
+(1, 'Momi Rana', 'rmomi786@gmail.com', 'asddsa', NULL, '2021-04-19 06:42:20', '2021-04-19 06:42:20'),
+(2, 'Momi Rana', 'rmomi786@gmail.com', 'sadads', 1, '2021-04-19 07:13:53', '2021-04-19 07:13:53'),
+(3, 'Momi Ranadsa', 'rmomi786@gmail.com', 'dsassaddsa', 1, '2021-04-19 07:17:22', '2021-04-19 07:17:22'),
+(4, 'Momi Ranaasddas', 'rmomi786@gmail.com', 'dsaadsds', NULL, '2021-04-19 07:22:38', '2021-04-19 07:22:38'),
+(5, 'dasasd asdda', 'rmomi786@gmail.com', 'asddsadas', 4, '2021-04-19 07:22:50', '2021-04-19 07:22:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faq`
+--
+
+CREATE TABLE `faq` (
+  `id` int(11) NOT NULL,
+  `ques` text DEFAULT NULL,
+  `ans` text DEFAULT NULL,
+  `categoryId` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `faq`
+--
+
+INSERT INTO `faq` (`id`, `ques`, `ans`, `categoryId`, `created_at`, `updated_at`) VALUES
+(1, 'Who is Just Energy?', 'Just Energy is a leading energy retailer in North America and one of the largest energy providers bringing energy solutions, natural gas and electricity to approximately 2 million customers. Our natural gas and electricity supply plans provide innovative solutions that allow our customers to choose from an array of plans to suit their lifestyle and comfort levels with market knowledge that includes secured rates, variable rates and index commodity supply programs. Just Energy also provides green energy products that provide a real and convenient solution for consumers to offset the environmental impact associated with their everyday energy use.', 1, '2021-04-16 06:59:10', '2021-04-16 06:59:10'),
+(2, 'Who is Just Energy?1', 'Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1', 1, '2021-04-16 08:53:37', '2021-04-16 08:53:37'),
+(3, 'Who is Just Energy?1', 'Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1', 2, '2021-04-16 08:53:47', '2021-04-16 08:53:47'),
+(4, 'Who is Just Energy2', 'Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1Who is Just Energy?1', 3, '2021-04-16 08:53:55', '2021-04-16 08:53:55');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faq_category`
+--
+
+CREATE TABLE `faq_category` (
+  `id` int(11) NOT NULL,
+  `name` text DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `faq_category`
+--
+
+INSERT INTO `faq_category` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Overview of Just Energy', '2021-04-16 06:58:36', '2021-04-16 06:58:36'),
+(2, 'Just Energy in California', '2021-04-16 07:31:13', '2021-04-16 07:31:13'),
+(3, 'Just Energy In Delaware', '2021-04-16 07:31:18', '2021-04-16 07:31:18');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `flash_sale`
 --
 
@@ -134,6 +208,7 @@ CREATE TABLE `flash_sale` (
   `id` int(11) NOT NULL,
   `salePercent` int(11) DEFAULT NULL,
   `bookId` int(11) DEFAULT NULL,
+  `endTime` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -142,9 +217,8 @@ CREATE TABLE `flash_sale` (
 -- Dumping data for table `flash_sale`
 --
 
-INSERT INTO `flash_sale` (`id`, `salePercent`, `bookId`, `created_at`, `updated_at`) VALUES
-(1, 8, 1, '2021-04-12 17:13:11', '2021-04-12 17:29:28'),
-(2, 20, 3, '2021-04-12 17:29:16', '2021-04-12 17:29:16');
+INSERT INTO `flash_sale` (`id`, `salePercent`, `bookId`, `endTime`, `created_at`, `updated_at`) VALUES
+(3, 18, 4, '2021-04-20 15:15:31', '2021-04-17 08:26:27', '2021-04-17 09:19:05');
 
 -- --------------------------------------------------------
 
@@ -174,7 +248,13 @@ INSERT INTO `footer_content` (`id`, `icon`, `title`, `description`, `social_medi
 (3, 'f500', 'Get in Touch', NULL, '1@2', 'https://facebook.com/momi@https://twitter.com/momi', 'GetInTouch', '2021-04-09 13:02:49', '2021-04-09 09:13:26'),
 (4, 'f05a', 'Information', NULL, NULL, NULL, 'information', '2021-04-09 13:02:49', '2021-04-09 09:47:44'),
 (5, NULL, NULL, 'Copyright @2021 | Designed With by Book Store Website', NULL, NULL, 'copyright', '2021-04-09 13:02:49', '2021-04-09 09:48:25'),
-(6, NULL, NULL, '&lt;div class=&quot;row&quot;&gt;\r\n                &lt;div class=&quot;col-md-12 text-center&quot;&gt;\r\n                &lt;div class=&quot;&quot;&gt;\r\n                        &lt;h1&gt;Nice to Meet You&lt;/h1&gt;\r\n                    &lt;/div&gt;\r\n                &lt;/div&gt;\r\n\r\n                &lt;div class=&quot;col-md-6 col-sm-12 col-12 mt-5&quot;&gt;\r\n                    &lt;p class=&quot;p-color&quot;&gt;\r\n                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae maiores numquam, sapiente officia magnam. Iure culpa sapiente enim iste quia saepe voluptatibus aspernatur quam. Expedita corrupti non eius ab?\r\n                    &lt;/p&gt;\r\n                    &lt;p class=&quot;mt-5 p-color&quot;&gt;\r\n                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam obcaecati distinctio similique id aliquam saepe corporis quis et sunt? Nihil ad quia obcaecati nesciunt odio reiciendis rerum animi dolorum aspernatur.\r\n                    &lt;/p&gt;\r\n                &lt;/div&gt;\r\n                &lt;div class=&quot;col-md-6 col-sm-12 col-12 mt-5&quot;&gt;\r\n                    &lt;p class=&quot;p-color&quot;&gt;\r\n                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae maiores numquam, sapiente officia magnam. Iure culpa sapiente enim iste quia saepe voluptatibus aspernatur quam. Expedita corrupti non eius ab? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam obcaecati distinctio similique id aliquam saepe corporis quis et sunt? Nihil ad quia obcaecati nesciunt odio reiciendis rerum animi dolorum aspernatur.\r\n                    &lt;/p&gt;\r\n\r\n                &lt;/div&gt;\r\n            &lt;/div&gt;', NULL, NULL, 'aboutUs', '2021-04-09 15:21:41', '2021-04-09 10:41:44');
+(6, NULL, NULL, '&lt;div class=&quot;row&quot;&gt;\r\n                &lt;div class=&quot;col-md-12 text-center&quot;&gt;\r\n                &lt;div class=&quot;&quot;&gt;\r\n                        &lt;h1&gt;Nice to Meet You&lt;/h1&gt;\r\n                    &lt;/div&gt;\r\n                &lt;/div&gt;\r\n\r\n                &lt;div class=&quot;col-md-6 col-sm-12 col-12 mt-5&quot;&gt;\r\n                    &lt;p class=&quot;p-color&quot;&gt;\r\n                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae maiores numquam, sapiente officia magnam. Iure culpa sapiente enim iste quia saepe voluptatibus aspernatur quam. Expedita corrupti non eius ab?\r\n                    &lt;/p&gt;\r\n                    &lt;p class=&quot;mt-5 p-color&quot;&gt;\r\n                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam obcaecati distinctio similique id aliquam saepe corporis quis et sunt? Nihil ad quia obcaecati nesciunt odio reiciendis rerum animi dolorum aspernatur.\r\n                    &lt;/p&gt;\r\n                &lt;/div&gt;\r\n                &lt;div class=&quot;col-md-6 col-sm-12 col-12 mt-5&quot;&gt;\r\n                    &lt;p class=&quot;p-color&quot;&gt;\r\n                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste vitae maiores numquam, sapiente officia magnam. Iure culpa sapiente enim iste quia saepe voluptatibus aspernatur quam. Expedita corrupti non eius ab? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam obcaecati distinctio similique id aliquam saepe corporis quis et sunt? Nihil ad quia obcaecati nesciunt odio reiciendis rerum animi dolorum aspernatur.\r\n                    &lt;/p&gt;\r\n\r\n                &lt;/div&gt;\r\n            &lt;/div&gt;', NULL, NULL, 'aboutUs', '2021-04-09 15:21:41', '2021-04-09 10:41:44'),
+(7, 'Footer_Images/ZT1Jo61R1aSeukXGsdQo2AvjLA8k33ZgRQ1gT6ip.png', NULL, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s', NULL, NULL, 'footer1', '2021-04-17 15:43:59', '2021-04-17 11:08:36'),
+(8, NULL, 'Follow us', NULL, '1@2', 'https://facebook.com/momi@https://twitter.com/momi', 'footer2', '2021-04-17 15:49:16', '2021-04-17 15:49:16'),
+(9, 'Footer_Images/APwzZ8bs4eV5uaiFr2DRPVhsTfMbzz1kwfZMMPGY.jpg', 'Our Store', NULL, NULL, NULL, 'footer3', '2021-04-17 16:00:08', '2021-04-17 11:02:43'),
+(10, 'f14e', 'Karachi', NULL, NULL, NULL, 'footer4', '2021-04-09 13:02:49', '2021-04-17 11:11:29'),
+(11, 'f14e', '090078601', NULL, NULL, NULL, 'footer5', '2021-04-09 13:02:49', '2021-04-17 11:11:43'),
+(12, 'f14e', 'test@gmail.com', NULL, NULL, NULL, 'footer6', '2021-04-09 13:02:49', '2021-04-17 11:11:55');
 
 -- --------------------------------------------------------
 
@@ -190,6 +270,16 @@ CREATE TABLE `logo_favicon` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `logo_favicon`
+--
+
+INSERT INTO `logo_favicon` (`id`, `image`, `active`, `name`, `created_at`, `updated_at`) VALUES
+(2, 'Logo_Favicon_Images/Jy4gp5qzpccbYpbw1Ghr8ZIMKCqUt67c7vjaeLpY.png', 1, 'Logo', '2021-04-15 07:36:48', '2021-04-15 10:53:01'),
+(3, 'Logo_Favicon_Images/QHA1s72vdHlwjnpVp3OJEZ9r3gS9oCGFIJ6vcJDO.png', 0, 'Logo', '2021-04-15 07:41:26', '2021-04-15 10:53:01'),
+(4, 'Logo_Favicon_Images/50hisXNBW4GtWYrxhCbb189iFrmsa9DpjDvITJcW.png', 1, 'Favicon', '2021-04-15 07:50:27', '2021-04-15 10:48:10'),
+(5, 'Logo_Favicon_Images/n88zD4pj0RYJFEr3IpLQE0urjswlueAvS7rCICf6.png', 0, 'Favicon', '2021-04-15 07:50:51', '2021-04-15 10:48:10');
 
 -- --------------------------------------------------------
 
@@ -268,7 +358,7 @@ CREATE TABLE `news` (
 
 INSERT INTO `news` (`id`, `newsImg`, `newsTitle`, `shotDes`, `detailDes`, `authorId`, `pending`, `created_at`, `updated_at`) VALUES
 (2, 'News_Images/7617ZCwVqQIFUW4UV676JbU2kLn2epcA6Mtjpoco.png', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia.', '&lt;p style=&quot;text-align:center&quot;&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;img alt=&quot;&quot; src=&quot;http://localhost/bookstore/public/assests/img/blog-single.jpg&quot; style=&quot;height:150px; width:100%&quot; /&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!&lt;/p&gt;\r\n\r\n&lt;blockquote&gt;\r\n&lt;p&gt;For 50 years, WWF has been protecting the future of nature. The world&amp;#39;s leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.&lt;/p&gt;\r\n&lt;/blockquote&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Hey I am here&lt;/li&gt;\r\n	&lt;li&gt;Hey I am here&lt;/li&gt;\r\n	&lt;li&gt;Hey I am here&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!&lt;/p&gt;', 5, 0, '2021-04-06 08:24:23', '2021-04-10 07:32:37'),
-(3, 'News_Images/UsIe0V2IKZM4h25m5rT4Y24EsZ2qicFBfdLDYmyY.jpg', 'Nobis adipisci ad veritatis magni eveniet culpa', 'Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea', '&lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;img alt=&quot;&quot; src=&quot;http://localhost/bookstore/public/assests/img/blog-single.jpg&quot; /&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!&lt;/p&gt;\r\n\r\n&lt;blockquote&gt;\r\n&lt;p&gt;For 50 years, WWF has been protecting the future of nature. The world&amp;#39;s leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.&lt;/p&gt;\r\n&lt;/blockquote&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Hey I am here&lt;/li&gt;\r\n	&lt;li&gt;Hey I am here&lt;/li&gt;\r\n	&lt;li&gt;Hey I am here&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!&lt;/p&gt;\r\n\r\n&lt;div id=&quot;gtx-anchor&quot; style=&quot;height:15px; left:20px; position:absolute; top:22px; visibility:hidden; width:424.422px&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n\r\n&lt;div class=&quot;gtx-bubble jfk-bubble&quot; style=&quot;left:-238px; opacity:1; top:47px; visibility:visible&quot;&gt;\r\n&lt;div class=&quot;jfk-bubble-content-id&quot; id=&quot;bubble-4&quot;&gt;\r\n&lt;div id=&quot;gtx-host&quot; style=&quot;max-width:400px; min-width:200px&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n&lt;/div&gt;\r\n\r\n&lt;div class=&quot;jfk-bubble-closebtn jfk-bubble-closebtn-id&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n\r\n&lt;div class=&quot;jfk-bubble-arrow jfk-bubble-arrow-id jfk-bubble-arrowup&quot; style=&quot;left:212px&quot;&gt;\r\n&lt;div class=&quot;jfk-bubble-arrowimplbefore&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n\r\n&lt;div class=&quot;jfk-bubble-arrowimplafter&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n&lt;/div&gt;\r\n&lt;/div&gt;', 8, 0, '2021-04-10 07:32:08', '2021-04-12 17:26:56'),
+(3, 'News_Images/UsIe0V2IKZM4h25m5rT4Y24EsZ2qicFBfdLDYmyY.jpg', 'Nobis adipisci ad veritatis magni eveniet culpa', 'Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea', '&lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!&lt;/p&gt;\r\n\r\n&lt;p&gt;&lt;img alt=&quot;&quot; src=&quot;http://localhost/bookstore/public/assests/img/blog-single.jpg&quot; style=&quot;height:100px; width:100%&quot; /&gt;&lt;/p&gt;\r\n\r\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!&lt;/p&gt;\r\n\r\n&lt;blockquote&gt;\r\n&lt;p&gt;For 50 years, WWF has been protecting the future of nature. The world&amp;#39;s leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.&lt;/p&gt;\r\n&lt;/blockquote&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!&lt;/p&gt;\r\n\r\n&lt;ul&gt;\r\n	&lt;li&gt;Hey I am here&lt;/li&gt;\r\n	&lt;li&gt;Hey I am here&lt;/li&gt;\r\n	&lt;li&gt;Hey I am here&lt;/li&gt;\r\n&lt;/ul&gt;\r\n\r\n&lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, blanditiis enim repellendus ea voluptates omnis itaque eveniet nam, eaque quaerat commodi officia. Culpa odit ratione debitis excepturi accusamus facere alias!&lt;/p&gt;\r\n\r\n&lt;div id=&quot;gtx-anchor&quot; style=&quot;height:15px; left:20px; position:absolute; top:22px; visibility:hidden; width:424.422px&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n\r\n&lt;div class=&quot;gtx-bubble jfk-bubble&quot; style=&quot;left:-238px; opacity:1; top:47px; visibility:visible&quot;&gt;\r\n&lt;div class=&quot;jfk-bubble-content-id&quot; id=&quot;bubble-4&quot;&gt;\r\n&lt;div id=&quot;gtx-host&quot; style=&quot;max-width:400px; min-width:200px&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n&lt;/div&gt;\r\n\r\n&lt;div class=&quot;jfk-bubble-closebtn jfk-bubble-closebtn-id&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n\r\n&lt;div class=&quot;jfk-bubble-arrow jfk-bubble-arrow-id jfk-bubble-arrowup&quot; style=&quot;left:212px&quot;&gt;\r\n&lt;div class=&quot;jfk-bubble-arrowimplbefore&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n\r\n&lt;div class=&quot;jfk-bubble-arrowimplafter&quot;&gt;&amp;nbsp;&lt;/div&gt;\r\n&lt;/div&gt;\r\n&lt;/div&gt;', 8, 0, '2021-04-10 07:32:08', '2021-04-19 06:13:28'),
 (4, 'News_Images/k7bieVT1OMsNtzjE3J0ZwQp29WBftZ3yCDyEEN4D.jpg', 'adsdas', 'asdsdasdsa', '&lt;p&gt;dasdsadsa&lt;/p&gt;', 2, 0, '2021-04-14 07:59:07', '2021-04-14 08:02:15');
 
 -- --------------------------------------------------------
@@ -303,7 +393,11 @@ INSERT INTO `page_content` (`id`, `title`, `description`, `link`, `name`, `creat
 (9, 'Featured Books', 'Lorem ipsum dolor sit amet, consectetur sit ametLorem ipsum dolor\r\nsit amet, Lorem ipsum dolor sit amet, consectetur', NULL, 'featuredBooks', '2021-04-08 16:45:52', '2021-04-08 12:43:08'),
 (10, 'Testimonials', 'Our customers love us! Read what they have to say below. Aliquam sed justo ligula. Vestibulum nibh erat, pellentesque ut laoreet vitae.', NULL, 'testimonials', '2021-04-08 16:45:52', '2021-04-08 16:45:52'),
 (11, 'Latest News', 'Lorem ipsum dolor sit amet, consectetur sit ametLorem ipsum dolor\r\nsit amet, Lorem ipsum dolor sit amet, consectetur\r\n\r\n\r\n', NULL, 'latestNews', '2021-04-08 16:45:52', '2021-04-08 12:43:08'),
-(12, '', 'Subscribe To Our Newsletter For Newest Books Updates', NULL, 'subscriberNote', '2021-04-08 16:45:52', '2021-04-08 16:45:52');
+(12, '', 'Subscribe To Our Newsletter For Newest Books Updates', NULL, 'subscriberNote', '2021-04-08 16:45:52', '2021-04-08 16:45:52'),
+(13, 'Happy Customers', '12', 'f0c0', 'HappyCustomers', '2021-04-19 12:47:57', '2021-04-19 08:05:44'),
+(14, 'Books Collection', '55', 'f02d', 'BooksCollection', '2021-04-19 12:47:57', '2021-04-19 08:05:16'),
+(15, 'Our Store', '359', 'f54e', 'OurStore', '2021-04-19 12:47:57', '2021-04-19 08:05:29'),
+(16, 'Famous Writers', '246', 'f52d', 'FamousWriters', '2021-04-19 12:47:57', '2021-04-19 08:06:17');
 
 -- --------------------------------------------------------
 
@@ -324,7 +418,6 @@ CREATE TABLE `sale_book` (
 --
 
 INSERT INTO `sale_book` (`id`, `salePercent`, `bookId`, `created_at`, `updated_at`) VALUES
-(1, 10, 1, '2021-04-09 14:04:05', '2021-04-09 14:09:05'),
 (2, 50, 3, '2021-04-09 15:13:15', '2021-04-09 15:13:15');
 
 -- --------------------------------------------------------
@@ -370,6 +463,31 @@ CREATE TABLE `special_offer` (
 
 INSERT INTO `special_offer` (`id`, `salePercent`, `bookId`, `created_at`, `updated_at`) VALUES
 (1, 36, 1, '2021-04-12 17:22:07', '2021-04-12 17:22:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `testimonial`
+--
+
+CREATE TABLE `testimonial` (
+  `id` int(11) NOT NULL,
+  `title` text DEFAULT NULL,
+  `image` text DEFAULT NULL,
+  `designation` text DEFAULT NULL,
+  `rating` int(11) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `testimonial`
+--
+
+INSERT INTO `testimonial` (`id`, `title`, `image`, `designation`, `rating`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'Ben Johnson', 'Testimonial_Images/4cvYvLVllWAp5Nt6gxltA34QOiwMTcFieqX3oTHB.jpg', 'CEO of Company Inc.', 3, 'Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.', '2021-04-16 09:28:38', '2021-04-16 09:30:22'),
+(2, 'Ben Johnson', 'Testimonial_Images/YOCqr3oNMglSIcs6I8V5xF0DOm65lvEUwEpHQsHE.jpg', 'CEO of Company Inc.', 4, 'Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.', '2021-04-19 07:37:16', '2021-04-19 07:37:16');
 
 -- --------------------------------------------------------
 
@@ -488,6 +606,24 @@ ALTER TABLE `client`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `comment`
+--
+ALTER TABLE `comment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `faq_category`
+--
+ALTER TABLE `faq_category`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `flash_sale`
 --
 ALTER TABLE `flash_sale`
@@ -548,6 +684,12 @@ ALTER TABLE `special_offer`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `testimonial`
+--
+ALTER TABLE `testimonial`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -594,22 +736,40 @@ ALTER TABLE `client`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `comment`
+--
+ALTER TABLE `comment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `faq_category`
+--
+ALTER TABLE `faq_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `flash_sale`
 --
 ALTER TABLE `flash_sale`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `footer_content`
 --
 ALTER TABLE `footer_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `logo_favicon`
 --
 ALTER TABLE `logo_favicon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `main_menu`
@@ -633,7 +793,7 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT for table `page_content`
 --
 ALTER TABLE `page_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `sale_book`
@@ -652,6 +812,12 @@ ALTER TABLE `social_media`
 --
 ALTER TABLE `special_offer`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `testimonial`
+--
+ALTER TABLE `testimonial`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
