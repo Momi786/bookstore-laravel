@@ -29,7 +29,6 @@ class NewsController extends Controller
         }
         return back();
     }
-
     public function AddNews(){
         $Author = UserModel::where('usertype',2)->get();
         return view('admin.news.add',compact('Author'));

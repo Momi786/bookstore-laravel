@@ -248,6 +248,76 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card">
+                            <div class="card-header" id="heading6">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                        data-toggle="collapse" data-target="#collapse6" aria-expanded="false"
+                                        aria-controls="collapse6">
+                                        Customers & Collection & Store & Writers Count <span class="fa fa-caret-down"></span>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse6" class="collapse" aria-labelledby="heading6"
+                                data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-6 col-12 col-sm-12">
+                                            <h3>Happy Customers</h3>
+                                            <form action="" method="post" enctype="multipart/form-data">
+                                                <label for=""> Icon </label>
+                                                <input type="text" name="link" value="{{$data[12]->link}}" class="form-control mb-2" required>
+                                                <label for=""> Count </label>
+                                                <input type="number" name="description" class="form-control mb-2" value="{{$data[12]->description}}" required>
+                                                <label for=""> Title </label>
+                                                <input type="text" name="title" value="{{$data[12]->title}}" class="form-control mb-2" required>
+                                                <input type="hidden" name="name" value="{{$data[12]->name}}">
+                                                <input type="submit" class="btn btn-primary" value="Update">
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-12 col-sm-12">
+                                            <h3>Books Collection</h3>
+                                            <form action="" method="post" enctype="multipart/form-data">
+                                                <label for=""> Icon </label>
+                                                <input type="text" name="link" value="{{$data[13]->link}}" class="form-control mb-2" required>
+                                                <label for=""> Count </label>
+                                                <input type="number" name="description" class="form-control mb-2" value="{{$data[13]->description}}" required>
+                                                <label for=""> Title </label>
+                                                <input type="text" name="title" value="{{$data[13]->title}}" class="form-control mb-2" required>
+                                                <input type="hidden" name="name" value="{{$data[13]->name}}">
+                                                <input type="submit" class="btn btn-primary" value="Update">
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-12 col-sm-12">
+                                            <h3>Our Store</h3>
+                                            <form action="" method="post" enctype="multipart/form-data">
+                                                <label for=""> Icon </label>
+                                                <input type="text" name="link" value="{{$data[14]->link}}" class="form-control mb-2" required>
+                                                <label for=""> Count </label>
+                                                <input type="number" name="description" class="form-control mb-2" value="{{$data[14]->description}}" required>
+                                                <label for=""> Title </label>
+                                                <input type="text" name="title" value="{{$data[14]->title}}" class="form-control mb-2" required>
+                                                <input type="hidden" name="name" value="{{$data[14]->name}}">
+                                                <input type="submit" class="btn btn-primary" value="Update">
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-12 col-sm-12">
+                                            <h3>Famous Writers</h3>
+                                            <form action="" method="post" enctype="multipart/form-data">
+                                                <label for=""> Icon </label>
+                                                <input type="text" name="link" value="{{$data[15]->link}}" class="form-control mb-2" required>
+                                                <label for=""> Count </label>
+                                                <input type="number" name="description" class="form-control mb-2" value="{{$data[15]->description}}" required>
+                                                <label for=""> Title </label>
+                                                <input type="text" name="title" value="{{$data[15]->title}}" class="form-control mb-2" required>
+                                                <input type="hidden" name="name" value="{{$data[15]->name}}">
+                                                <input type="submit" class="btn btn-primary" value="Update">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

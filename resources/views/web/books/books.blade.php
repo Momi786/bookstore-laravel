@@ -48,7 +48,9 @@
                   <div class="window_panel">
 
                     <div ng-repeat="product in warehouse | dynamicFilter:Filters:this" class="product" ng-mouseover="changeText=true" ng-mouseleave="changeText=false" ng-init="changeText=false">
-                        <img src="<%product.image%>" alt="" width="150px"><br>
+                        <a href="{{URL::to('/book-detail')}}/<%product.id%>">
+                            <img src="<%product.image%>" alt="" width="150px" height="200px">
+                        </a><br>
                         <div ng-hide="changeText">
                             <p><%product.name%></p>
                             </p><%product.category%></p>
@@ -59,6 +61,7 @@
                             </p>
                         </div>
                         <div ng-show="changeText">
+                            <br>
                             <p><%product.price%></p>
                             <div class="btn btn-primary btn-sm">Add to cart</div>
                         </div>
@@ -83,56 +86,55 @@
     nav svg{
         width: 27px;
     }
-  .sort1{
-    position: relative;
-  }
-  .sort1 .plus-minus-toggle1:after{
-    content:"\f107";
-    font-family: "Font Awesome 5 Free";
-    font-size: 20px;
-    color:#a29f9f52;
-    border: none;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    display: inline-block;
-    font-weight: 900;
-    -webkit-transition: 0.15s ease-in-out;
-    transition: 0.15s ease-in-out;
-  }
-  .plus-minus-toggle1.collapsed:after{
-    transform: rotate(-180deg);
-
-  }
-   .mainPage{
-    display: flex;
-  }
-  .sidebar{
-    width:23%
-  }
-  .window_panel{
-    width:75%;
-    display:flex;
-    flex-flow:row wrap;
-    justify-content:center;
-    height:100%;
-  }
-  .product{
-    padding:13px;
-    margin:5px;
-    border:1px solid #f7f7f7;
-    border-radius:5px;
-  }
-  li{
-    list-style:none;
-  }
-  .sort a{
-      text-decoration: none;
-  }
-  li span{
-      display: inline;
-      font-size: 12px;
-  }
+    .sort1{
+        position: relative;
+    }
+    .sort1 .plus-minus-toggle1:after{
+        content:"\f107";
+        font-family: "Font Awesome 5 Free";
+        font-size: 20px;
+        color:#a29f9f52;
+        border: none;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        display: inline-block;
+        font-weight: 900;
+        -webkit-transition: 0.15s ease-in-out;
+        transition: 0.15s ease-in-out;
+    }
+    .plus-minus-toggle1.collapsed:after{
+        transform: rotate(-180deg);
+    }
+    .mainPage{
+        display: flex;
+    }
+    .sidebar{
+        width:23%
+    }
+    .window_panel{
+        width:75%;
+        display:flex;
+        flex-flow:row wrap;
+        justify-content:center;
+        height:100%;
+    }
+    .product{
+        padding:13px;
+        margin:5px;
+        border:1px solid #f7f7f7;
+        border-radius:5px;
+    }
+    li{
+        list-style:none;
+    }
+    .sort a{
+        text-decoration: none;
+    }
+    li span{
+        display: inline;
+        font-size: 12px;
+    }
 
   .plus-minus-toggle {
     cursor: pointer;
@@ -283,84 +285,26 @@ $interpolateProvider.endSymbol("%>");
 
     //sample data
     var products = [
-      {
-        name: 'IT',
-        image: "{{URL::to('public/assests/img/book.jpg')}}",
-        rating: 3,
-        price: 50,
-        category: 'Comdey',
-        properties: [
-          { name:'Publisher', value:'Saad' }, { name:'Year', value:'1999' },
-          { name:'Category', value:'Comdey' },
-          { name:'Price', value:'300' }
-        ]
-      },{
-        name: 'ECE',
-        image: "{{URL::to('public/assests/img/book.jpg')}}",
-        rating: 4,
-        price: 150,
-        category: 'Comdey',
-        properties: [
-          { name:'Publisher', value:'Ali' }, { name:'Year', value:'2000'},
-          { name:'Category', value:'Comdey' },
-          { name:'Price', value:'300' }
-        ]
-      },{
-        name: 'mobile1',
-        image: "{{URL::to('public/assests/img/book.jpg')}}",
-        rating: 4,
-        price: 230,
-        category: 'Comdey',
-        properties: [
-          { name:'Publisher', value:'Asad' }, { name:'Year', value:'2002'},
-          { name:'Category', value:'Drama' },
-          { name:'Price', value:'300' }
-        ]
-      },{
-        name: 'MECH',
-        image: "{{URL::to('public/assests/img/book.jpg')}}",
-        rating: 4,
-        price: 340,
-        category: 'Drama',
-        properties: [
-          { name:'Publisher', value:'Momi' }, { name:'Year', value:'2005' },
-          { name:'Category', value:'Drama' },
-          { name:'Price', value:'100' }
-        ]
-      },{
-        name: 'CS',
-        image: "{{URL::to('public/assests/img/book.jpg')}}",
-        rating: 4,
-        price: 504,
-        category: 'Drama',
-        properties: [
-          { name:'Publisher', value:'Asad' }, { name:'Year', value:'2006' },
-          { name:'Category', value:'Drama' },
-          { name:'Price', value:'100' }
-        ]
-      },{
-        name: 'limeread',
-        image: "{{URL::to('public/assests/img/book.jpg')}}",
-        rating: 4,
-        price: 511,
-        category: 'Comdey',
-        properties: [
-          { name:'Publisher', value:'Momi' }, { name: 'Year', value: '2008' },
-          { name:'Category', value:'Comdey' },
-          { name:'Price', value:'100' }
-        ]
-      },{
-        name:'mobile2',
-        image: "{{URL::to('public/assests/img/book.jpg')}}",
-        rating: 4,
-        price: 1250,
-        category: 'Drama',
-        properties: [
-          { name:'Publisher', value:'Momi' }, { name:'Year', value:'2009' },
-          { name:'Category', value:'Comdey' },
-          { name:'Price', value:'100' }
-        ]
-      }
+        @foreach ($pages as $page)
+            @php
+                $category = $page->GetCategory();
+                $Author = $page->GetAuthor();
+            @endphp
+            {
+                id: "{{$page->id}}",
+                name: "{{$page->name}}",
+                image: "{{URL::to('storage/app')}}/{{$page->cover_image}}",
+                rating: 3,
+                price: "${{$page->price}}",
+                category: "{{$category->name}}",
+                properties: [
+                { name:'Publisher', value:"{{$Author->name}}" }, { name:'Year', value:"{{$page->created_at->format('Y')}}" },
+                { name:'Category', value:"{{$category->name}}" },
+                { name:'Price', value:"{{$page->price}}" }
+                ]
+            },
+        @endforeach
+
     ];
 
     service.getSampleData = function() {

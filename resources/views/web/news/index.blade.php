@@ -18,7 +18,7 @@
                      <h5 class="card-title text-color">{{$news->title}}</h5>
 
                      <p class="card-text">{{$news->shotDes}}</p>
-                     <a href="#"><h6>Continue Reading</h6></a>
+                     <a href="{{URL::to('single-blog')}}/{{$news->id}}"><h6>Continue Reading</h6></a>
 
                   </div>
                </div>

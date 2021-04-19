@@ -197,66 +197,70 @@
    </div>
 </section>
 <!-- timer section -->
-<section class=" mt-5">
-   <div class="row">
-   <div class="col-md-12 text-center">
-      <h2 class="text-color">
-         {{$HomeContent[7]->title}}
-      </h2>
-      <p>{{$HomeContent[7]->description}} </p>
-      <div id="countdown">
-        <ul class="mb-0">
-            <li>
-                <span id="days"></span>
-                <p>days</p>
-            </li>
-            <li>
-                <span id="hours"></span>
-                <p>Hours</p>
-            </li>
-            <li>
-                <span id="minutes"></span>
-                <p>Minutes</p>
-            </li>
-            <li>
-                <span id="seconds"></span>
-                <p>Seconds</p>
-            </li>
-        </ul>
-      </div>
-      <div class="owl-carousel owl-theme owl2 mt-3">
-          @foreach ($FlashSaleBooks as $flashBook)
-            @php
-                $fB = $flashBook->GetBook();
-                $author = $fB->GetAuthor();
-            @endphp
+@if ($FlashSaleBooks)
 
-            <div class="item m-3">
-                <div class="">
-                    <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$fB->cover_image}}" alt="Card image cap" style="height: 235px">
-                    <div class="card-body border-0">
-                        <h5 class="card-title text-color mb-0" >{{$fB->name}}</h5>
-                        <p class="text-blue">{{isset($author) ? $author->name : ''}}</p>
-                        <div class="d-flex justify-content-center">
+    <section class=" mt-5">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2 class="text-color">
+                    {{$HomeContent[7]->title}}
+                </h2>
+                <p>{{$HomeContent[7]->description}} </p>
+                <div id="countdown">
+                    <ul class="mb-0">
+                        <li>
+                            <span id="days"></span>
+                            <p>days</p>
+                        </li>
+                        <li>
+                            <span id="hours"></span>
+                            <p>Hours</p>
+                        </li>
+                        <li>
+                            <span id="minutes"></span>
+                            <p>Minutes</p>
+                        </li>
+                        <li>
+                            <span id="seconds"></span>
+                            <p>Seconds</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="owl-carousel owl-theme owl2 mt-3">
+                    @foreach ($FlashSaleBooks as $flashBook)
+                        @php
+                            $fB = $flashBook->GetBook();
+                            $author = $fB->GetAuthor();
+                        @endphp
 
-                            @php
-                                if(isset($fB)){
-                                    $saleper = ($fB->price/100)*$flashBook->salePercent;
-                                    $saleprice = $fB->price - $saleper;
-                                }
-                            @endphp
-                            <span class="mr-2 text-blue">
-                                <h5>${{$saleprice}}</h5>
-                            </span>
-                            <span class="text-dull"><s>${{$fB->price}}</s></span>
+                        <div class="item m-3">
+                            <div class="">
+                                <img class="card-img-top" src="{{URL::to('storage/app')}}/{{$fB->cover_image}}" alt="Card image cap" style="height: 235px">
+                                <div class="card-body border-0">
+                                    <h5 class="card-title text-color mb-0" >{{$fB->name}}</h5>
+                                    <p class="text-blue">{{isset($author) ? $author->name : ''}}</p>
+                                    <div class="d-flex justify-content-center">
+
+                                        @php
+                                            if(isset($fB)){
+                                                $saleper = ($fB->price/100)*$flashBook->salePercent;
+                                                $saleprice = $fB->price - $saleper;
+                                            }
+                                        @endphp
+                                        <span class="mr-2 text-blue">
+                                            <h5>${{$saleprice}}</h5>
+                                        </span>
+                                        <span class="text-dull"><s>${{$fB->price}}</s></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-         @endforeach
-      </div>
-   </div>
-</section>
+        </div>
+    </section>
+@endif
 <!-- book on sale offer -->
 <section class="mt-5">
    <div class="row">
@@ -385,29 +389,24 @@
          </div>
          <div class="row people">
             <div class="owl-carousel owl-theme owl6">
-         <?php
-                     for ($i = 0; $i < 6; $i++):
-                     ?>
-            <div class="item">
+                @foreach ($totalTestimonial as $totaltest)
 
-               <div class="box">
-                  <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est.</p>
-               </div>
-               <div class="author">
-                  <img class="rounded-circle" src="https://i.imgur.com/nUNhspp.jpg">
-                  <h5 class="name">Ben Johnson</h5>
-                  <p class="title">CEO of Company Inc.</p>
-               </div>
-               <div style="position:absolute;bottom: 74px;right: 20px; color:khaki">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-               </div>
-
-            </div>
-            <?php endfor;?>
+                    <div class="item">
+                        <div class="box">
+                            <p class="description">{{$totaltest->description}}</p>
+                        </div>
+                        <div class="author">
+                            <img class="rounded-circle" src="{{URL::to('storage/app')}}/{{$totaltest->image}}">
+                            <h5 class="name">{{$totaltest->title}}</h5>
+                            <p class="title">{{$totaltest->designation}}</p>
+                        </div>
+                        <div style="position:absolute;bottom: 74px;right: 20px; color:khaki">
+                            @for ($i = 0; $i < $totaltest->rating; $i++)
+                                <i class="fa fa-star"></i>
+                            @endfor
+                        </div>
+                    </div>
+                @endforeach
             </div>
          </div>
       </div>
@@ -463,31 +462,31 @@
       <div class="fullWidth eight columns">
          <div class="projectFactsWrap ">
             <div class="item wow fadeInUpBig animated animated" data-number="12" style="visibility: visible;">
-               <i class="fas fa-users mb-5"></i>
-               <p id="number1" class="number">12</p>
-               <h3>Happy Customers</h3>
+               <i class="fa mb-5">@php echo "&#x".$HomeContent[12]->link.";"; @endphp</i>
+               <p id="number1" class="number">{{$HomeContent[12]->description}}</p>
+               <h3>{{$HomeContent[12]->title}}</h3>
             </div>
             <div class="item wow fadeInUpBig animated animated" data-number="55" style="visibility: visible;">
-               <i class="fas fa-book mb-5"></i>
-               <p id="number2" class="number">55</p>
-               <h3>Books Collection</h3>
+               <i class="fa mb-5">@php echo "&#x".$HomeContent[13]->link.";"; @endphp</i>
+               <p id="number2" class="number">{{$HomeContent[13]->description}}</p>
+               <h3>{{$HomeContent[13]->title}}</h3>
             </div>
             <div class="item wow fadeInUpBig animated animated" data-number="359" style="visibility: visible;">
-               <i class="fas fa-store mb-5"></i>
-               <p id="number3" class="number">359</p>
-               <h3>Our Store</h3>
+               <i class="fa mb-5">@php echo "&#x".$HomeContent[14]->link.";"; @endphp</i>
+               <p id="number3" class="number">{{$HomeContent[14]->description}}</p>
+               <h3>{{$HomeContent[14]->title}}</h3>
             </div>
             <div class="item wow fadeInUpBig animated animated" data-number="246" style="visibility: visible;">
-               <i class="fas fa-feather-alt mb-5"></i>
-               <p id="number4" class="number">246</p>
-               <h3>Famous Writers</h3>
+               <i class="fa mb-5">@php echo "&#x".$HomeContent[15]->link.";"; @endphp</i>
+               <p id="number4" class="number">{{$HomeContent[15]->description}}</p>
+               <h3>{{$HomeContent[15]->title}}</h3>
             </div>
          </div>
       </div>
    </div>
 </section>
 
-@include ('web/include/footer2')
+@include ('web/include/footer')
 <script>
    $('.owl1').owlCarousel({
     loop:true,
@@ -605,38 +604,42 @@
       }
    });
 </script>
-<script>
-   (function () {
-   const second = 1000,
-     minute = second * 60,
-     hour = minute * 60,
-     day = hour * 24;
+@if ($FlashSaleBooks)
 
-   let birthday = "Sep 30, 2021 00:00:00",
-   countDown = new Date(birthday).getTime(),
-   x = setInterval(function() {
+    <script>
+        (function () {
+            const second = 1000,
+                minute = second * 60,
+                hour = minute * 60,
+                day = hour * 24;
 
-     let now = new Date().getTime(),
-         distance = countDown - now;
+            let birthday = "{{date('M d, Y H:i:s',strtotime($FlashSaleTime[0]->endTime))}}",
+            countDown = new Date(birthday).getTime(),
+            x = setInterval(function() {
 
-     document.getElementById("days").innerText = Math.floor(distance / (day)),
-       document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour)),
-       document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute)),
-       document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
+                let now = new Date().getTime(),
+                    distance = countDown - now;
 
-     //do something later when date is reached
-     if (distance < 0) {
-       let headline = document.getElementById("headline"),
-           countdown = document.getElementById("countdown"),
-           content = document.getElementById("content");
+                document.getElementById("days").innerText = Math.floor(distance / (day)),
+                document.getElementById("hours").innerText = Math.floor((distance % (day)) / (hour)),
+                document.getElementById("minutes").innerText = Math.floor((distance % (hour)) / (minute)),
+                document.getElementById("seconds").innerText = Math.floor((distance % (minute)) / second);
 
-       headline.innerText = "It's my birthday!";
-       countdown.style.display = "none";
-       content.style.display = "block";
+                //do something later when date is reached
+                if (distance < 0) {
+                let headline = document.getElementById("headline"),
+                    countdown = document.getElementById("countdown"),
+                    content = document.getElementById("content");
 
-       clearInterval(x);
-     }
-     //seconds
-   }, 0)
-   }());
-</script>
+                headline.innerText = "It's my birthday!";
+                countdown.style.display = "none";
+                content.style.display = "block";
+
+                clearInterval(x);
+                }
+                //seconds
+            }, 0)
+        }());
+    </script>
+
+@endif

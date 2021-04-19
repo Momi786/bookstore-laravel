@@ -6,7 +6,8 @@
 @extends("admin.layout.interface")
 @section("breadcrumb")
     <li class="breadcrumb-item"><a href="{{URL::to('/administration')}}">Admin</a></li>
-    <li class="breadcrumb-item active" aria-current="page">News</li>
+    <li class="breadcrumb-item" aria-current="page"><a href="#">System_Settings</a></li>
+    <li class="breadcrumb-item active" aria-current="page">testimonial</li>
 @endsection
 @section("content")
 <form action="" method="post">
@@ -25,7 +26,7 @@
                 @endif
                 <div class="d-flex justify-content-between">
                     <h4>All News</h4>
-                    <a href="{{URL::to('admin/news/add')}}" class="btn btn-primary btn-sm">Add New</a>
+                    <a href="{{URL::to('admin/system-settings/testimonial/add')}}" class="btn btn-primary btn-sm">Add New</a>
                 </div><br>
                 <p class="text-right">
                     <button type="submit" name="submit" value="delete" class="btn btn-icon btn-rounded text-danger mb-2 p-2"><i class="fa fa-trash"></i></button>
@@ -34,42 +35,25 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Title</th>
-                            @if($value['usertype'] != 2)
-                                <th>Author</th>
-                            @endif
-                            <th>Status</th>
+                            <th>Name</th>
+                            <th>Designation</th>
+                            <th>Image</th>
                             <th>Opertions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($totalNews as $data)
-                        @php
-                            $Author = $data->GetAuthor();
-                        @endphp
+                        @foreach($totalData as $data)
                             <tr>
                                 <td>
                                     <input type="checkbox" name="feature[]" value="{{$data->id}}">
                                     {{$data->id}}
                                 </td>
-                                <td>{{$data->newsTitle}}</td>
-                                @if ($value['usertype'] != 2)
-                                    <td>{{isset($Author) ? $Author->name : ''}}</td>
-                                @endif
+                                <td>{{$data->title}}</td>
+                                <td>{{$data->designation}}</td>
+                                <td><img src="{{URL::to('storage/app')}}/{{$data->image}}" alt="" width="100px" height="100px"></td>
                                 <td>
-                                    @if ($data->pending == 1)
-                                        @if ($value['usertype'] != 2)
-                                            <a href="{{URL::to('admin/news/allow')}}/{{$data->id}}" class="btn btn-warning btn-sm">Allow</a>
-                                        @else
-                                            <p class="text-warning">Pending</p>
-                                        @endif
-                                    @else
-                                        <p class="text-success">Active</p>
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{URL::to('admin/news/update')}}/{{$data->id}}" class="btn btn-primary btn-sm">Update</a>
-                                    <a href="{{URL::to('admin/news/delete')}}/{{$data->id}}" class="btn btn-danger btn-sm deleteAlert">Delete</a>
+                                    <a href="{{URL::to('admin/system-settings/testimonial/update')}}/{{$data->id}}" class="btn btn-primary btn-sm">Update</a>
+                                    <a href="{{URL::to('admin/system-settings/testimonial/delete')}}/{{$data->id}}" class="btn btn-danger btn-sm deleteAlert">Delete</a>
                                 </td>
                             </tr>
                         @endforeach

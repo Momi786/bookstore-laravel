@@ -46,27 +46,28 @@
                             <p class="p-color">{{$author->description}}</p>
                             </div>
                         </div>
-                        <div class="mt-5">
-                            <h6>WRITE COMMENT</h6>
-                            <form action="">
+                        <div class="mt-5" id="replyForm">
+                            <h6 class="writeCR">WRITE COMMENT</h6>
+                            <form action="{{URL::to('commentPost')}}" method="post">
                                 <div class="row mt-4">
                                 <div class="col-md-6 col-sm-12 col-12">
                                     <div class="form-group input-color">
-                                        <input type="text" class="form-control" placeholder="Full Name">
+                                        <input type="text" name="name" class="form-control" placeholder="Full Name">
                                     </div>
 
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-12">
                                     <div class="form-group input-color">
-                                        <input type="text" class="form-control" placeholder="Email">
+                                        <input type="text" name="email" class="form-control" placeholder="Email">
                                     </div>
 
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-12">
                                     <div class="form-group input-color">
-                                    <textarea name="" placeholder="Comment Message" id="" cols="100" rows="5"></textarea>
+                                    <textarea name="message" class="messagePlaceholder" placeholder="Comment Message" id="" cols="100" rows="5"></textarea>
                                     </div>
                                 </div>
+                                <input type="hidden" name="replyId" class="rreply">
                                 <div class="col-md-12 text-right">
                                     <button class="btn btn-cmt">Save</button>
                                 </div>
@@ -74,7 +75,102 @@
                         </div>
 
                         <div class="mt-5">
-                            <div class="media mt-5">
+                            @foreach ($comment as $comm)
+                                @php
+                                    $timeDate1 = strtotime(date("Y-m-d H:i:s"));
+                                    $timeDate2 = strtotime($comm->created_at->format("Y-m-d H:i:s"));
+                                    $minsDate = ($timeDate1 - $timeDate2) / 60;
+                                    $formatEng = "min";
+                                    $finelmin = intval($minsDate);
+                                    if($finelmin > 60){
+                                        $finelmin /= 60;
+                                        $formatEng = "hours";
+                                        if($finelmin > 24){
+                                            $finelmin /= 24;
+                                            $formatEng = "days";
+                                            if($finelmin > 7){
+                                            $finelmin /= 7;
+                                            $formatEng = "weeks";
+                                            if($finelmin > 4){
+                                                $finelmin /= 4;
+                                                $formatEng = "moths";
+                                                if($finelmin > 12){
+                                                    $finelmin /= 12;
+                                                    $formatEng = "years";
+                                                }
+                                            }
+                                            }
+                                        }
+                                    }
+                                    $finelmin = intval($finelmin);
+                                    $reply = $comm->GetReplies();
+                                @endphp
+                                <div class="media mt-5">
+                                    <div class="artile-by">
+                                        <img src="{{URL:: to('public/admin/assets/images/avatars/profile-image.png')}}" class="img-fluid" alt="">
+                                    </div>
+                                    <div class="media-body">
+                                    <div class="d-flex">
+                                    <p class="mb-0 text-color mr-4">
+                                        <strong>{{$comm->name}}</strong>
+                                    </p>
+                                    <span class="p-color">{{$finelmin}} {{$formatEng}} ago</span>
+                                    </div>
+                                    <p class="p-color">{{$comm->message}}</p>
+                                    <span class="p-color replyId" replyId="{{$comm->id}}">Reply</span>
+                                    </div>
+                                </div>
+
+                                @if ($reply)
+                                @foreach ($reply as $rel)
+                                    @php
+                                        $timeDate1 = strtotime(date("Y-m-d H:i:s"));
+                                        $timeDate2 = strtotime($rel->created_at->format("Y-m-d H:i:s"));
+                                        $minsDate = ($timeDate1 - $timeDate2) / 60;
+                                        $formatEng = "min";
+                                        $finelmin = intval($minsDate);
+                                        if($finelmin > 60){
+                                            $finelmin /= 60;
+                                            $formatEng = "hours";
+                                            if($finelmin > 24){
+                                                $finelmin /= 24;
+                                                $formatEng = "days";
+                                                if($finelmin > 7){
+                                                $finelmin /= 7;
+                                                $formatEng = "weeks";
+                                                if($finelmin > 4){
+                                                    $finelmin /= 4;
+                                                    $formatEng = "moths";
+                                                    if($finelmin > 12){
+                                                        $finelmin /= 12;
+                                                        $formatEng = "years";
+                                                    }
+                                                }
+                                                }
+                                            }
+                                        }
+                                        $finelmin = intval($finelmin);
+                                        $reply = $comm->GetReply;
+                                    @endphp
+                                    <div class="media mt-5 ml-5">
+                                        <div class="artile-by">
+                                            <img src="{{URL:: to('public/admin/assets/images/avatars/profile-image-4.jpg')}}" class="img-fluid" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                        <div class="d-flex">
+                                        <p class="mb-0 text-color mr-4">
+                                            <strong>{{$rel->name}}</strong>
+                                        </p>
+                                        <span class="p-color">{{$finelmin}} {{$formatEng}} ago</span>
+                                        </div>
+                                        <p class="p-color">{{$rel->message}}</p>
+                                        <span class="p-color replyId" replyId="{{$rel->replyId}}">Reply</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                @endif
+                            @endforeach
+                            {{-- <div class="media mt-5 ml-5">
                                 <div class="artile-by">
                                     <img src="{{URL:: to('public/assests/img/author.jpeg')}}" class="img-fluid" alt="">
                                 </div>
@@ -104,21 +200,6 @@
                                 <span class="p-color">Reply</span>
                                 </div>
                             </div>
-                            <div class="media mt-5 ml-5">
-                                <div class="artile-by">
-                                    <img src="{{URL:: to('public/assests/img/author.jpeg')}}" class="img-fluid" alt="">
-                                </div>
-                                <div class="media-body">
-                                <div class="d-flex">
-                                <p class="mb-0 text-color mr-4">
-                                    <strong>Display Name</strong>
-                                </p>
-                                <span class="p-color">Last week</span>
-                                </div>
-                                <p class="p-color">Lorem ipsum dolor sit amet, consectetur sit amet.</p>
-                                <span class="p-color">Reply</span>
-                                </div>
-                            </div>
                             <div class="media mt-5">
                                 <div class="artile-by">
                                     <img src="{{URL:: to('public/assests/img/author.jpeg')}}" class="img-fluid" alt="">
@@ -133,7 +214,7 @@
                                 <p class="p-color">Lorem ipsum dolor sit amet, consectetur sit amet.</p>
                                 <span class="p-color">Reply</span>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -170,9 +251,25 @@
     </section>
 
 
-
+<style>
+    .replyId{
+        cursor: pointer;
+    }
+</style>
 
 
 
 
 @include ('web/include/footer2')
+
+<script>
+    $(".replyId").on('click',function () {
+        var replyId = $(this).attr('replyId');
+        console.log('asd');
+        var elmnt = document.getElementById("replyForm");
+        elmnt.scrollIntoView();
+        $(".writeCR").html("WRITE Reply");
+        $(".rreply").val(replyId);
+        $(".messagePlaceholder").attr("placeholder","Reply Message");
+    })
+</script>

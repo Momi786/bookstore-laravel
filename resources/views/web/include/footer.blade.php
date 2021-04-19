@@ -3,16 +3,27 @@
    <div class="container bottom_border">
       <div class="row">
          <div class="col-lg-4 col-md-4 col-sm-12 col-12">
-            <h5 class="headin5_amrc col_white_amrc pt2">Find us</h5>
+            <h5 class="headin5_amrc col_white_amrc pt2">
+                <img src="{{URL::to('storage/app')}}/{{$FooterContent[6]->icon}}" width="100px" height="100px" alt="">
+            </h5>
             <!--headin5_amrc-->
-            <p class="mb10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
-            <h5 class="headin5_amrc col_white_amrc pt2">Foolow Us</h5>
+            <p class="mb10">{{$FooterContent[6]->description}}</p>
+            <h5 class="headin5_amrc col_white_amrc pt2">{{$FooterContent[7]->title}}</h5>
             <div class="d-flex icone-inline">
-               <i class="fab fa-facebook-f facebook mr-2"></i>
-               <i class="fab fa-youtube youtube mr-2"></i>
+            @php
+                $socialSites = explode('@',$FooterContent[7]->social_media);
+                $socialLinks = explode('@',$FooterContent[7]->social_link);
+            @endphp
+            @for($i = 0; $i < count($socialSites); $i++ )
+                @php $site = App\Models\SocialMediaModel::find($socialSites[$i]); @endphp
+                <a href="{{$socialLinks[$i]}}" class="GetInTounchanchorStyle"><i class="fa mr-32">@php echo "&#x".$site->icon.";"; @endphp</i></a>
+            @endfor
+
+
+               {{-- <i class="fab fa-youtube youtube mr-2"></i>
                <i class="fab fa-twitter twitter mr-2"></i>
                <i class="fab fa-linkedin linkedin mr-2"></i>
-               <i class="fab fa-instagram insta mr-2"></i>
+               <i class="fab fa-instagram insta mr-2"></i> --}}
             </div>
          </div>
          <div class="col-lg-3 col-md-3 col-sm-12 col-12">
@@ -58,14 +69,14 @@
             </div>
          </div>
          <div class=" col-lg-3 col-md-3 col-sm-12 col-12">
-            <h5 class="headin5_amrc col_white_amrc pt2">Our Store</h5>
+            <h5 class="headin5_amrc col_white_amrc pt2">{{$FooterContent[8]->title}}</h5>
             <div class="row">
                <div class="col-10">
                   <ul>
-                     <li><a href="#"><img src="{{URL::to('public/assests/img/map.jpg')}}" class="img-fluid" alt="" style="height:84px; width:218px"></a></li>
-                     <li><a href="#"><i class="fas fa-map-marker-alt mr-3"></i>Karachi</a></li>
-                     <li><a href="#"><i class="fas fa-phone-alt mr-3"></i>090078601</a></li>
-                     <li><a href="#"><i class="fas fa-envelope mr-3"></i>test@gmail.com</a></li>
+                     <li><a href="#"><img src="{{URL::to('storage/app')}}/{{$FooterContent[8]->icon}}" class="img-fluid" alt="" style="height:84px; width:218px"></a></li>
+                     <li><a href="#"><i class="fa mr-3">@php echo "&#x".$FooterContent[9]->icon.";"; @endphp</i>{{$FooterContent[9]->title}}</a></li>
+                     <li><a href="#"><i class="fa mr-3">@php echo "&#x".$FooterContent[10]->icon.";"; @endphp</i>{{$FooterContent[10]->title}}</a></li>
+                     <li><a href="#"><i class="fa mr-3">@php echo "&#x".$FooterContent[11]->icon.";"; @endphp</i>{{$FooterContent[11]->title}}</a></li>
 
                   </ul>
                </div>

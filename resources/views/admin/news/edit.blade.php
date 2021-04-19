@@ -60,7 +60,7 @@
     </div>
     <br/>
 
-    <input type="submit" class="btn btn-primary" value="Save">
+    <input type="submit" class="btn btn-primary" value="Update">
 </form>
 
 @endsection

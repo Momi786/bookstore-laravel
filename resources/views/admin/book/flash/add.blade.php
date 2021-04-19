@@ -18,13 +18,26 @@
     @endif
     <form action="" method="post" enctype="multipart/form-data">
         <label for=""> All Books </label>
-        <select name="bookId" id="" class="form-control">
+        <select name="bookId" id="" class="form-control" required>
             @foreach ($totalBooks as $book)
-                <option value="{{$book->id}}">{{$book->name}}</option>
+                @php
+                    $result = $book->GetSale();
+                @endphp
+                @if ($result == "success")
+                    <option value="{{$book->id}}">{{$book->name}}</option>
+                @endif
             @endforeach
         </select>
-        <label for="">Sale Percentage</label>
-        <input type="number" name="salePercent" onKeyPress="if(this.value.length==2) return false;" min="1" max="99" class="form-control" required>
+        <div class="row">
+            <div class="col-md-6 col-lg-6 col-12 col-sm-12">
+                <label for="">Sale Percentage</label>
+                <input type="number" name="salePercent" onKeyPress="if(this.value.length==2) return false;" min="1" max="99" class="form-control" required>
+            </div>
+            <div class="col-md-6 col-lg-6 col-12 col-sm-12">
+                <label for="">End Time</label>
+                <input type="datetime-local" name="endTime" class="form-control" required>
+            </div>
+        </div>
         <br>
         <input type="submit" class="btn btn-primary" value="Save">
     </form>

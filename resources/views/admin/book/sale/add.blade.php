@@ -18,9 +18,14 @@
     @endif
     <form action="" method="post" enctype="multipart/form-data">
         <label for=""> All Books </label>
-        <select name="bookId" id="" class="form-control">
+        <select name="bookId" id="" class="form-control" required>
             @foreach ($totalBooks as $book)
-                <option value="{{$book->id}}">{{$book->name}}</option>
+                @php
+                    $result = $book->GetSale();
+                @endphp
+                @if ($result == "success")
+                    <option value="{{$book->id}}">{{$book->name}}</option>
+                @endif
             @endforeach
         </select>
         <label for="">Sale Percentage</label>

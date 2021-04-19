@@ -58,8 +58,19 @@
             </ul>
         </li>
         <li>
-            <a href="#"><i class="material-icons">settings</i>System Settings<i class="material-icons has-sub-menu">add</i></a>
+            <a href="#"><i class="material-icons-outlined">person</i>FAQ<i class="material-icons has-sub-menu">add</i></a>
             <ul class="sub-menu">
+                <li>
+                    <a href="{{URL::to('/admin/faq')}}">FAQ</a>
+                </li>
+                <li>
+                    <a href="{{URL::to('/admin/faq/category')}}">FAQ Categories</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#"><i class="material-icons">settings</i>System Settings<i class="material-icons has-sub-menu">add</i></a>
+            <ul class="sub-menu" style="height: 150px;overflow-y:auto;">
                 <li>
                     <a href="{{URL::to('admin/system-settings/logo-favicon')}}">Logo & Favicon</a>
                 </li>
@@ -78,9 +89,9 @@
                 <li>
                     <a href="{{URL::to('admin/system-settings/main-slider')}}">Main Slider</a>
                 </li>
-                {{-- <li>
+                <li>
                     <a href="{{URL::to('admin/system-settings/testimonial')}}">Testimonial</a>
-                </li> --}}
+                </li>
                 <li>
                     <a href="{{URL::to('admin/system-settings/social-media')}}">Social Media</a>
                 </li>

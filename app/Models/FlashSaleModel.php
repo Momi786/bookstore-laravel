@@ -8,7 +8,7 @@ use App\Models\BookModel;
 class FlashSaleModel extends Model
 {
     protected $table = "flash_sale";
-    protected $fillable = ["salePercent","bookId"];
+    protected $fillable = ["salePercent","bookId","endTime"];
     public function GetBook(){
         $data = BookModel::find($this->bookId);
         return $data;

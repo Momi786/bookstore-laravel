@@ -19,13 +19,22 @@
   <div class="container vertical-tabs mt-3">
     <div class="row">
 
-      <div class="col-md-3">
-        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <a class="nav-link active" id="v-pills-one-tab" data-toggle="pill" href="#v-pills-one" role="tab" aria-controls="v-pills-one" aria-selected="true">Overview of Just Energy</a>
-          <a class="nav-link" id="v-pills-two-tab" data-toggle="pill" href="#v-pills-two" role="tab" aria-controls="v-pills-two" aria-selected="false">Just Energy in California</a>
-          <a class="nav-link" id="v-pills-three-tab" data-toggle="pill" href="#v-pills-three" role="tab" aria-controls="v-pills-three" aria-selected="false">Just Energy In Delaware</a>
+        <div class="col-md-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <ul class="nav nav-tabs" role="tablist" style="display: block">
+                    @php $ict = 1; @endphp
+                    @foreach ($totalCategory as $cate)
+                        <li class="nav-item" style="display: block">
+                            <a class="nav-link {{$ict == 1 ? 'active' : ''}}" data-toggle="tab" href="#tabs-{{$ict}}" role="tab">{{$cate->name}}</a>
+                        </li>
+                        @php $ict++; @endphp
+                    @endforeach
+                </ul>
+            {{-- <a class="nav-link active" id="v-pills-one-tab" data-toggle="pill" href="#v-pills-one" role="tab" aria-controls="v-pills-one" aria-selected="true">Overview of Just Energy</a>
+            <a class="nav-link" id="v-pills-two-tab" data-toggle="pill" href="#v-pills-two" role="tab" aria-controls="v-pills-two" aria-selected="false">Just Energy in California</a>
+            <a class="nav-link" id="v-pills-three-tab" data-toggle="pill" href="#v-pills-three" role="tab" aria-controls="v-pills-three" aria-selected="false">Just Energy In Delaware</a> --}}
+            </div>
         </div>
-</div>
       <div class="col-md-9">
         <div class="tab-content" id="v-pills-tabContent">
           <div class="tab-pane fade show active" id="v-pills-one" role="tabpanel" aria-labelledby="v-pills-one-tab">
@@ -35,29 +44,32 @@
               <i class="fas fa-search icon"></i>
                     <input class="input-field" type="search" placeholder="Search Topic Here">
                 </div>
-                <div class="card-header top-headline p-0" role="tab" id="headingOne">
-                  <h5 class="mb-0">
-                    <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Who is Just Energy?
-                    </a>
-                  </h5>
-                </div>
-                <div id="collapseOne" class="collapse show p-0" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                  <div class="card-body">
-                    <p>Just Energy is a leading energy retailer in North America and one of the largest energy providers bringing energy solutions, natural gas and electricity to approximately 2 million customers. Our natural gas and electricity supply plans provide innovative solutions that allow our customers to choose from an array of plans to suit their lifestyle and comfort levels with market knowledge that includes secured rates, variable rates and index commodity supply programs. Just Energy also provides green energy products that provide a real and convenient solution for consumers to offset the environmental impact associated with their everyday energy use.</p>
-
+                <div class="tab-content">
+                    @php $ict = 1; @endphp
+                    @foreach ($totalCategory as $cat)
+                        @php $totalEnterCat = $cat->GetEntities() ; @endphp
+                        @if (count($totalEnterCat) > 0)
+                            <div class="tab-pane {{$ict == 1 ? 'active' : ''}}" id="tabs-{{$ict}}" role="tabpanel">
+                                @php $ict1 = 1; @endphp
+                                @foreach ($totalEnterCat as $data)
+                                    <div class="tad">
+                                        <h6 class="afterIcon collapsed" data-toggle="collapse" data-target="#demo-{{$ict1}}">
+                                            {{$data->ques}}
+                                        </h6>
+                                        <div id="demo-{{$ict1}}" class="collapse">
+                                            {{$data->ans}}
+                                        </div>
+                                    </div>
+                                    @php $ict1++; @endphp
+                                @endforeach
+                            </div>
+                        @endif
+                        @php $ict++; @endphp
+                    @endforeach
                 </div>
               </div>
 
             </div>
-          </div>
-          <div class="tab-pane fade" id="v-pills-two" role="tabpanel" aria-labelledby="v-pills-two-tab">
-            <p>Culpa dolor voluptate do laboris laboris irure reprehenderit id incididunt duis pariatur mollit aute magna pariatur consectetur. Eu veniam duis non ut dolor deserunt commodo et minim in quis laboris ipsum velit id veniam. Quis ut consectetur adipisicing officia excepteur non sit. Ut et elit aliquip labore Lorem enim eu. Ullamco mollit occaecat dolore ipsum id officia mollit qui esse anim eiusmod do sint minim consectetur qui.
-            </p>
-          </div>
-          <div class="tab-pane fade" id="v-pills-three" role="tabpanel" aria-labelledby="v-pills-three-tab">
-            <p>Eu dolore ea ullamco dolore Lorem id cupidatat excepteur reprehenderit consectetur elit id dolor proident in cupidatat officia. Voluptate excepteur commodo labore nisi cillum duis aliqua do. Aliqua amet qui mollit consectetur nulla mollit velit aliqua veniam nisi id do Lorem deserunt amet. Culpa ullamco sit adipisicing labore officia magna elit nisi in aute tempor commodo eiusmod.
-            </p>
           </div>
         </div>
       </div>
@@ -68,7 +80,29 @@
 
 
 
+<style>
 
+  .tad{
+    position: relative;
+  }
+  .tad .afterIcon:after{
+    content:"\f107";
+    font-family: "Font Awesome 5 Free";
+    font-size: 20px;
+    color:#a29f9f52;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    display: inline-block;
+    font-weight: 900;
+    -webkit-transition: 0.15s ease-in-out;
+    transition: 0.15s ease-in-out;
+  }
+  .afterIcon.collapsed:after{
+    transform: rotate(-180deg);
+  }
+</style>
 
 
 

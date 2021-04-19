@@ -40,7 +40,7 @@
                   <nav class="navbar navbar-expand-lg bg-white">
                      <div class="row">
                         <div class="w10">
-                           <a class="navbar-brand" href="#"><img src="{{URL::to('storage/app')}}/{{$logo != null ? $logo->image : ''}}" class="img-fluid" alt="logo" class="img-fluid" style="width: 100px;"></a>
+                           <a class="navbar-brand" href="{{URL::to('/')}}"><img src="{{URL::to('storage/app')}}/{{$logo != null ? $logo->image : ''}}" class="img-fluid" alt="logo" class="img-fluid" style="width: 100px;"></a>
                         </div>
                         <div class="w20">
                            <div class="input-group ml5">

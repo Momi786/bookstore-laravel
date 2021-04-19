@@ -15,12 +15,17 @@ use App\Models\BoardMemberModel;
 use App\Models\SaleModel;
 use App\Models\SpecialOfferModel;
 use App\Models\FlashSaleModel;
+use App\Models\FAQCategoryModel;
+use App\Models\FAQModel;
+use App\Models\CommentModel;
+use App\Models\TestimonialModel;
 use Hash;
 
 class HomeController extends Controller
 {
     // home page
     public function home(){
+        $totalTestimonial = TestimonialModel::all();
         $HomeContent = PageContentModel::all();
         $MainSlider = MainSliderModel::all();
         $AllSale = SaleModel::orderBy('id','desc')->get();
@@ -28,9 +33,15 @@ class HomeController extends Controller
         $recommdedAllBook = BookModel::orderBy('id','desc')->where('recommded_all',1)->where('pending',0)->get();
         $recommdedOnlyBook = BookModel::orderBy('id','desc')->where('recommded_only',1)->where('pending',0)->get();
         $SpecialOfferBooks = SpecialOfferModel::orderBy('id','desc')->get();
-        $FlashSaleBooks = FlashSaleModel::orderBy('id','desc')->get();
+        $FlashSaleTime = FlashSaleModel::where('endTime','>',date('Y-m-d H:i:s'))->get();
+        if(count($FlashSaleTime) > 0){
+            $endTime = $FlashSaleTime[0]->endTime;
+            $FlashSaleBooks = FlashSaleModel::where('endTime',$endTime)->get();
+        }else {
+            $FlashSaleBooks = null;
+        }
         $allNews = NewsModel::orderBy('id','desc')->where('pending',0)->take(4)->get();
-        return view('web.home.index',compact('HomeContent','MainSlider','AllSale','featuredBook','recommdedAllBook','recommdedOnlyBook','FlashSaleBooks','SpecialOfferBooks','allNews'));
+        return view('web.home.index',compact('FlashSaleTime','HomeContent','MainSlider','AllSale','featuredBook','recommdedAllBook','recommdedOnlyBook','FlashSaleBooks','SpecialOfferBooks','allNews','totalTestimonial'));
     }
 
     // Registration page
@@ -114,7 +125,9 @@ class HomeController extends Controller
 
     // FAQ apge
     public function faq(){
-        return view('web.faq.index');
+        $totalData = FAQModel::all();
+        $totalCategory = FAQCategoryModel::all();
+        return view('web.faq.index',compact('totalCategory','totalData'));
     }
 
     // NEWS apge
@@ -136,9 +149,18 @@ class HomeController extends Controller
     // single blog foundapge
     public function singleblog(Request $request,$id){
         $news = NewsModel::find($id);
+        $comment = CommentModel::orderBy('id','desc')->where('replyId',null)->get();
         $author = UserInformationModel::where('userId',$news->authorId)->first();
         $OtherNews = NewsModel::inRandomOrder()->where('id','!=',$id)->where('pending',0)->limit(3)->get();
-        return view('web.single-blog.index',compact('news','author','OtherNews'));
+        return view('web.single-blog.index',compact('news','author','OtherNews','comment'));
+    }
+    // Comment Post
+    public function CommentPost(Request $request){
+        $data = $request->all();
+        $comment = new CommentModel;
+        $comment->fill($data);
+        $comment->save();
+        return back();
     }
 
      //  Book detail foundapge
@@ -149,7 +171,7 @@ class HomeController extends Controller
 
     //  All Book foundapge
     public function allbook(){
-        $pages = BookModel::orderBy('id','desc')->where('pending',0)->paginate(1);
+        $pages = BookModel::orderBy('id','desc')->where('pending',0)->paginate(12);
         return view('web.books.books',compact('pages'));
     }
 

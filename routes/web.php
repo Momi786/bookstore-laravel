@@ -10,6 +10,7 @@ use App\Http\Controllers\SystemSettingController;
 use App\Http\Controllers\BoardMemberController;
 use App\Http\Controllers\SpecialFlashController;
 use App\Http\Controllers\LogoFaviconController;
+use App\Http\Controllers\FAQController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::get('/news',[HomeController::class, 'news']);
 Route::get('/page-not',[HomeController::class, 'pagenot']);
 Route::get('/shoping-cart',[HomeController::class, 'shopingcart']);
 Route::get('/single-blog/{id}',[HomeController::class, 'singleblog']);
+Route::post('/commentPost',[HomeController::class, 'CommentPost']);
 Route::get('/book-detail/{id}',[HomeController::class, 'bookdetail']);
 Route::get('/all-book',[HomeController::class, 'allbook']);
 Route::get('/login',[HomeController::class, 'login']);
@@ -136,6 +138,26 @@ Route::prefix('admin')->middleware("IsLogin")->group(function () {
             Route::get("/delete/{id}",[SpecialFlashController::class,"DeleteSpecial"]);
             Route::get("/update/{id}",[SpecialFlashController::class,"EditSpecial"]);
             Route::post("/update/{id}",[SpecialFlashController::class,"EditSpecialProcess"]);
+        });
+    });
+    // faq
+    Route::prefix('faq')->group(function () {
+        Route::get("/",[FAQController::class,"Index"]);
+        Route::post("/",[FAQController::class,"GetALLFeatureDelete"]);
+        Route::get("/add",[FAQController::class,"Add"]);
+        Route::post("/add",[FAQController::class,"AddProcess"]);
+        Route::get("/delete/{id}",[FAQController::class,"Delete"]);
+        Route::get("/update/{id}",[FAQController::class,"Edit"]);
+        Route::post("/update/{id}",[FAQController::class,"EditProcess"]);
+        // faq Category
+        Route::prefix('category')->group(function () {
+            Route::get("/",[FAQController::class,"ViewCategory"]);
+            Route::post("/",[FAQController::class,"GetALLFeatureDeleteCategory"]);
+            Route::get("/add",[FAQController::class,"AddCategory"]);
+            Route::post("/add",[FAQController::class,"AddCategoryProcess"]);
+            Route::get("/delete/{id}",[FAQController::class,"DeleteCategory"]);
+            Route::get("/update/{id}",[FAQController::class,"EditCategory"]);
+            Route::post("/update/{id}",[FAQController::class,"EditCategoryProcess"]);
         });
     });
 

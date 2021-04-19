@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class BookCategoryModel extends Model
 {
     protected $table = "book_category";
-    protected $fillable = ["name","feature"];
+    protected $fillable = ["name"];
 
 }
